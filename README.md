@@ -1,2 +1,3 @@
-KogAuto_Ausarbeitung
+KogAuto Ausarbeitung
 ====================
+Ausarbeitung zum Praktikum.
