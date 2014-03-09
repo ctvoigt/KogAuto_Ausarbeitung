@@ -74,7 +74,7 @@
 % both paper sizes by the user's LaTeX system.
 %
 % Also note that the "draftcls" or "draftclsnofoot", not "draft", option
-% should be used if it is desired that the figures are to be displayed in
+% should be used if it is desired that the figures are to be displayed in6
 % draft mode.
 %
 \documentclass[12pt,journal,compsoc]{IEEEtran}
@@ -83,6 +83,7 @@
 % manually specify the path to it like:
 % \documentclass[10pt,journal,compsoc]{../sty/IEEEtran}
 
+\usepackage[utf8]{inputenc}
 
 % For Computer Society journals, IEEEtran defaults to the use of 
 % Palatino/Palladio as is done in IEEE Computer Society journals.
@@ -681,7 +682,7 @@ pdfkeywords={Kognitive Automobile, Durchsichbrille, augmented reality}}% <^!CHAN
 %
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
-\title{Bare Advanced Demo of IEEEtran.cls\\ for Computer Society Journals}
+\title{Kognitive Automobile\\ Vuzix: Headtracking vs. Objekteinblendung}
 %
 %
 % author names and IEEE memberships
@@ -705,9 +706,11 @@ pdfkeywords={Kognitive Automobile, Durchsichbrille, augmented reality}}% <^!CHAN
 % journal papers have the author affiliations above the "Manuscript
 % received ..."  text while in non-compsoc journals this is reversed. Sigh.
 
-\author{Michael~Shell,~\IEEEmembership{Member,~IEEE,}
-        John~Doe,~\IEEEmembership{Fellow,~OSA,}
-        and~Jane~Doe,~\IEEEmembership{Life~Fellow,~IEEE}% <-this % stops a space
+\author{Francesco Gerardi, Dimitrij Sarancin, Tobias Roth, Daniel Hammann, Johannes Bittner, Christian Vogt, Ecaterina X., Maximilian Baritz, Tam Nguyen, \\
+Ralf Kohlhaas~\IEEEmembership{(FZI)}, 
+        Mark Zofka~\IEEEmembership{(FZI)} 
+
+
 \IEEEcompsocitemizethanks{\IEEEcompsocthanksitem M. Shell is with the Department
 of Electrical and Computer Engineering, Georgia Institute of Technology, Atlanta,
 GA, 30332.\protect\\
@@ -738,7 +741,7 @@ E-mail: see http://www.michaelshell.org/contact.html
 
 
 % The paper headers
-\markboth{Journal of \LaTeX\ Class Files,~Vol.~6, No.~1, January~2007}%
+\markboth{Abschlussdokumentation/bericht des FZI-Projektpraktikums, März~2014}%
 {Shell \MakeLowercase{\textit{et al.}}: Bare Advanced Demo of IEEEtran.cls for Journals}
 % The only time the second header will appear is for the odd numbered pages
 % after the title page when using the twoside option.
@@ -775,10 +778,14 @@ E-mail: see http://www.michaelshell.org/contact.html
 % PRIOR to the title within the \IEEEcompsoctitleabstractindextext IEEEtran
 % command as these need to go into the title area created by \maketitle.
 \IEEEcompsoctitleabstractindextext{%
-\begin{abstract}
+
+
+%\begin{abstract}
 %\boldmath
-The abstract goes here.
-\end{abstract}
+%The abstract goes here.
+%\end{abstract}
+
+
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
 % This preserves the distinction between vectors and scalars. However,
 % if the journal you are submitting to favors bold math in the abstract,
@@ -789,7 +796,7 @@ The abstract goes here.
 
 % Note that keywords are not normally used for peerreview papers.
 \begin{IEEEkeywords}
-Computer Society, IEEEtran, journal, \LaTeX, paper, template.
+Headtracking, Calibration, Vuzix glasses, filtering, sensors, sensor fusion, orientation, pose, magnetometer, marker/tag tracking, loosely coupled, stereoscopic, ....
 \end{IEEEkeywords}}
 
 
@@ -880,22 +887,22 @@ H.~Kopka and P.~W. Daly, \emph{A Guide to {\LaTeX}}, 3rd~ed.\hskip 1em plus
 %\begin{biography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
 % or if you just want to reserve a space for a photo:
 
-\begin{IEEEbiography}{Michael Shell}
-Biography text here.
-\end{IEEEbiography}
+%\begin{IEEEbiography}{Michael Shell}
+%Biography text here.
+%\end{IEEEbiography}
 
 % if you will not have a photo at all:
-\begin{IEEEbiographynophoto}{John Doe}
-Biography text here.
-\end{IEEEbiographynophoto}
+%\begin{IEEEbiographynophoto}{John Doe}
+%Biography text here.
+%\end{IEEEbiographynophoto}
 
 % insert where needed to balance the two columns on the last page with
 % biographies
 %\newpage
 
-\begin{IEEEbiographynophoto}{Jane Doe}
-Biography text here.
-\end{IEEEbiographynophoto}
+%\begin{IEEEbiographynophoto}{Jane Doe}
+%Biography text here.
+%\end{IEEEbiographynophoto}
 
 % You can push biographies down or up by placing
 % a \vfill before or after them. The appropriate
