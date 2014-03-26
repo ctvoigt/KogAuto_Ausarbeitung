@@ -22,13 +22,20 @@ Problem: ungenügendes Yaw
 
 
 \subsubsection{Magnetometer}
+Das Magnetometer wurde im Rahmen des Praktikums zur Stützung des Yaw-Winkels (Drehung um die Z-Achse im Brillenkoordinationsystem) genutzt.\\
+Das verbaute Magnetometer misst in drei Achsen nach dem Funktionsprinzip der Wheatstonesche Messbrücke \cite{renaudin2010complete} das Erdmagnetfeld. Dieses Messverfahren führt zum einen zu einer kleinen und kostengünstigen Bauweise. Zum anderen entstehen durch dieses Funktionsprinzip Messungenauigkeiten, die im Rahmen der Sensorkalibrierung beachtet und ausgeglichen werden müssen.\\
+Der gemessene 3D-Magnetfeldvektor ist somit zunächst unkalibriert und laut der Spezifikation im Datenblatt \todo{cite} einheitenlos.
+Daher war zuerst eine Kalibrierung der gemessenen Werte notwendig um sie weiterverarbeiten zu können. Im Gegensatz zu den bisher vorgestellten Sensoren wird die Kalibrierung des Magnetometers durch Bewegung durchgeführt. Ziel ist es die Wertebereich in allen drei Achsen zu erfassen. Dafür wird die Brille in allen Achsen um mindestens $360^\circ$ gedreht um die minimalen und maximalen Werte zu registrieren. \ldots Wie in Abbildung \ref{fig:mag_world}\ldots
+
+
+
 Funktionsweise
 
 \begin{figure}
    \centering
    \includegraphics[width=0.3\textwidth]{earth-magnetic-field}
-   \caption[Test]{Test Test}
-   \label{fig:headtracking_test}
+   \caption[mag_world]{Schematische Darstellung des Erdmagnetfelds.}
+   \label{fig:mag_world}
 \end{figure}
 
 
