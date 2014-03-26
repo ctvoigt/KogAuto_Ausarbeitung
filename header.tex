@@ -423,22 +423,6 @@
 
 
 % *** SUBFIGURE PACKAGES ***
-%\ifCLASSOPTIONcompsoc
-%\usepackage[tight,normalsize,sf,SF]{subfigure}
-%\else
-%\usepackage[tight,footnotesize]{subfigure}
-%\fi
-% subfigure.sty was written by Steven Douglas Cochran. This package makes it
-% easy to put subfigures in your figures. e.g., "Figure 1a and 1b". For IEEE
-% work, it is a good idea to load it with the tight package option to reduce
-% the amount of white space around the subfigures. Computer Society papers
-% use a larger font and \sffamily font for their captions, hence the
-% additional options needed under compsoc mode. subfigure.sty is already
-% installed on most LaTeX systems. The latest version and documentation can
-% be obtained at:
-% http://www.ctan.org/tex-archive/obsolete/macros/latex/contrib/subfigure/
-% subfigure.sty has been superceeded by subfig.sty.
-
 
 %\ifCLASSOPTIONcompsoc
 %  \usepackage[caption=false]{caption}
@@ -674,3 +658,7 @@ pdfkeywords={Kognitive Automobile, Durchsichbrille, Augmented Reality}}% <^!CHAN
 
 % package für todo's
 \usepackage[colorinlistoftodos, german, textsize=tiny]{todonotes} % Option 'disable' entfernt alle ToDos
+
+% Aufzählungszeichen verändern
+\renewcommand{\labelitemi}{$\triangleright$}
+\renewcommand{\labelitemii}{$\bullet$}
