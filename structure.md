@@ -1,11 +1,18 @@
+
 # Einführung
 
-## Allgemeine Beschreibung
-* Nötige Aufgaben: Headtracking, Kalibrierung
-* Beschreibung Vuzix-Brille (Sensoren [Gyro, Mag, Acc], Kamera)
+* Thema des Praktikums
 
-### Motivation ###
-* Einsatzzwecke, Fahererunterstützung oder Testen von Autonomen Verfahren
+
+## Motivation
+* Kleine Hinleitung
+* Einsatzzwecke, Testen von Autonomen Verfahren
+* Weitere Einsatzmöglichkeiten: Daten-Einblendung
+
+## Aufgabenstellung
+* Komponenten: Headtracking, Objekteinblendung (siehe Folien Einführungsveranstaltung)
+
+
 
 # Headtracking
 
@@ -15,6 +22,8 @@
 * Kamera zur Marker-Erkennung
 
 ## Sensorik
+
+* Beschreibung Vuzix-Brille (Sensoren [Gyro, Mag, Acc], Kamera)
 
 ### Gyroskope
 * Funktionsweise
