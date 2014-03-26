@@ -16,12 +16,12 @@ Simulationen sind zum Testen ein geeignetes Mittel, sie geraten jedoch häufig a
 Daher ist es in der Entwicklung von autonomen Fahrfunktionen unerlässlich, diese auch im realen Fahrbetrieb zu testen.
 
 In bestimmten Szenarien (beispielsweise eine Notbremsung aufgrund eines Fußgängers oder autonomes Einparken im Parkhaus) ist Testen in der Realität allerdings gefährlich.
-Das Risiko, einen Probanden zu überfahren bzw. mit der teuren Versuchsplattform gegen die Parkhauswand zu stoßen, kann nicht eingegangen werden.
+Das Risiko, einen Probanden zu verletzen bzw. mit der teuren Versuchsplattform gegen die Parkhauswand zu stoßen, kann nicht eingegangen werden.
 
-Für einen solchen Fall ist eine hybride Umgebung, bestehend aus realer Versuchsplattform und simulierter Umgebung, eine sehr gute Lösung.
-Der Sicherheitsfahrer bekommt simulierte Hindernisse in der AR\todo{acronym}-Brille eingeblendet, und kann die Reaktion des Autos in der Realität überwachen.
+Für solche Fälle ist eine hybride Umgebung, bestehend aus realer Versuchsplattform und simulierter Umgebung, eine sehr gute Lösung.
+Der Sicherheitsfahrer bekommt simulierte Hindernisse in der AR\todo{acronym}-Brille eingeblendet und kann die Reaktion des Autos in der Realität überwachen.
 
-Eine solche Applikation mit Daten-Brille bietet sich ebenso an zur Einblendung von weiteren Daten wie beispielsweise aktuellen Manöver-, Navigations- oder Entertainment-Informationen verwendet werden.
+Eine solche Applikation mit Datenbrille kann ebenso zur Einblendung von weiteren Daten wie beispielsweise aktuellen Manöver-, Navigations- oder Entertainment-Informationen verwendet werden.
 
 
 %Im Kontext Kognitiver Automobile hat eine Kalibrierte 3D Sicht ebenfalls eine große Bedeutung: Hierbei gibt es zwei große Anwendungsgebiete, einerseits können hiermit neue Geräte oder Anzeigen Simuliert werden, andererseits kann hiermit aber auch eine Simulierte Realität dem Sicherheitsfahrer angezeigt werden. So wird z.B. ein Auffahrbremsen simuliert, so kann dem Fahrer das Simulierte Auto angeziegt werden. Oder wird in eine simulierte Parkbuch eingeparkt, so kann diese vom Sicherheitsfahrer durhc die Brille beurteilt werden.
@@ -35,15 +35,15 @@ In diesem Projektpraktikum soll ein wie in Abs. \ref{motivation_subsec} beschrie
 
 Die wesentlichen Komponenten für eine solche AR\todo{acronym}-Umgebung sind:
 \begin{itemize}
-  \item Headtracking zur Bestimmung der Kopfrotation
+  \item Headtracking zur Bestimmung der Kopforientierung
   \item Augenbezogene Einblendung von Objekten
 \end{itemize}
 
-Für die Bestimmung der Kopfrotation soll primär die Inertialsensorik der 3D-Brille verwendet werden.
+Für die Bestimmung der Kopforientierung soll primär die Inertialsensorik der 3D-Brille verwendet werden.
 Die Kompensation der Störgröße Fahrzeug ist unter Zuhilfenahme weiterer Sensorik zu bewältigen.
-Zur Verfügung stehen die Inertialsensorik des Autos, die im Auto verbaute Kinect-Kamera sowie die direkt auf der Daten-Brille verbaute Kamera.
+Zur Verfügung stehen die Inertialsensorik des Autos, die im Auto verbaute Kinect-Kamera sowie die direkt auf der Datenbrille verbaute Kamera.
 
 Für die augenbezogene Einblendung von Objekten ist eine Auge-Display-Kalibrierung vorzunehmen.
-Außerdem sollen anzuzeigende Objekte für eine 3D-Einlendung aufbereitet werden (Stereoskopisches 3D).
+Außerdem sollen anzuzeigende Objekte für eine 3D-Einblendung aufbereitet werden (Stereoskopisches 3D).
 
 %Brille Kalibrieren, damit bei der durchsicht durch eine Brille, das wahrgenommene 3D der simulierten dargestellten Realität
