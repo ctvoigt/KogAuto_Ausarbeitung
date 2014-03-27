@@ -1,8 +1,30 @@
+
 \subsection{Sensordaten-Fusion}
+
 Ziel: Orientierung
-\subsubsection{Betrachtung verschiedener Algorithmen}
-Madgwick (Grund dagegen: Optimierungsverfahren basierend auf Quaternionendarstellung dadurch schwer nachvollziehbar/debuggbar), Kalman, Komplementärfilter Entscheidung für Komplementärfilter: gut genug für unsere Zwecke, leicht anpassbar, Fehlerverteilungen für Sensoren unbekannt (für Kalman nötig)
+
+
+\subsubsection{Madgwick-Filter}
+
+ROS-Node schon vorhanden
+Grund dagegen: Optimierungsverfahren basierend auf Quaternionendarstellung dadurch schwer nachvollziehbar/debuggbar
+
+
+
+\subsubsection{Kalman-Filter}
+
+Fehlerverteilungen für Sensoren unbekannt
+“Overkill”
+
+
 \subsubsection{Komplementär-Filter}
-Blockschaltbild der Fusion Gewichtung: Funktionsweise formal: “gyro.slerp(0.05, acc).slerp(0.01, mag)” Zwischenfazit Insgesamt eingeständiger Ansatz (offline)
-\subsubsection{Verarbeitungsabfolge}
-(Blockdiagramm und Erklärung)
+
+
+Vorteile:
+Sehr einfaches Filter
+gut genug für unsere Zwecke
+leicht anpassbar
+Blockschaltbild der Fusion
+Gewichtung: Funktionsweise formal: “gyro.slerp(0.05, acc).slerp(0.01, mag)”
+
+
