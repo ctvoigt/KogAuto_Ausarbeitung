@@ -18,6 +18,20 @@ Zur Korrektur der Fehlschätzung aufgrund der genannten Einflüsse wurden zwei A
 Die Idee beim Face-Tracking-Ansatz war es, zu untersuchen, inwieweit die bestehende Hardware- und Software-Umgebung des CoCars für die Bestimmung der Kopforientierung verwendet werden kann. Das Fahrzeug verfügt über eine fest installierte Kinect-Kamera, die auf den Fahrer ausgerichtet ist. Für diese Kamera wurde am FZI bereits ein Algorithmus zur Blickrichtungserkennung des Fahrers implementiert. Der Algorithmus benutzt dafür ein Gesichtsmodell. Das Gesichtsmodell berücksichtigt jedoch keine Brille. Trägt der Fahrer eine Durchsichtbrille, ist ein Teil des Gesichts verdeckt. Hierdurch wird die Erkennungsleistung stark beeinträchtigt. Ein möglicher Ausweg wäre das Einlernen des Gesichtsmodells mit Brille. Jedoch ist die Spiegelung der von der Kinect verwendeten Infrarot-Strahlung an der Brille weiterhin problematisch. Der Ansatz wurde aus einem weiteren Grund nicht weiter verfolgt: Die Verwendung von zusätzlicher Hardware schränkt die Wiederverwendbarkeit des Algorithmus zur Bestimmung der Kopforientierung ein. Stattdessen fiel die Entscheidung auf einen Marker-Tracking-Ansatz, der alleine mit der Brillen-Hardware auskommt.
 
 \subsubsection{Ansatz: Marker-Tracking}
+Beim markerbasierten Tracking handelt es sich um ein optisches Trackingverfahren. Dabei wird die Position und Orientierung von speziellen Markern bestimmt, die im Kamerabild zu sehen sind.
+
+Verwendung von ALVAR zur Marker-Erkennung
+
+Marker-Kalibrierung (fest im Auto: car -> marker)
+Schätzung anhand 3D-Modell (dynamic reconfigure der Marker-Pose)
+Schätzung anhand Marker-Pose ermittelt durch ALVAR
+Manuelle Ausmessung im realen Fahrzeug
+
+Berechnung der Kopf-Orientierung aus Marker-Orientierung
+Inverse
+Unterschlagung der position-Information von Alvar
+
+=> Kopf-Orientierung in Auto-Koordinaten
 
 
 
