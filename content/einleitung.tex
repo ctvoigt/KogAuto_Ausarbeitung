@@ -2,28 +2,28 @@
 \section{Einführung}
 \label{einleitung_sec}
 
-Thema des Projektpraktikums \emph{Kognitive Automobile} ist es, eine virtuelle Test- und Simulationsumgebung für den (Sicherheits-) Fahrer eines (autonom fahrenden) Autos zu erzeugen.
-Dies geschieht unter Zuhilfenahme einer 3D-Brille, die vom Fahrer des Autos getragen wird.
-
+Thema des Projektpraktikums \emph{Kognitive Automobile} ist es, eine virtuelle Test- und Simulationsumgebung für reale Erprobungsfahrten in einem autonomen Fahrzeug zu erzeugen.
+Dies geschieht unter Zuhilfenahme einer 3D-Augmented-Reality-Brille mit Headtracker, welche in den FZI-Versuchträger CoCar integriert wird.
 
 
 \subsection{Motivation}
 \label{einleitung_motivation_subsec}
 
 
-Neuentwicklungen im Bereich des autonomen Fahrens müssen ausgiebig getestet werden, bevor sie in  Fahrzeugen Anwendung finden können.
+Neuentwicklungen im Bereich des autonomen Fahrens müssen ausgiebig getestet werden, bevor sie in Fahrzeugen Anwendung finden können.
 Simulationen sind zum Testen ein geeignetes Mittel, sie geraten jedoch häufig an ihre Grenzen.
 Daher ist es in der Entwicklung von autonomen Fahrfunktionen unerlässlich, diese auch im realen Fahrbetrieb zu testen.
 
 In bestimmten Szenarien (beispielsweise eine Notbremsung aufgrund eines Fußgängers oder autonomes Einparken im Parkhaus) ist Testen in der Realität allerdings gefährlich.
 Das Risiko, einen Probanden zu verletzen bzw. mit der teuren Versuchsplattform gegen die Parkhauswand zu stoßen, kann nicht eingegangen werden.
 
-Für solche Fälle ist eine hybride Umgebung, bestehend aus realer Versuchsplattform und simulierter Umgebung, eine sehr gute Lösung.
-Der Sicherheitsfahrer bekommt simulierte Hindernisse in der \ac{AR}-Brille eingeblendet und kann die Reaktion des Autos in der Realität überwachen.
+Für solche Fälle ist eine hybride Umgebung, bestehend aus realer Versuchsplattform und simulierter Umgebung, ein möglicher Ansatz.
+Der Sicherheitsfahrer bekommt dazu simulierte Hindernisse in der \ac{AR}-Brille eingeblendet und kann die Reaktion des Autos in der Realität überwachen.
 
-Eine solche Applikation mit Datenbrille kann ebenso zur Einblendung von weiteren Daten wie beispielsweise aktuellen Manöver-, Navigations- oder Entertainment-Informationen verwendet werden.
+Die Anwendung einer solchen \ac{AR}-Brille kann ebenso zur Einblendung von weiteren Daten wie beispielsweise aktuellen Manöver-, Navigations- oder Entertainment-Informationen verwendet werden.
 
-
+%Was ist damit?
+\todo{Motivation für andere Gruppe einbauen}
 %Im Kontext Kognitiver Automobile hat eine Kalibrierte 3D Sicht ebenfalls eine große Bedeutung: Hierbei gibt es zwei große Anwendungsgebiete, einerseits können hiermit neue Geräte oder Anzeigen Simuliert werden, andererseits kann hiermit aber auch eine Simulierte Realität dem Sicherheitsfahrer angezeigt werden. So wird z.B. ein Auffahrbremsen simuliert, so kann dem Fahrer das Simulierte Auto angeziegt werden. Oder wird in eine simulierte Parkbuch eingeparkt, so kann diese vom Sicherheitsfahrer durhc die Brille beurteilt werden.
 
 
@@ -31,7 +31,7 @@ Eine solche Applikation mit Datenbrille kann ebenso zur Einblendung von weiteren
 \label{einleitung_aufgabenstellung_subsec}
 
 
-In diesem Projektpraktikum soll ein wie in Abs. \ref{einleitung_motivation_subsec} beschriebenes hybrides System entwickelt werden.
+In diesem Projektpraktikum soll ein wie in Absatz \ref{einleitung_motivation_subsec} beschriebenes hybrides System entwickelt werden.
 
 Die wesentlichen Komponenten für eine solche \ac{AR}-Umgebung sind:
 \begin{itemize}
@@ -39,17 +39,12 @@ Die wesentlichen Komponenten für eine solche \ac{AR}-Umgebung sind:
   \item Augenbezogene Einblendung von Objekten
 \end{itemize}
 
-Für die Bestimmung der Kopforientierung soll primär die Inertialsensorik der 3D-Brille verwendet werden.
-Die Kompensation der Störgröße Fahrzeug ist unter Zuhilfenahme weiterer Sensorik zu bewältigen.
-Zur Verfügung stehen die Inertialsensorik des Autos, die im Auto verbaute Kinect-Kamera sowie die direkt auf der Datenbrille verbaute Kamera.
+Für die Bestimmung der Kopforientierung soll primär die Inertialsensorik der \ac{AR}-Brille verwendet werden.
+Die Kompensation der Eigenbewegung des Fahrzeugs ist unter Zuhilfenahme weiterer Sensorik zu bewältigen.
+Zur Verfügung stehen die Inertialsensorik des Autos, die im Auto verbaute Kinect-Sensorleiste sowie die direkt auf der \ac{AR}-Brille montierte Kamera.
 
-Für die augenbezogene Einblendung von Objekten ist eine Auge-Display-Kalibrierung vorzunehmen.
-Außerdem sollen anzuzeigende Objekte für eine 3D-Einblendung aufbereitet werden (Stereoskopisches 3D).
-
-%Brille Kalibrieren, damit bei der durchsicht durch eine Brille, das wahrgenommene 3D der simulierten dargestellten Realität
-
-
-
+Des Weiteren soll untersucht werden, wie eine augenbezogene Einblendung von Objekten in das Sichtfeld des Fahrers mittels der \ac{AR}-Brille ermöglicht werden kann. Dafür ist zum einen eine Auge-Display-Kalibrierung vorzunehmen.
+Zum anderen sollen anzuzeigende Objekte für eine 3D-Einblendung aufbereitet werden (Stereoskopisches 3D).
 
 \subsection{Hard- und Software}
 \label{einleitung_hardware_subsec}
