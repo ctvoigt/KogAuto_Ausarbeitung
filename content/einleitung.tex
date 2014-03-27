@@ -8,7 +8,7 @@ Dies geschieht unter Zuhilfenahme einer 3D-Brille, die vom Fahrer des Autos getr
 
 
 \subsection{Motivation}
-\label{motivation_subsec}
+\label{einleitung_motivation_subsec}
 
 
 Neuentwicklungen im Bereich des autonomen Fahrens müssen ausgiebig getestet werden, bevor sie in  Fahrzeugen Anwendung finden können.
@@ -28,10 +28,10 @@ Eine solche Applikation mit Datenbrille kann ebenso zur Einblendung von weiteren
 
 
 \subsection{Aufgabenstellung}
-\label{aufgabenstellung_subsec}
+\label{einleitung_aufgabenstellung_subsec}
 
 
-In diesem Projektpraktikum soll ein wie in Abs. \ref{motivation_subsec} beschriebenes hybrides System entwickelt werden.
+In diesem Projektpraktikum soll ein wie in Abs. \ref{einleitung_motivation_subsec} beschriebenes hybrides System entwickelt werden.
 
 Die wesentlichen Komponenten für eine solche AR\todo{acronym}-Umgebung sind:
 \begin{itemize}
@@ -47,3 +47,25 @@ Für die augenbezogene Einblendung von Objekten ist eine Auge-Display-Kalibrieru
 Außerdem sollen anzuzeigende Objekte für eine 3D-Einblendung aufbereitet werden (Stereoskopisches 3D).
 
 %Brille Kalibrieren, damit bei der durchsicht durch eine Brille, das wahrgenommene 3D der simulierten dargestellten Realität
+
+
+
+
+\subsection{Hardware}
+\label{einleitung_hardware_subsec}
+
+Für die beschriebene Aufgabenstellung steht als Hardware eine AR\todo{acronym}-Brille des Herstellers \emph{Vuzix} vom Typ \emph{Star 1200} zur Verfügung, s. Abb. \ref{fig:vuzix_star_1200}.
+Diese besitzt folgende Merkmale:
+\begin{itemize}
+  \item 2 vor den Augen angebrachte transparente Displays (Blickwinkel ca. $30^\circ$)
+  \item 1 feste Kamera (Logitech Webcam)
+  \item IMU\todo{acronym}\ \emph{Wrap Tracker 6TC}, bestehend aus 2 Gyroskopen, Beschleunigungssensor sowie Magnetometer
+\end{itemize}
+
+\begin{figure}[h]
+  \centering
+  %\missingfigure{Vuzix}
+  \includegraphics[width=0.4\textwidth]{vuzix}
+  \caption{AR-Brille \emph{Vuzix Star 1200}\ \cite{vuzix}}
+  \label{fig:vuzix_star_1200}
+\end{figure}
