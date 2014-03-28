@@ -1,0 +1,31 @@
+
+\subsection{Sensordaten-Fusion}
+\label{headtracking_fusion_subsec}
+
+Ziel: Orientierung
+
+
+\subsubsection{Madgwick-Filter}
+
+ROS-Node schon vorhanden
+Grund dagegen: Optimierungsverfahren basierend auf Quaternionendarstellung dadurch schwer nachvollziehbar/debuggbar
+
+
+
+\subsubsection{Kalman-Filter}
+
+Fehlerverteilungen für Sensoren unbekannt
+“Overkill”
+
+
+\subsubsection{Komplementär-Filter}
+
+
+Vorteile:
+Sehr einfaches Filter
+gut genug für unsere Zwecke
+leicht anpassbar
+Blockschaltbild der Fusion
+Gewichtung: Funktionsweise formal: “gyro.slerp(0.05, acc).slerp(0.01, mag)”
+
+
