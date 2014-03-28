@@ -1,10 +1,19 @@
 
-\subsection{Aufgabenstellung}
+\section{Headtracking}
+
+Ziel des Headtrackings ist es, die Kopforientierung des Fahrers --auch bei bewegtem Fahrzeug-- sowohl relativ zum Fahrzeug als auch in Weltkoordinaten anzugeben.
+
+Dazu wird die Inertialsensorik der \ac{AR}-Brille, bestehend aus zwei Gyroskopen, Beschleunigungssensor und Magnetometer, ausgewertet (Abs. \ref{headtracking_imu_subsec}).
+Diese Daten werden mit einem geeigneten Filter-Algorithmus fusioniert (Abs. \ref{headtracking_fusion_subsec}).
+Die Kompensation der Eigenbewegung des Fahrzeugs wird in Abs. \ref{headtracking_marker_subsec} behandelt.
 
 
 \subsection{Inertialsensoren}
+\label{headtracking_imu_subsec}
+
 
 \subsubsection{Gyroskop}
+
 Funktionsweise
 Tiefpassfilter
 Bias-Korrektur
@@ -15,6 +24,7 @@ Eigenschaften (schnell, aber Drift durch Integration)
 
 
 \subsubsection{Beschleunigungssensor}
+
 Funktionsweise
 für Roll und Pitch
 Tiefpassfilter
