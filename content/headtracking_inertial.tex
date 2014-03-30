@@ -13,6 +13,7 @@ Die Kompensation der Eigenbewegung des Fahrzeugs wird in Abs. \ref{headtracking_
 
 
 \subsubsection{Gyroskop}
+\label{headtracking_imu_gyro_subsubsec}
 
 Das in der Brille enthaltene Gyroskop misst Winkelgeschwindigkeiten in
 $\omega = [{Grad \over Sekunde}]$ bei Drehungen um die X, Y und Z-Achse. Durch
@@ -31,19 +32,29 @@ stationärer Brille eine Geschwindigkeit $\omega \neq 0$ gemessen wird. Dieser
 Versatz wird \emph{Bias} genannt, und muss in einem stationären
 Kalibriervorgang ermittelt werden. Während des Kalibriervorganges wird
 der Bias gemittelt, dieser wird nach Beendigung des Kalibriervorganges von den
-Rohdaten abgezogen. Abb. \ref{fig-bias-correction} zeigt die Daten vor und nach der
+Rohdaten abgezogen. Abb. \ref{fig:gyro_bias} zeigt die Daten vor und nach der
 Bias-Korrektur.
 
-\todo{Abbildung Bias-Korrektur}
+\begin{figure}
+   \centering
+   \includegraphics[width=0.5\textwidth]{stationary_calibration_before_after}
+   \caption{Korrektur des Gyroskop-Bias}
+   \label{fig:gyro_bias}
+\end{figure}
 
 Desweiteren unterliegen die Sensordaten einem Rauschen. Daher wird als
 nächster Schritt ein Tiefpassfilter verwendet, um dieses Rauschen zu
 reduzieren. In unserem Fall hat sich ein Mittelwertfilter mit einer 
 Fenstergröße von 5 als praktikabel erwiesen. Je höher die Fenstergröße gewählt wird,
 desto stärker werden die Rohdaten geglättet, damit steigt jedoch auch
-die Verzögerung der Daten.  Siehe hierzu Abb. \ref{fig-lowpass-delay}.
+die Verzögerung der Daten. Abb. \ref{fig:lowpass-delay} zeigt den Effekt des Tiefpassfilters.
 
-\todo{Abbildung Lowpass}
+\begin{figure}
+   \centering
+   \includegraphics[width=0.5\textwidth]{FilteringDelay}
+   \caption{Auswirkung des Tiefpassfilters}
+   \label{fig:lowpass-delay}
+\end{figure}
 
 Zur Fusionierung des HBW- und LBW-Gyroskops kommt ein einfaches
 Schwellwertverfahren zum Einsatz. Die Wertebereiche der Gyroskope sind
@@ -136,24 +147,25 @@ Die so bestimmten Roll und Pitch Werte sind frei von Drift, und können als Stü
 
 \subsubsection{Magnetometer}
 \label{headtracking_magnetometer_subsubsec}
-\begin{figure}
-   \centering
-   \includegraphics[width=0.5\textwidth]{earth-magnetic-field}
-   \caption[mag_world]{Schematische Darstellung des Erdmagnetfelds \cite{mag_world_source}.}
-   \label{fig:mag_world}
-\end{figure}
-\todo{cite Erdmagnetfeld}
-
-\begin{figure}
-   \centering
-   \includegraphics[width=0.5\textwidth]{magnetometer-yaw-calculation}
-   \caption[mag_mapping]{Berechungsgrundlage des Magnetfeldvektors}
-   \label{fig:mag_mapping}
-\end{figure}
 Das Magnetometer wird im Rahmen des Praktikums zur Stützung des Yaw-Winkels (Drehung um die Z-Achse des Brillenkoordinatensystem) genutzt.\\
 Das verbaute Magnetometer misst in drei Achsen nach dem Funktionsprinzip der Wheatstoneschen Messbrücke \cite{renaudin2010complete} das Erdmagnetfeld.
 Dieses Messverfahren führt zum einen zu einer kleinen und kostengünstigen Bauweise.
 Zum anderen entstehen aber Messungenauigkeiten, die im Rahmen der Sensorkalibrierung beachtet und ausgeglichen werden müssen.
+
+\begin{figure}
+   \centering
+   \includegraphics[width=0.4\textwidth]{earth-magnetic-field}
+   \caption[mag_world]{Schematische Darstellung des Erdmagnetfelds \cite{mag_world_source}.}
+   \label{fig:mag_world}
+\end{figure}
+
+\begin{figure}
+   \centering
+   \includegraphics[width=0.4\textwidth]{magnetometer-yaw-calculation}
+   \caption[mag_mapping]{Berechungsgrundlage des Magnetfeldvektors}
+   \label{fig:mag_mapping}
+\end{figure}
+
 Gemessen werden die Magnetfeldlinien der Erde, welche in Abbildung \ref{fig:mag_world} dargestellt sind.
 Diese sind abhängig von der aktuellen Position auf der Erdoberfläche\footnote{Tatsächlich verändert sich das Erdmagnetfeld auch über die Zeit hinweg.
 Diese Änderung kann aber im Rahmen des Praktikums vernachlässigt werden, da es sich um eine sehr kleine Änderung handelt (z. Bsp. für den Praktikumsort Karlsruhe ca. $1^\circ 46$'~$7.8$ arcmin/Jahr im Deklinationswinkel).}.
@@ -166,10 +178,10 @@ Diese Abbildung auf die XY-Ebene wird durch folgende Formel bewerkstelligt:
 
 Dabei sind $h_x$ und $h_y$ die Anteile des Magnetfeldvektors $H_{Earth}$ in X sowie Y Richtung.
 
-Der gemessene 3D-Magnetfeldvektor ist zunächst unkalibriert und laut der Spezifikation im Datenblatt \todo{cite} einheitenlos.
+Der gemessene 3D-Magnetfeldvektor ist zunächst unkalibriert und einheitenlos.
 Daher ist zuerst eine Kalibrierung der gemessenen Werte notwendig um sie weiterverarbeiten zu können. 
 Diese Kalibrierung hat zum Ziel einen Kanal-spezifischen Bias auszugleichen. 
-Dieser entsteht durch sogenannte \textit{Hard Iron}-Störeffekte, welche durch eigenständige Magnetquellen induziert werden.
+Dieser entsteht durch die bereits angesprochenen Messungenauigkeiten des Sensors sowie durch sogenannte \textit{Hard Iron}-Störeffekte, welche durch eigenständige Magnetquellen induziert werden.
 Beispiele für diese Störeffekte, sowie die letztlich kalibrierten Daten sind in Abbildung \ref{fig:mag_kugel_plots} als Kugelplots dargestellt.
 
 \begin{figure}[ht]
@@ -189,13 +201,17 @@ Beispiele für diese Störeffekte, sowie die letztlich kalibrierten Daten sind i
 
 Im Gegensatz zu den bisher vorgestellten Sensoren wird die Kalibrierung des Magnetometers durch Bewegung durchgeführt.
 Ziel ist es, die Wertebereiche in allen drei Achsen zu erfassen.
-Dafür wird die Brille in allen Achsen um mindestens $360^\circ$ gedreht, um die minimalen und maximalen Werte zu registrieren. Des weiteren wurden die Daten noch durch einen Tiefpassfilter geglättet sowie auf einen Wertebereich von $[-1,1]$ abgebildet. Somit kann eine gemäß nachfolgender Formel durchgeführt werden:
+Dafür wird die Brille in allen Achsen um mindestens $360^\circ$ gedreht, um die minimalen und maximalen Werte zu registrieren. 
+Des weiteren wurden die Daten noch durch einen Tiefpassfilter geglättet sowie auf einen Wertebereich von $[-1,1]$ abgebildet.
+ Der Tiefpassfilter wurde wie in Abs. \ref{headtracking_imu_gyro_subsubsec} bereits beschrieben durchgeführt. 
+Die Anwendung der Kalibrierung und Normierung wird durch nachfolgende Formel bewerkstelligt:
 \begin{equation}
-    mag_{norm} = {mag_{raw} - {(mag_{max} + mag_{min})\over 2.0} \over (mag_{max} - mag_{min}) * 2}
+    m_{norm} = \frac{m_{raw}- \frac{m_{\delta}}{2}}{2~m_{\delta}},~mit ~m_{\delta} = m_{max} - m_{min}
 \end{equation}
-
-Störeinflüsse ansprechen
-Ursprünglich war die Verwendung des Magentometers zur Stützung von yaw fraglich durch vermutete Störeinflüsse im FZI-CoCar nach ausgiebigen Tests hat sich dieser Gedanke jedoch relativiert. Wird die Kalibrierung Magnetometers in der Nähe einer Störquelle (z.B. Dauermagnet, Tastatur, \oae) durchgeführt kann das Ergebnis wie in Abbildung \ref{fig:uncalibrated_error} wesentlich beeinflusst werden.
+Dabei bezeichnet $m_{norm}$ einen normierten Magnetfeldvektorkanal, $m_{raw}$ die Rohdaten des jeweiligen Kanals und $m_{\lbrace max, min\rbrace}$ den gemessenen Maximal- bzw. Minimalwert.
+Ursprünglich war die Verwendung des Magentometers zur Stützung des Yaw-Winkels fraglich, da der Einsatz im Versuchsträger CoCar viele magnetische Störquellen in Form der vorhandenen Boardtechnik vermuten lies. 
+Allerdings konnten durch mehrere Testläufe im Fahrzeug keine größeren Störeffekte gemessen werden.
+Trotz allem muss eine Kalibrierung in einem möglichst störfreien Umfeld durchgeführt werden, da durch Störquellen (wie bspw. ein Dauermagnet, eine Tastatur, \oae) die Messdaten wie in Abbildung \ref{fig:uncalibrated_error} zu erkennen wesentlich beeinflusst werden. In der Abbildung sind unkalibriete Messdaten dargestellt (Kreise liegen nicht über einander). Die Störungen sind dadurch zu erkennen, dass sie außerhalb der Kreise der einzelnen Kanäle liegen.
 
 \begin{figure}[ht]
 \centering
@@ -207,14 +223,6 @@ Ursprünglich war die Verwendung des Magentometers zur Stützung von yaw fraglic
 \label{fig:uncalibrated_error}
 \end{figure}
 
-\todo[inline]{Stützungsalgorithmus von Ralf}
-
-\begin{enumerate}
-\item ToDo's:
-\begin{enumerate}
-\item Magnetometer-Kreisplots vor/nach Kalibrierung, Tiefpassfilter
-\item Magnetometer-Bias-Korrektur (durch Min/Max-Werte), 
-\item Magnetometer-Fehler in Kreisplots
-\item Transformation auf XY Ebene (Algorithmus Ralf)
-\end{enumerate}
-\end{enumerate}
+Um die Magnetometerdaten letzlich zur Stützung des Yaw-Winkels zu nutzen werden die Daten zuerst in das Weltkoordinatensystem transformiert.
+Danach wird das vorhandene Rotationsquaternion $q_{gyro,acc}$ mit dem $q_{mag}$ interpoliert.
+Das genaue Verfahren wird im nachfolgenden Abs. \ref{headtracking_fusion_subsec}  vorgestellt.
