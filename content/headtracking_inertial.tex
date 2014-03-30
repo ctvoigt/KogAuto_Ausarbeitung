@@ -32,19 +32,29 @@ stationärer Brille eine Geschwindigkeit $\omega \neq 0$ gemessen wird. Dieser
 Versatz wird \emph{Bias} genannt, und muss in einem stationären
 Kalibriervorgang ermittelt werden. Während des Kalibriervorganges wird
 der Bias gemittelt, dieser wird nach Beendigung des Kalibriervorganges von den
-Rohdaten abgezogen. Abb. \ref{fig-bias-correction} zeigt die Daten vor und nach der
+Rohdaten abgezogen. Abb. \ref{fig:gyro_bias} zeigt die Daten vor und nach der
 Bias-Korrektur.
 
-\todo{Abbildung Bias-Korrektur}
+\begin{figure}
+   \centering
+   \includegraphics[width=0.5\textwidth]{stationary_calibration_before_after}
+   \caption{Korrektur des Gyroskop-Bias}
+   \label{fig:gyro_bias}
+\end{figure}
 
 Desweiteren unterliegen die Sensordaten einem Rauschen. Daher wird als
 nächster Schritt ein Tiefpassfilter verwendet, um dieses Rauschen zu
 reduzieren. In unserem Fall hat sich ein Mittelwertfilter mit einer 
 Fenstergröße von 5 als praktikabel erwiesen. Je höher die Fenstergröße gewählt wird,
 desto stärker werden die Rohdaten geglättet, damit steigt jedoch auch
-die Verzögerung der Daten.  Siehe hierzu Abb. \ref{fig-lowpass-delay}.
+die Verzögerung der Daten. Abb. \ref{fig:lowpass-delay} zeigt den Effekt des Tiefpassfilters.
 
-\todo{Abbildung Lowpass}
+\begin{figure}
+   \centering
+   \includegraphics[width=0.5\textwidth]{FilteringDelay}
+   \caption{Auswirkung des Tiefpassfilters}
+   \label{fig:lowpass-delay}
+\end{figure}
 
 Zur Fusionierung des HBW- und LBW-Gyroskops kommt ein einfaches
 Schwellwertverfahren zum Einsatz. Die Wertebereiche der Gyroskope sind
@@ -213,4 +223,6 @@ Trotz allem muss eine Kalibrierung in einem möglichst störfreien Umfeld durchg
 \label{fig:uncalibrated_error}
 \end{figure}
 
-Um die Magnetometerdaten letzlich zur Stützung des Yaw-Winkels zu nutzen werden die Daten zuerst in das Weltkoordinatensystem transformiert. Danach wird das vorhandene Rotationsquaternion $q_{gyro,acc}$ mit dem $q_{mag}$ interpoliert. Das genaue Verfahren wird im nachfolgenden Abs. \ref{headtracking_fusion_subsec}  vorgestellt.
+Um die Magnetometerdaten letzlich zur Stützung des Yaw-Winkels zu nutzen werden die Daten zuerst in das Weltkoordinatensystem transformiert.
+Danach wird das vorhandene Rotationsquaternion $q_{gyro,acc}$ mit dem $q_{mag}$ interpoliert.
+Das genaue Verfahren wird im nachfolgenden Abs. \ref{headtracking_fusion_subsec}  vorgestellt.
