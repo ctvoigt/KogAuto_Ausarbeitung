@@ -27,12 +27,13 @@ hat hierbei einen größeren Wertebereich, jedoch die geringere
 Genauigkeit.
 
 Die Rohdaten des Sensors enthalten einen konstanten Versatz, so dass bei
-stationärer Brille eine Geschwindigkeit $\omega \neq 0$ gemessen wird. Dieser
-Versatz wird \emph{Bias} genannt, und muss in einem stationären
-Kalibriervorgang ermittelt werden. Während des Kalibriervorganges wird
-der Bias gemittelt, dieser wird nach Ende des Kalibriervorganges von den
-Rohdaten abgezogen. Abb. \ref{fig-bias-correction} zeigt die Daten vor und nach der
-Bias-Korrektur.
+stationärer Brille eine Geschwindigkeit $\omega \neq 0$ gemessen wird.
+Dieser Versatz wird \emph{Bias} bezeichnet, und muss in einem
+stationären Kalibriervorgang ermittelt werden. Dazu werden die
+Sensordaten über einen kurzen Zeitraum bei unbewegter Brille erfasst und
+über die Zeit gemittelt. Der so ermittelte Wert wird von den
+Sensor-Rohdaten subtrahiert. Abb. \ref{fig-bias-correction} zeigt die Daten vor
+und nach der Bias-Korrektur.
 
 \todo{Abbildung Bias-Korrektur}
 
@@ -92,10 +93,10 @@ zurückgeliefert.
 %\end{equation}
 
 Aus den gefilterten Sensordaten wird daraufhin durch Integration über
-die Zeit die Orientierung berechnet. Hierzu wird die Orientierung in einem Quaternion gespeichert, welches nach jeder Sensor-Abtastung aktualisiert wird. Hierbei ist $dt$ die Abtastrate der Gyroskop-Sensoren.
+die Zeit die Orientierung berechnet. Hierzu wird die Orientierung in einem Quaternion gespeichert, welches nach jeder Sensor-Abtastung aktualisiert wird. Hierbei ist $\Delta t$ der Kehrwert der Abtastrate der Gyroskop-Sensoren.
 
 \begin{equation}
-    \Delta q = quaternion({\omega_x \over dt}, {\omega_y \over dt}, {\omega_z \over dt}) \\
+    \Delta q = quaternion({\omega_x \over {\Delta t}}, {\omega_y \over {\Delta t}}, {\omega_z \over {\Delta t}}) \\
 \end{equation}
 
 \begin{equation}
@@ -118,7 +119,7 @@ führen würde.
 
 % XXX: die umrechung auf m/s2 hab ich mal rausgelassen, die ist ja glaub ich auch garnicht so wichtig und verwirrt den leser nur
 
-Die Orientierung in Roll und Pitch kann direkt aus den Winkeln des Gravitationsvektors berechnet werden.
+Die Orientierung in Roll und Pitch kann dann direkt aus den Winkeln des Gravitationsvektors berechnet werden.
 
 \begin{equation}
     roll = atan2(acc_y, acc_z)
@@ -128,7 +129,15 @@ Die Orientierung in Roll und Pitch kann direkt aus den Winkeln des Gravitationsv
     pitch = -atan2(acc_x, \sqrt{ {acc_y}^2 + {acc_z}^2 })
 \end{equation}
 
-Die so bestimmten Roll und Pitch Werte sind frei von Drift, und können als Stützwerte für die aus den Gyroskopdaten berechneten Orientierungswerte verwendet werden. Jedoch ist zu beachten, dass der Beschleunigungssensor nicht zuverlässig zur Berechnung des Yaw-Winkels verwendet werden kann. Dies liegt darin begründet, dass sich die Sensordaten des Beschleunigungssensors nicht ändern, wenn sich der Sensor parallel zur Erdoberfläche befindet um den Yaw-Winkel gedreht wird.
+Die so bestimmten Roll und Pitch Werte sind frei von Drift, und können
+als Stützwerte für die aus den Gyroskopdaten berechneten
+Orientierungswerte verwendet werden. 
+
+Als Einschränkung ist hier der fehlende Yaw-Berechnung zu nennen. Diese
+ist mit einem Beschleunigungssensor nicht zuverlässig realisierbar, da
+sich der Gravitationsvektor nicht verändert, wenn der Sensor
+parallel zur horizontalen Ebene liegt, und dieser um den Yaw-Winkel gedreht 
+wird.
 
 %  roll = atan2(acc_data[1], acc_data[2]);
 %  pitch = -atan2(acc_data[0], sqrt(acc_data[1]*acc_data[1] + acc_data[2]*acc_data[2]));
