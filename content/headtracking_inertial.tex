@@ -108,42 +108,84 @@ Die durch das Gyroskop berechnete Orientierung reagiert schnell auf
 
 \subsubsection{Beschleunigungssensor}
 
-Funktionsweise
-für Roll und Pitch
-Tiefpassfilter
-Umrechnung auf m/s$^2$
-Berechnung von Roll und Pitch direkt aus Werten
-Problem: ungenügendes Yaw
+Der Beschleunigungssensor misst die Gravitation entlang der X, Y und Z-Achse, im Folgenden als $acc_x$, $acc_y$ und $acc_z$ bezeichnet. Anhand dieses Gravitationsvektors kann die Orientierung der Brille bezüglich der horizontalen Ebene bestimmt werden.
+
+Zur Verwendung des Beschleunigungssensors wird zunächst wie auch beim
+Gyroskop ein Tiefpassfilter angewendet, um das Rauschen der Rohdaten zu
+reduzieren. Dabei wird die gleiche Fenstergröße wie beim Gyroskop
+verwendet, da ein ungleicher Wert zu Fehlern bei der späteren Fusion
+führen würde. 
+
+% XXX: die umrechung auf m/s2 hab ich mal rausgelassen, die ist ja glaub ich auch garnicht so wichtig und verwirrt den leser nur
+
+Die Orientierung in Roll und Pitch kann direkt aus den Winkeln des Gravitationsvektors berechnet werden.
+
+\begin{equation}
+    roll = atan2(acc_y, acc_z)
+\end{equation}
+
+\begin{equation}
+    pitch = -atan2(acc_x, \sqrt{ {acc_y}^2 + {acc_z}^2 })
+\end{equation}
+
+Die so bestimmten Roll und Pitch Werte sind frei von Drift, und können als Stützwerte für die aus den Gyroskopdaten berechneten Orientierungswerte verwendet werden. Jedoch ist zu beachten, dass der Beschleunigungssensor nicht zuverlässig zur Berechnung des Yaw-Winkels verwendet werden kann. Dies liegt darin begründet, dass sich die Sensordaten des Beschleunigungssensors nicht ändern, wenn sich der Sensor parallel zur Erdoberfläche befindet um den Yaw-Winkel gedreht wird.
+
+%  roll = atan2(acc_data[1], acc_data[2]);
+%  pitch = -atan2(acc_data[0], sqrt(acc_data[1]*acc_data[1] + acc_data[2]*acc_data[2]));
 
 
 \subsubsection{Magnetometer}
 \label{headtracking_magnetometer_subsubsec}
-
-Das Magnetometer wird im Rahmen des Praktikums zur Stützung des Yaw-Winkels (Drehung um die Z-Achse des Brillenkoordinatensystem) genutzt.\\
-Das verbaute Magnetometer misst in drei Achsen nach dem Funktionsprinzip der Wheatstonesche Messbrücke \cite{renaudin2010complete} das Erdmagnetfeld.
-Dieses Messverfahren führt zum einen zu einer kleinen und kostengünstigen Bauweise.
-Zum anderen entstehen aber Messungenauigkeiten, die im Rahmen der Sensorkalibrierung beachtet und ausgeglichen werden müssen.
-Gemessen werden die Magnetfeldlinien der Erde.
-Diese sind abhängig von der aktuellen Position auf der Erdoberfläche\footnote{Tatsächlich verändert sich das Erdmagnetfeld auch über die Zeit hinweg.
-Diese Änderung kann aber im Rahmen des Praktikums vernachlässigt werden, da es sich um eine sehr kleine Änderung handelt (z. Bsp. für den Praktikumsort Karlsruhe ca. $1^\circ 46$'~$7.8$ arcmin/Jahr im Deklinationswinkel).}.
-
-Der gemessene 3D-Magnetfeldvektor ist somit zunächst unkalibriert und laut der Spezifikation im Datenblatt \todo{cite} einheitenlos.
-Daher ist zuerst eine Kalibrierung der gemessenen Werte notwendig um sie weiterverarbeiten zu können.
-Im Gegensatz zu den bisher vorgestellten Sensoren wird die Kalibrierung des Magnetometers durch Bewegung durchgeführt.
-Ziel ist es, die Wertebereiche in allen drei Achsen zu erfassen.
-Dafür wird die Brille in allen Achsen um mindestens $360^\circ$ gedreht, um die minimalen und maximalen Werte zu registrieren. \ldots Wie in Abbildung \ref{fig:mag_world}\ldots
-
-
-
-Funktionsweise
-
 \begin{figure}
    \centering
    \includegraphics[width=0.3\textwidth]{earth-magnetic-field}
-   \caption[mag_world]{Schematische Darstellung des Erdmagnetfelds.}
+   \caption[mag_world]{Schematische Darstellung des Erdmagnetfelds \cite{mag_world_source}.}
    \label{fig:mag_world}
 \end{figure}
 \todo{cite Erdmagnetfeld}
+
+\begin{figure}
+   \centering
+   \includegraphics[width=0.3\textwidth]{magnetometer-yaw-calculation}
+   \caption[mag_mapping]{Berechungsgrundlage des Magnetfeldvektors}
+   \label{fig:mag_mapping}
+\end{figure}
+Das Magnetometer wird im Rahmen des Praktikums zur Stützung des Yaw-Winkels (Drehung um die Z-Achse des Brillenkoordinatensystem) genutzt.\\
+Das verbaute Magnetometer misst in drei Achsen nach dem Funktionsprinzip der Wheatstoneschen Messbrücke \cite{renaudin2010complete} das Erdmagnetfeld.
+Dieses Messverfahren führt zum einen zu einer kleinen und kostengünstigen Bauweise.
+Zum anderen entstehen aber Messungenauigkeiten, die im Rahmen der Sensorkalibrierung beachtet und ausgeglichen werden müssen.
+Gemessen werden die Magnetfeldlinien der Erde, welche in Abbildung \ref{fig:mag_world} dargestellt sind.
+Diese sind abhängig von der aktuellen Position auf der Erdoberfläche\footnote{Tatsächlich verändert sich das Erdmagnetfeld auch über die Zeit hinweg.
+Diese Änderung kann aber im Rahmen des Praktikums vernachlässigt werden, da es sich um eine sehr kleine Änderung handelt (z. Bsp. für den Praktikumsort Karlsruhe ca. $1^\circ 46$'~$7.8$ arcmin/Jahr im Deklinationswinkel).}.
+Sobald das Erdmagnetfeld nicht am Äquator gemessen wird, sondern im Falle unseres Praktikums bei etwa $49^\circ$ geographischer Breite muss der Inklinationswinkel bei der Messung mit beachtet werden, welcher in Abbildung \ref{fig:mag_mapping} mit I beschrieben wird.
+Diese Abbildung auf die XY-Ebene wird durch folgende Formel bewerkstelligt:
+
+\begin{equation}
+    \varphi = atan2(h_y,h_x)
+\end{equation}
+
+Dabei sind $h_x$ und $h_y$ die Anteile des Magnetfeldvektors $H_{Earth}$ in X sowie Y Richtung.
+
+Der gemessene 3D-Magnetfeldvektor ist zunächst unkalibriert und laut der Spezifikation im Datenblatt \todo{cite} einheitenlos.
+Daher ist zuerst eine Kalibrierung der gemessenen Werte notwendig um sie weiterverarbeiten zu können. 
+Diese Kalibrierung hat zum Ziel einen Kanal-spezifischen Bias auszugleichen. 
+Dieser entsteht durch sogenannte \textit{Hard Iron}-Störeffekte, welche durch eigenständige Magnetquellen induziert werden.
+Beispiele für diese Störeffekte, sowie die letztlich kalibrierten Daten sind in Abbildung \ref{fig:mag_kugel_plots} als Kugelplots dargestellt.
+
+\begin{figure}[ht]
+\centering
+\subfigure[Unkalibrierte Magnetometerdaten mit Hard Iron Störeinflüssen]{
+    \includegraphics[width=0.3\textwidth]{uncalibrated}
+    \label{fig:subfig1}
+}
+\subfigure[Kalibrierte Magnetometerdaten]{
+    \includegraphics[width=0.3\textwidth]{calibrated}
+    \label{fig:subfig2}
+}
+
+\caption[]{2D-Sichten auf Kugel aus Magnetometerdaten}
+\label{fig:mag_kugel_plots}
+\end{figure}
 
 
 Analog zu den Gyroskopen ist auch beim Magnetometer eine Bias-Korrektur notwendig bevor das \emph{yaw} (aus der Orientierung) gestützt werden kann. Für jede Achse wird unter Berücksichtigung der Min- und Max-Wertes (aus initialer Kalibrierung) der jeweilige Versatz berechnet und verrechnet. In Abbildung \ref{fig:mag_uncalibrated} ist ein Magnetometer im unkalibrierten Zustand zu sehen. Anschließend werden die Werte auf einen Wertebereich von ${[-1, 1]}$ normiert. Eine Abbildung für einen Bias-korrigierten und normierten Daten und somit kalibriertes Magnetometer ist in Abbildung \ref{fig:mag_calibrated} zu entnehmen.       
@@ -181,4 +223,18 @@ Magnetometer-Bias-Korrektur (durch Min/Max-Werte),
 Magnetometer-Fehler in Kreisplots
 Transformation auf XY Ebene (Algorithmus Ralf)
 
+Im Gegensatz zu den bisher vorgestellten Sensoren wird die Kalibrierung des Magnetometers durch Bewegung durchgeführt.
+Ziel ist es, die Wertebereiche in allen drei Achsen zu erfassen.
+Dafür wird die Brille in allen Achsen um mindestens $360^\circ$ gedreht, um die minimalen und maximalen Werte zu registrieren. 
+Somit kann eine gemäß nachfolgender Formel durchgeführt werden:
 
+\todo{Formel nachschauen}
+\begin{equation}
+    v_c = ...
+\end{equation}
+
+Des weiteren wurden die Daten noch durch einen Tiefpassfilter geglättet sowie auf einen Wertebereich von $[-1,1]$ abgebildet.
+
+Störeinflüsse ansprechen
+
+Stützungsalgorithmus von Ralf
