@@ -189,16 +189,7 @@ Beispiele für diese Störeffekte, sowie die letztlich kalibrierten Daten sind i
 
 Im Gegensatz zu den bisher vorgestellten Sensoren wird die Kalibrierung des Magnetometers durch Bewegung durchgeführt.
 Ziel ist es, die Wertebereiche in allen drei Achsen zu erfassen.
-Dafür wird die Brille in allen Achsen um mindestens $360^\circ$ gedreht, um die minimalen und maximalen Werte zu registrieren. 
-Somit kann eine gemäß nachfolgender Formel durchgeführt werden:
-
-\todo{Formel nachschauen}
-\begin{equation}
-    v_c = \ldots
-\end{equation}
-
-Des weiteren wurden die Daten noch durch einen Tiefpassfilter geglättet sowie auf einen Wertebereich von $[-1,1]$ abgebildet. Die Formel für die Normierung sieht folgendermaßen aus:
-
+Dafür wird die Brille in allen Achsen um mindestens $360^\circ$ gedreht, um die minimalen und maximalen Werte zu registrieren. Des weiteren wurden die Daten noch durch einen Tiefpassfilter geglättet sowie auf einen Wertebereich von $[-1,1]$ abgebildet. Somit kann eine gemäß nachfolgender Formel durchgeführt werden:
 \begin{equation}
     mag_{norm} = {mag_{raw} - {(mag_{max} + mag_{min})\over 2.0} \over (mag_{max} - mag_{min}) * 2}
 \end{equation}
