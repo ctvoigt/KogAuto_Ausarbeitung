@@ -41,9 +41,22 @@ Stattdessen fällt die Entscheidung auf einen Marker-Tracking-Ansatz, der allein
 \label{headtracking_markertracking_subsubsec}
 
 Beim markerbasierten Tracking handelt es sich um ein optisches Trackingverfahren.
-Dabei wird die Position und Orientierung von speziellen Markern bestimmt, die im Kamerabild zu sehen sind.
+Dabei wird die Position und Orientierung eines speziellen Markers bestimmt, der im Kamerabild zu sehen ist.
+Abb.~\ref{fig:marker_in_vehicle_driver_view} zeigt den im Versuchsfahrzeug angebrachten Marker aus der Perspektive eines Fahrers.
 
-Verwendung von ALVAR zur Marker-Erkennung
+\begin{figure}
+  \centering
+  \missingfigure{driver's view of marker}
+  %\includegraphics[width=0.4\textwidth]{•}
+  \caption{Marker im Fahrzeug aus Fahrerperspektive.}
+  \label{fig:marker_in_vehicle_driver_view}
+\end{figure}
+
+Das Tracking übernimmt das \ac{ROS}-Paket \emph{ar\_track\_alvar}~\cite{ros_ar_track_alvar}, ein Wrapper für die Bibliothek \alvar.
+Mit \alvar \ lassen sich Marker generieren, identifizieren sowie deren Posen im Kamerabild bestimmen - vorausgesetzt es wird eine kalibrierte Kamera verwendet.
+Die Kamerakalibrierung kann mit dem \ac{ROS}-Paket \emph{camera\_calibration}~\cite{ros_camera_calibration} unter Verwendung eines Kalibrierschachbretts durchgeführt werden.
+
+
 
 Marker-Kalibrierung (fest im Auto: car -> marker)
 Schätzung anhand 3D-Modell (dynamic reconfigure der Marker-Pose)
