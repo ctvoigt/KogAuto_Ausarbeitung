@@ -4,21 +4,23 @@
 Die Sensordaten-Fusion beschreibt die Verknüpfung von mehreren Sensoren um Informationen besserer Qualität zu gewinnen. In diesem Projekt gilt des die aufbereiteten Daten aus beiden Gyroskopen, Beschleunigungsensor und Magenetometer derart zu fusioneieren, dass letztlich die zu ermittelnde \emph{Orientierung} des Kopfes möglichst exakt bestimmt werden kann. In den folgenden Abschnitten werden unterschiedliche Fusionsansätze dargestellt und entsprechend der Aufgabenstellung des Projekts bewertet. 
 
 \subsubsection{Madgwick-Filter}
-Die Filterung nach Madgwick \cite{madgwick2010efficient} gilt als neuartiger Ansatz zur Bestimmung der Orientierung basierend auf Gyroskop, Beschleunigungssensor und Magnetometer.
-\todo{weiter ausführen}
+\todo{So besser?}
+Die Filterung nach Madgwick \cite{madgwick2010efficient} gilt als neuartiger Ansatz zur Bestimmung der Orientierung. Dieser Filter berücksichtigt Filterabweichung, magnetische Distorsion/Verzerrungen sowie bias und drift Kompensation bei Gyroskopen. Der Filter basiert auf eine Newton-Optimierungsverfahren\footnote{Ein Verfahren zur Bestimmung von Nullstellen anhand der 1. Ableitung; Gilt als sehr schnelles, aber wenig robustes Verfaren.} und einer Representation der Zustandsveränderung über Quaternione. Ausgiebige Tests haben gezeigt, dass die Filter-Performace genauso gut wie mit hochqulitativen kommerziellen Kalman-basierten Ansätzen standhält.
 
-Auch wenn der Madgwick-Filter bereits als fertige ROS-Node\todo{cite} vorhanden ist und  bessere Ergebnisse als der Kalman-Filter liefern soll, haben wir uns gegen den Madgwick-Filter entschieden, da das Optimierungsverfahren auf eine Darstellung über Quaternione basiert und dadurch der erzielte Mehrwert und erreichten Verbesserungen so nur schwer nachvollziehbar bzw. debuggbar gewesen sind. Außerdem war der Madgwick-Filter nur schwer an unsere bisherige Implementierung anpassbar.
-\todo{Kann man so nicht stehen lassen, Begründung mit Quaternionen ist falsch. nutzen wir ja gerade beim Komplementär-Filter}
+Auch wenn der Madgwick-Filter bereits als fertige ROS-Node\footnote{\url{http://wiki.ros.org/imu_filter_madgwick}} vorhanden ist und  bessere Ergebnisse als der Kalman-Filter liefern soll, haben wir uns gegen den Madgwick-Filter entschieden, da unsere bestehende Implementierung nur schwer an den Madgwick-Filter angepasst werden konnte und dadurch der erzielte Mehrwert so nur schwer nachvollziehbar bzw. debuggbar gewesen ist. 
+
 
 \subsubsection{Kalman-Filter}
-Im ersten Schritt \emph{(Prädiktionsschritt)} des Kalman-Filters wird die zeitlich vorangegangene Schätzung als Grundlage genommen, um die Vorhersage für den aktuellen Zeitpunkt zu ermitteln. Der zweite Schritt \emph{(Korrektur- oder Innovationsschritt)} besteht daraus, die Vorhersagen mit neuen Informationen des aktuelle Messwerts zu korrigieren um somit die gesuchten Schätzwerte zu erreichen.
+Im ersten Schritt \emph{(Prädiktionsschritt)} des Kalman-Filters wird die zeitlich vorangegangene Schätzung als Grundlage genommen, um die Vorhersage für den aktuellen Zeitpunkt zu ermitteln. Der zweite Schritt \emph{(Korrektur- oder Innovationsschritt)} besteht daraus, die Vorhersagen mit neuen Informationen des aktuellen Messwerts zu korrigieren um somit die gesuchten Schätzwerte zu erreichen.
 
-Um bei einer fehlerbehafteten Beobachtung den Systemzustand zu korrigieren müssen fehlerhafte Beobachtungen über mathematische Gleichungen beschreibbar und Fehlerverteilungen für Sensoren bekannt sein. Diese Informationen sind uns während der Bearbeitung des Projekts nicht bekannt gewesen. Infolgedessen haben wir beschlossen den hierfür benötigten Mehraufwand an Zeit und Ressourcen lieber in den bereits fortgeschrittenen Komplementär-Filter zu investieren.
-\todo{weiterer Grund: Reagiert wohl langsamer auf Änderungen (Diskussion nach Abschlusspräsentation}
+Um bei einer fehlerbehafteten Beobachtung den Systemzustand zu korrigieren müssen fehlerhafte Beobachtungen über mathematische Gleichungen beschreibbar und Fehlerverteilungen für Sensoren bekannt sein. Diese Informationen sind uns während der Bearbeitung des Projekts nicht bekannt gewesen.
+
+Infolgedessen haben wir beschlossen den hierfür benötigten Mehraufwand an Zeit und Ressourcen lieber in den bereits fortgeschrittenen Komplementär-Filter zu investieren, da dieser außerdem schneller auf Änderungen reagiert als der Kalman-Filter\footnote{\url{http://www.olliw.eu/2013/imu-data-fusing}}.
+\todo{Jetzt okay?}
 
 \subsubsection{Komplementär-Filter}
-Nach Brooks und Iyengar \cite{} \todo{Cite} hat eine komplementäre Fusion das Ziel, die Genauigkeit von Daten zu verbessern. 
-Dabei wirken die Sensoren unabhängig voneinander und liefern unterschiedliche Erkenntnisse und Sichtbereiche die Orientierung zu unterschiedlichen Zeiten verbessert.\todo{Satzbau}
+Nach Brooks und Iyengar \cite{Brooks.1998} hat eine komplementäre Fusion das Ziel, die Genauigkeit von Daten zu verbessern. 
+Dabei wirken die Sensoren unabhängig voneinander und liefern unterschiedliche Erkenntnisse und Sichtbereiche, die die Orientierung zu unterschiedlichen Zeiten verbessert.
 
 Die Gyroskope sind wie bereits erwähnt bei einer langen Laufzeiten fehleranfällig und erzeugen einen Drift. 
 Daher wird im ersten Schritt eine SLERP-Interpolation (Sperical Linear Interpolation) eingesetzt, die bei jedem Zeitschritt die Orientierung der Gyroskope zu $95\%$ und Orientierung des Beschleunigungssensor zu $5\%$ berücksichtigt. Hierbei wird das \emph{roll} und \emph{pitch} gestützt. Der zweite Schritt zielt auf die Verbesserung von \emph{yaw} ab. Eine weitere Interpolation verrechnet dieses Ergebnis mit den aufbereiteten Magnetometerwerten zu $5\%$ pro Zeitschritt. Formal lässt sich die Gewichtung folgendermaßen beschreiben:
@@ -26,7 +28,6 @@ Daher wird im ersten Schritt eine SLERP-Interpolation (Sperical Linear Interpola
     gyro.slerp(0.05, acc).slerp(0.05, mag)
 \end{equation}
 \todo{Formel in mathematische Formel umbauen, nicht Quellcode}
-
 
 Eine Übersicht der Fusionierung mit dem Komplementär-Filter ist Abbildung \ref{fig:fusion_complementary} zu entnehmen.
 
