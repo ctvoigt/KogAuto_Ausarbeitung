@@ -58,12 +58,12 @@ die Verzögerung der Daten. Abb. \ref{fig:lowpass-delay} zeigt den Effekt des Ti
 
 Zur Fusionierung des HBW- und LBW-Gyroskops kommt ein einfaches
 Schwellwertverfahren zum Einsatz. Die Wertebereiche der Gyroskope sind
-in Tabelle \ref{tab:ranges-gyros} aufgeführt. Beide Gyroskope liefern
+in Tab. \ref{tab:ranges-gyros} aufgeführt. Beide Gyroskope liefern
 einen 12-Bit-Datenwert. Somit stellt ein Zählwert des LBW-Gyroskops eine
 kleinere Veränderung dar als beim HBW-Gyroskop, was gleichbedeutend mit
 einer höheren Genauigkeit ist.
 
-\begin{table}[position specifier]
+\begin{table}[ht]
   \centering
   \begin{tabular}{ | c | c | c | }
     \hline
@@ -72,36 +72,15 @@ einer höheren Genauigkeit ist.
     HBW & -1680   & 1680   \\
     \hline
   \end{tabular}
-  \caption{Wertebereiche der Gyroskop-Sensoren in $[{\degree \over s}]$.}
+  \caption{Gyroskop-Wertebereiche in $[{\degree \over s}]$}
   \label{tab:ranges-gyros}
 \end{table}
-\todo[inline]{Sieht nicht schön aus. Tabellenbeschreibung kürzen}
 
-%\begin{center}
-%  \begin{tabular}{ | c | c | c | }
-%    \hline
-%    & Min.  $[{\degree \over s}]$& Max. $[{\degree \over s}]$\\ \hline
-%    LBW & -420   & 420   \\ \hline
-%    HBW & -1680   & 1680   \\
-%    \hline
-%  \end{tabular}
-%\end{center}
 
 Im Wertebereich, welcher von beiden Gyroskopen abgedeckt wird, werden
 die Sensordaten gemittelt. Wird der Wertebereich des LBW-Gyroskops
 überschritten, wird lediglich der Wert des HBW-Gyroskops
 zurückgeliefert. 
-
-%\begin{equation}
-%    \omega_{fusioniert} = 
-%    \begin{cases}
-%        {\omega_{HBW} + \omega_{LBW}} \over 2 & \text{für} |\omega_{HBW}| < 420 \\
-%        \omega_{HBW} & \text{sonst}
-%%     2x^{2} & \text{f"ur } x \textless 4 \\
-%%     2x^{3} + 4^{2} & \text{fur} 4 \ge x \textless 27 \\
-%%     3x^{2} \cdot sin(x) & \text{far } x \ge 27 
-%   \end{cases}
-%\end{equation}
 
 Aus den gefilterten Sensordaten wird daraufhin durch Integration über
 die Zeit die Orientierung berechnet. Hierzu wird die Orientierung in einem Quaternion gespeichert, welches nach jeder Sensor-Abtastung aktualisiert wird. Hierbei ist $dt$ die Abtastrate der Gyroskop-Sensoren.
