@@ -13,10 +13,13 @@ Auch wenn der Madgwick-Filter bereits als fertige ROS-Node\todo{cite} vorhanden 
 \todo{Kann man so nicht stehen lassen, Begründung mit Quaternionen ist falsch. nutzen wir ja gerade beim Komplementär-Filter}
 
 \subsubsection{Kalman-Filter}
-Im ersten Schritt \emph{(Prädiktionsschritt)} des Kalman-Filters wird die zeitlich vorangegangene Schätzung als Grundlage genommen, um die Vorhersage für den aktuellen Zeitpunkt zu ermitteln. Der zweite Schritt \emph{(Korrektur- oder Innovationsschritt)} besteht daraus, die Vorhersagen mit neuen Informationen des aktuelle Messwerts zu korrigieren um somit die gesuchten Schätzwerte zu erreichen.
+Beim Kalman-Filter Verfahren \todo{cite} handelt es sich um eine probabilitische Methode der Zustandsschätzung.
+Dabei fließen in einem ersten \emph{Prädiktionsschritt} vorhergemachte Annahmen inklusive dazugehöriger Fehlerwahrscheinlichkeiten in die Berechnung ein.
+Danach wird in einem zweiten Schritt, der \emph{Innovationsschritt}, eine Beobachtung mit dazugehöriger Messungenauigkeit mit einbezogen.
 
-Um bei einer fehlerbehafteten Beobachtung den Systemzustand zu korrigieren müssen fehlerhafte Beobachtungen über mathematische Gleichungen beschreibbar und Fehlerverteilungen für Sensoren bekannt sein. Diese Informationen sind uns während der Bearbeitung des Projekts nicht bekannt gewesen. Infolgedessen haben wir beschlossen den hierfür benötigten Mehraufwand an Zeit und Ressourcen lieber in den bereits fortgeschrittenen Komplementär-Filter zu investieren.
-\todo{weiterer Grund: Reagiert wohl langsamer auf Änderungen (Diskussion nach Abschlusspräsentation}
+Um bei einer fehlerbehafteten Beobachtung den Systemzustand zu korrigieren, müssen diese Beobachtungen über mathematische Gleichungen beschreibbar und Fehlerverteilungen für Sensoren bekannt sein. Diese Informationen sind uns während der Bearbeitung des Projekts nicht bekannt gewesen.
+Infolgedessen konnte eine Modellierung gemäß dem Kalman-Filters nicht durchgeführt werden. 
+Des weiteren war unklar ob durch eine solche Umsetzung tatsächliche Vorteile erzielt werden können, da die Änderung eines plötzlichen Ereignis (Kurvenfahrt) über mehre Zeitschritte hinweg angepasst wird und somit eine mögliche Latenz hinzugefügt werden könnte.
 
 \subsubsection{Komplementär-Filter}
 Nach Brooks und Iyengar \cite{} \todo{Cite} hat eine komplementäre Fusion das Ziel, die Genauigkeit von Daten zu verbessern. 
