@@ -10,12 +10,12 @@ Fährt das Fahrzeug beispielsweise eine Kurve, so wird die von der IMU gemessene
 Eine weitere Störquelle stellt die Fahrzeugelektronik und die damit einhergehenden Änderungen des Magnetfelds dar.
 Diese Störungen wirken sich negativ auf das zur Driftkorrektur eingesetzte Magnetometer aus (siehe Abschnitt \ref{headtracking_magnetometer_subsubsec}).
 
-Zur Korrektur der Fehlschätzung aufgrund der genannten Einflüsse werden zwei Ansätze untersucht, die die Bestimmung der Kopforientierung relativ zum Fahrzeug stützen.
+Zur Korrektur der Fehlschätzung aufgrund der genannten Einflüsse werden zwei Ansätze untersucht, die die Bestimmung der Kopforientierung relativ zum Fahrzeug stützen. Abb.~\ref{fig:tracking_ansaetze} zeigt die beiden Ansätze konzeptionell.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.4\textwidth]{Tracking_Ansaetze}
-  \caption{Tracking-Ansätze: oben: stationärer Marker, bewegliche Kamera; unten: stationäre Kamera, bewegter Kopf}
+  \caption{Tracking-Ansätze: unten: Face-Tracking mit stationärer Kamera und bewegtem Kopf; oben: Marker-Tracking mit stationärem Marker und beweglicher Kamera }
   \label{fig:tracking_ansaetze}
 \end{figure}
 
@@ -48,13 +48,12 @@ Die Kamerakalibrierung kann mit dem \ac{ROS}-Paket \emph{camera\_calibration}~\c
 \alvar \ ermittelt die Pose des Markers in Bezug zum Kamerakoordinatensystem.
 Für die Anwendung ist jedoch die Orientierung der Kamera von Interesse.
 Sie wird als Kopforientierung interpretiert.
-Wird der Marker als stationär angenommen, so kann die Inverse der von \alvar \ bestimmten Markerpose also Kamera- und somit als Kopfpose aufgefasst werden.
+Wird der Marker als stationär angenommen, so kann die Inverse der von \alvar \ bestimmten Markerpose als Kamera- und somit als Kopfpose aufgefasst werden.
 Abb.~\ref{fig:marker_in_vehicle_driver_view} zeigt den im Versuchsfahrzeug angebrachten Marker aus der Perspektive eines Fahrers.
 
 \begin{figure}
   \centering
-  \missingfigure{driver's view of marker}
-  %\includegraphics[width=0.4\textwidth]{•}
+  \includegraphics[width=0.4\textwidth]{marker_in_vehicle}
   \caption{Marker im Fahrzeug aus Fahrerperspektive.}
   \label{fig:marker_in_vehicle_driver_view}
 \end{figure}

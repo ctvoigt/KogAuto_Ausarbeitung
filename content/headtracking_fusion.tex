@@ -1,22 +1,25 @@
 
 \subsection{Sensordaten-Fusion}
 \label{headtracking_fusion_subsec}
-Die Sensordaten-Fusion beschreibt die Verknüpfung von mehreren Sensoren um Informationen besserer Qualität zu gewinnen. In diesem Projekt gilt des die aufbereiteten Daten aus beiden Gyroskopen, Beschleunigungsensor und Magenetometer derart zu fusioneieren, dass letztlich die zu ermittelnde \emph{Orientierung} des Kopfes möglichst exakt bestimmt werden kann. In den folgenden Abschnitten werden unterschiedliche Fusionsansätze dargestellt und entsprechend der Aufgabenstellung des Projekts bewertet. 
+Die Sensordaten-Fusion beschreibt die Verknüpfung von mehreren Sensoren um Informationen besserer Qualität zu gewinnen. In diesem Projekt gilt des die aufbereiteten Daten aus beiden Gyroskopen, Beschleunigungsensor und Magenetometer derart zu fusionieren, dass letztlich die zu ermittelnde \emph{Orientierung} des Kopfes möglichst exakt bestimmt werden kann. Da die bereits vorgestellten Sensoren jeweils eigene Vor- und Nachteile hat müssen diese bestmöglich ausgenutzt werden. In den folgenden Abschnitten werden unterschiedliche Fusionsansätze dargestellt und entsprechend der Aufgabenstellung des Projekts bewertet. 
 
 \subsubsection{Madgwick-Filter}
-\todo{So besser?}
-Die Filterung nach Madgwick \cite{madgwick2010efficient} gilt als neuartiger Ansatz zur Bestimmung der Orientierung. Dieser Filter berücksichtigt Filterabweichung, magnetische Distorsion/Verzerrungen sowie bias und drift Kompensation bei Gyroskopen. Der Filter basiert auf eine Newton-Optimierungsverfahren\footnote{Ein Verfahren zur Bestimmung von Nullstellen anhand der 1. Ableitung; Gilt als sehr schnelles, aber wenig robustes Verfaren.} und einer Representation der Zustandsveränderung über Quaternione. Ausgiebige Tests haben gezeigt, dass die Filter-Performace genauso gut wie mit hochqulitativen kommerziellen Kalman-basierten Ansätzen standhält.
+Die Filterung nach Madgwick \cite{madgwick2010efficient} gilt als neuartiger Ansatz zur Bestimmung der Orientierung basierend auf Gyroskop, Beschleunigungssensor und Magnetometer.
+Es wird dabei versucht die magnetische Distorsion sowie der Bias-Trift des Gyroskopes auszugleichen.
+Berechnungsgrundlage ist dafür eine auf Quaternionen-basierte Darstellungsform, welche in einem Gradienten-Abstiegsverfahren zum Einsatz kommt.
+Vorteile dieses Ansatzes sind seine niedrigen Berechnungskosten, Effektivität bei niedrigen Sampleraten und ein hoher Grad an Parametrisierung der eine Anpassung an die jeweiligen Sensor- und Umgebungscharakteristiken zulässt.
 
-Auch wenn der Madgwick-Filter bereits als fertige ROS-Node\footnote{\url{http://wiki.ros.org/imu_filter_madgwick}} vorhanden ist und  bessere Ergebnisse als der Kalman-Filter liefern soll, haben wir uns gegen den Madgwick-Filter entschieden, da unsere bestehende Implementierung nur schwer an den Madgwick-Filter angepasst werden konnte und dadurch der erzielte Mehrwert so nur schwer nachvollziehbar bzw. debuggbar gewesen ist. 
+Auch wenn der Madgwick-Filter bereits als fertige ROS-Node\footnote{\url{http://wiki.ros.org/imu_filter_madgwick}} vorhanden ist und bessere Ergebnisse als der Kalman-Filter liefern soll, haben wir uns gegen den Madgwick-Filter entschieden, da unsere bestehende Implementierung nur schwer an den Madgwick-Filter angepasst werden konnte und dadurch der erzielte Mehrwert so nur schwer nachvollziehbar bzw. debuggbar gewesen ist. 
 
 
 \subsubsection{Kalman-Filter}
-Im ersten Schritt \emph{(Prädiktionsschritt)} des Kalman-Filters wird die zeitlich vorangegangene Schätzung als Grundlage genommen, um die Vorhersage für den aktuellen Zeitpunkt zu ermitteln. Der zweite Schritt \emph{(Korrektur- oder Innovationsschritt)} besteht daraus, die Vorhersagen mit neuen Informationen des aktuellen Messwerts zu korrigieren um somit die gesuchten Schätzwerte zu erreichen.
+Beim Kalman-Filter Verfahren \todo{cite} handelt es sich um eine probabilitische Methode der Zustandsschätzung.
+Dabei fließen in einem ersten \emph{Prädiktionsschritt} vorhergemachte Annahmen inklusive dazugehöriger Fehlerwahrscheinlichkeiten in die Berechnung ein.
+Danach wird in einem zweiten Schritt, der \emph{Innovationsschritt}, eine Beobachtung mit dazugehöriger Messungenauigkeit mit einbezogen.
 
-Um bei einer fehlerbehafteten Beobachtung den Systemzustand zu korrigieren müssen fehlerhafte Beobachtungen über mathematische Gleichungen beschreibbar und Fehlerverteilungen für Sensoren bekannt sein. Diese Informationen sind uns während der Bearbeitung des Projekts nicht bekannt gewesen.
-
-Infolgedessen haben wir beschlossen den hierfür benötigten Mehraufwand an Zeit und Ressourcen lieber in den bereits fortgeschrittenen Komplementär-Filter zu investieren, da dieser außerdem schneller auf Änderungen reagiert als der Kalman-Filter\footnote{\url{http://www.olliw.eu/2013/imu-data-fusing}}.
-\todo{Jetzt okay?}
+Um bei einer fehlerbehafteten Beobachtung den Systemzustand zu korrigieren, müssen diese Beobachtungen über mathematische Gleichungen beschreibbar und Fehlerverteilungen für Sensoren bekannt sein. Diese Informationen sind uns während der Bearbeitung des Projekts nicht bekannt gewesen.
+Infolgedessen konnte eine Modellierung gemäß dem Kalman-Filters nicht durchgeführt werden. 
+Des weiteren war unklar ob durch eine solche Umsetzung tatsächliche Vorteile erzielt werden können, da die Änderung eines plötzlichen Ereignis (Kurvenfahrt) über mehre Zeitschritte hinweg angepasst wird und somit eine mögliche Latenz hinzugefügt werden könnte.
 
 \subsubsection{Komplementär-Filter}
 Nach Brooks und Iyengar \cite{Brooks.1998} hat eine komplementäre Fusion das Ziel, die Genauigkeit von Daten zu verbessern. 
