@@ -92,10 +92,11 @@ Lediglich die Orientierung fließt in die folgende Fusion ein.
 
 Ziel der Fusion der mittels IMU-Daten berechneten Orientierung und der mittels Marker-Tracking bestimmten Kameraorientierung ist eine korrigierte Orientierung mit höherer Genauigkeit.
 Bevor die Fusion durchgeführt werden kann, müssen IMU- und Kameraorientierung in ein einheitliches Koordinatensystem transformiert werden.
-Während die IMU-Orientierung in Weltkoordinaten berechnet wird, ist die Kameraorientierung in Fahrzeugkoordinaten angegeben.
-Für die Fusion wird die Kameraorientierung deshalb in Weltkoordinaten überführt.
-Für die Umsetzung wurde das TF-Framework von ROS verwendet.
-Dadurch ist es möglich, das Fusionsergebnis in einem beliebigen Koordinatensystem anzugeben. Abb.~\ref{fig:tf_tree} zeigt den Transformationsbaum der Anwendung.
+Während die IMU-Orientierung in Weltkoordinaten berechnet wird, ist die Kameraorientierung zuerst im Markerkoordinatensystem angegeben.
+Durch den stationären Marker im Fahrzeug lässt sich die Kameraorientierung dann in Fahrzeugkoordinaten umrechnen.
+Die Verbindung vom Fahrzeug- zum Weltkoordinatensytem ermöglicht die Transformation der Kameraorientierung in das für die Fusion genutzte Weltkoordinatensystem.
+Für die Umsetzung wurde das Transformationsframework von ROS verwendet~\cite{ros_tf}.
+Dadurch ist es möglich, das Fusionsergebnis in einem beliebigen Koordinatensystem anzugeben. Abb.~\ref{fig:tf_tree} zeigt die in der Anwendung vorkommenden Koordinatensysteme.
 Die Orientierungen werden durch lineare Interpolation fusioniert.
 Es muss darauf geachtet werden, dass eine Fusion nur dann stattfindet, wenn auch der Marker detektiert wurde.
 Im anderen Fall wird nur die IMU-Orientierung als Ergebnis ausgegeben.
@@ -104,7 +105,7 @@ Ein Gewichtungsfaktor für die Kameraorientierung von 5\% hat sich bei der Reali
 \begin{figure*}[tb]
  \centering
  \includegraphics[width=0.98\textwidth]{tf_tree}
-  \caption{Transformationsbaum}
+  \caption{Koordinaten-Frames}
   \label{fig:tf_tree}
 \end{figure*}
 
