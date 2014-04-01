@@ -10,7 +10,7 @@ Die aus unterschiedlichen Kombinationen der Sensoren berechneten Orientierungen 
   \item Gyroskop + Beschleunigungssensor + Magnetometer + Marker-Tracking
 \end{itemize}
 
-Durch Einsatz des \ac{ROS}-Frameworks und durchgängige Verwendung des Transformationsbaums (vgl. Abs. \ref{headracking_markerfusion_subsubsec}) ist dabei das Referenz-Koordinatensystem frei wählbar.
+Durch Einsatz des \ac{ROS}-Frameworks und durchgängige Verwendung des Transformationsbaums (vgl. Abs. \ref{headtracking_markerfusion_subsubsec}) ist dabei das Referenz-Koordinatensystem frei wählbar.
 In der Visualisierung können die gewünschten Berechnungsergebnisse vom Benutzer ausgewählt werden, s. Abb. \ref{fig:kopf_orientierung_rviz}.
 
 
@@ -28,6 +28,8 @@ Tests im bewegten Fahrzeug sind noch durchzuführen.
 
 \subsection{Ausblick}
 
+%\todo[inline]{Irgendwie stimmen ab hier die Absatz-Abstände nicht mehr. Liegt das an der transformations-figure*?} % Ok, stimmen irgendwie doch wieder^^
+
 Für Weiterentwicklungen des Systems bieten sich interessante Bereiche an:
 
 Das System ist derzeit beschränkt auf die Bestimmung der Kopf-Orientierung.
@@ -40,7 +42,9 @@ Damit können im Innenraum des Autos weitere Marker angebracht werden, sodass be
 Die Korrektur der \ac{IMU}-Daten durch Kameradaten wäre damit nicht mehr auf eine Blickrichtung in Fahrtrichtung beschränkt.
 
 Möglich ist auch eine weitere Untersuchung des in Abs. \ref{headtracking_facetracking_subsubsec} beschriebenen Face-Trackings.
-Hier ist die Erstellung einer neuen Gesichts-Maske --mit \ac{AR}-Brille-- ein vielversprechender Ansatz. \todo{Ist das so? Es gibt doch einige Argumente dagegen.}
+Hier ist die Erstellung einer neuen Gesichts-Maske --mit \ac{AR}-Brille-- ein vielversprechender Ansatz.
+\todo[inline]{Ist das so? Es gibt doch einige Argumente dagegen. -> siehe Antwort im sourcecode}
+% TR: Ich glaube schon, dass es ein Ansatz ist, den man nochmal tiefer angehen könnte. Angeblich funktioniert der bisherige Face-Tracker auch mit normalen Brillen; sprich mit Spiegelung kann er umgehen. Von daher ist der Hauptgrund, dass es bei uns nicht auf Anhieb geklappt hat, wahrscheinlich die falsche Maske. Oder würdest du/ihr das hier raus nehmen?
 
 Ein Ausbau der Hardware-Kompatibilität auf weitere Brillen-Modelle wie beispielsweise \emph{Google Glass, Oculus Rift} \oae erscheint ebenfalls interessant.
 
