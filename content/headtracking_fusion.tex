@@ -34,16 +34,13 @@ Hierbei wird das \emph{Roll} und \emph{Pitch} durch Daten des Beschleunigungssen
 Der zweite Schritt zielt auf die Verbesserung von \emph{Yaw} ab.
 Eine weitere Interpolation verrechnet das vorige Ergebnis mit den aufbereiteten Magnetometerwerten zu $5\%$ pro Zeitschritt.
 Formal lässt sich die Gewichtung folgendermaßen beschreiben:
+\\
 \begin{align}
 F_P &= \textbf{\textit{Gyro}}*~0.95~~+~~\textbf{\textit{Acc}}~~*~0.05\\
 \notag\\
 F_G &= ~F_P~~*~0.95~~+~~\textbf{\textit{Mag}}~*~0.05
 \end{align}
-
-%\begin{equation}
-%	F_G = F_P~*~0.95~+~\textbf{\textit{Mag}}~*~0.05
-%\end{equation}
-
+\\
 Eine Übersicht der Fusionierung mit dem Komplementär-Filter ist Abbildung \ref{fig:fusion_complementary} zu entnehmen.
 
 \begin{figure}[ht]
