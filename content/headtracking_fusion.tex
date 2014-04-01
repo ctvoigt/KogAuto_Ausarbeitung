@@ -1,7 +1,10 @@
 
 \subsection{Sensordaten-Fusion}
 \label{headtracking_fusion_subsec}
-Die Sensordaten-Fusion beschreibt die Verknüpfung von mehreren Sensoren um Informationen besserer Qualität zu gewinnen. In diesem Projekt gilt des die aufbereiteten Daten aus beiden Gyroskopen, Beschleunigungsensor und Magenetometer derart zu fusionieren, dass letztlich die zu ermittelnde \emph{Orientierung} des Kopfes möglichst exakt bestimmt werden kann. Da die bereits vorgestellten Sensoren jeweils eigene Vor- und Nachteile hat müssen diese bestmöglich ausgenutzt werden. In den folgenden Abschnitten werden unterschiedliche Fusionsansätze dargestellt und entsprechend der Aufgabenstellung des Projekts bewertet. 
+Die Sensordaten-Fusion beschreibt die Verknüpfung von mehreren Sensoren um Informationen besserer Qualität zu gewinnen.
+In diesem Projekt gilt des die aufbereiteten Daten aus beiden Gyroskopen, Beschleunigungsensor und Magenetometer derart zu fusionieren, dass letztlich die zu ermittelnde \emph{Orientierung} des Kopfes möglichst exakt bestimmt werden kann.
+Da die bereits vorgestellten Sensoren jeweils eigene Vor- und Nachteile hat müssen diese bestmöglich ausgenutzt werden.
+In den folgenden Abschnitten werden unterschiedliche Fusionsansätze dargestellt und entsprechend der Aufgabenstellung des Projekts bewertet. 
 
 \subsubsection{Madgwick-Filter}
 Die Filterung nach Madgwick \cite{madgwick2010efficient} gilt als neuartiger Ansatz zur Bestimmung der Orientierung basierend auf Gyroskop, Beschleunigungssensor und Magnetometer.
@@ -26,7 +29,11 @@ Nach Brooks und Iyengar \cite{Brooks.1998} hat eine komplementäre Fusion das Zi
 Dabei wirken die Sensoren unabhängig voneinander und liefern unterschiedliche Erkenntnisse und Sichtbereiche, die die Orientierung zu unterschiedlichen Zeiten verbessert.
 
 Die Gyroskope sind wie bereits erwähnt bei einer langen Laufzeit fehleranfällig und erzeugen einen Drift. 
-Daher wird im ersten Schritt eine SLERP-Interpolation (Sperical Linear Interpolation) eingesetzt, die bei jedem Zeitschritt die Orientierung der Gyroskope zu $95\%$ und Orientierung des Beschleunigungssensor zu $5\%$ berücksichtigt. Hierbei wird das \emph{roll} und \emph{pitch} gestützt. Der zweite Schritt zielt auf die Verbesserung von \emph{yaw} ab. Eine weitere Interpolation verrechnet dieses Ergebnis mit den aufbereiteten Magnetometerwerten zu $5\%$ pro Zeitschritt. Formal lässt sich die Gewichtung folgendermaßen beschreiben:
+Daher wird im ersten Schritt eine SLERP-Interpolation (Sperical Linear Interpolation) eingesetzt, die bei jedem Zeitschritt die Orientierung der Gyroskope zu $95\%$ und Orientierung des Beschleunigungssensor zu $5\%$ berücksichtigt.
+Hierbei wird das \emph{roll} und \emph{pitch} gestützt.
+Der zweite Schritt zielt auf die Verbesserung von \emph{yaw} ab.
+Eine weitere Interpolation verrechnet dieses Ergebnis mit den aufbereiteten Magnetometerwerten zu $5\%$ pro Zeitschritt.
+Formal lässt sich die Gewichtung folgendermaßen beschreiben:
 
 \begin{align}
 F_P &= \textbf{\textit{Gyro}}*~0.95~~+~~\textbf{\textit{Acc}}~~*~0.05\\
