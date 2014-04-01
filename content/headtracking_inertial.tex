@@ -151,8 +151,7 @@ Dies liegt darin begründet, dass sich die Sensordaten des Beschleunigungssensor
 \subsubsection{Magnetometer}
 \label{headtracking_magnetometer_subsubsec}
 
-Das Magnetometer wird im Rahmen des Praktikums zur Stützung des Yaw-Winkels (Drehung um die Z-Achse des Brillenkoordinatensystems) genutzt.\
-\todo[inline]{Brillen-KS taucht hier zum ersten Mal auf, das sollte noch eingeführt werden.}
+Das Magnetometer wird im Rahmen des Praktikums zur Stützung des Yaw-Winkels (Drehung um die Z-Achse des Brillenkoordinatensystems $TF_{glasses}$) genutzt.\
 Das verbaute Magnetometer misst in drei Achsen nach dem Funktionsprinzip der Wheatstoneschen Messbrücke \cite{renaudin2010complete} das Erdmagnetfeld.
 Dieses Messverfahren führt zum einen zu einer kleinen und kostengünstigen Bauweise.
 Zum anderen entstehen aber Messungenauigkeiten, die im Rahmen der Sensorkalibrierung beachtet und ausgeglichen werden müssen.
@@ -170,12 +169,13 @@ Zum anderen entstehen aber Messungenauigkeiten, die im Rahmen der Sensorkalibrie
    \caption[mag_mapping]{Berechungsgrundlage des Magnetfeldvektors}
    \label{fig:mag_mapping}
 \end{figure}
-\todo[inline]{cite Inklinationswinkel?}
+%\todo[inline]{cite Inklinationswinkel?}
+%DHA: Beschreibung siehe Footnote unten
 
 Gemessen werden die Magnetfeldlinien der Erde, welche in Abb. \ref{fig:mag_world} dargestellt sind.
 Diese sind abhängig von der aktuellen Position auf der Erdoberfläche\footnote{Tatsächlich verändert sich das Erdmagnetfeld auch über die Zeit hinweg.
 Diese Änderung kann aber im Rahmen des Praktikums vernachlässigt werden, da es sich um eine sehr kleine Änderung handelt (z. Bsp. für den Praktikumsort Karlsruhe ca. $1^\circ 46$'~$7.8$ arcmin/Jahr im Deklinationswinkel).}.
-Sobald das Erdmagnetfeld nicht am Äquator gemessen wird, sondern im Falle des Praktikums bei etwa $49^\circ$ geographischer Breite, muss der Inklinationswinkel bei der Messung mit beachtet werden.
+Sobald das Erdmagnetfeld nicht am Äquator gemessen wird, sondern im Falle des Praktikums bei etwa $49^\circ$ geographischer Breite, muss der Inklinationswinkel\footnote{Bezeichnet den Neigungswinkel des örtlichen Erdmagnetfeldes zur Horizontalen.} bei der Messung mit beachtet werden.
 Dieser wird in Abb. \ref{fig:mag_mapping} mit I beschrieben.
 Die Abbildung auf die XY-Ebene wird durch folgende Formel bewerkstelligt:
 
