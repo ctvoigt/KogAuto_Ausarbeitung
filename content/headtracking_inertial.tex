@@ -1,7 +1,7 @@
 
 \section{Headtracking}
 
-Ziel des Headtrackings ist es, die Kopforientierung des Fahrers --auch bei bewegtem Fahrzeug--
+Ziel des Headtrackings ist es, die Kopforientierung des Fahrers --~auch bei bewegtem Fahrzeug~--
 %\todo{``fahrendem'' statt ``bewegendem''?}
 % -> ich würde bei bewegt bleiben: es ist ja denkbar, dass das Auto nicht selber "fährt", aber trotzdem "bewegt" wird, beispielsweise auf einer Fähre oder so
 sowohl relativ zum Fahrzeug als auch in Weltkoordinaten anzugeben. Unter Orientierung wird hier die Drehung entlang der X (\emph{Roll}), Y (\emph{Pitch}) und Z-Achse (\emph{Yaw}) verstanden:
@@ -11,10 +11,11 @@ Dazu wird die Inertialsensorik der \ac{AR}-Brille, bestehend aus zwei Gyroskopen
 Diese Daten werden mit einem geeigneten Filter-Algorithmus fusioniert (Abs. \ref{headtracking_fusion_subsec}).
 Die Kompensation der Eigenbewegung des Fahrzeugs wird in Abs. \ref{headtracking_marker_subsec} behandelt.
 
-
 \subsection{Inertialsensoren}
 \label{headtracking_imu_subsec}
+Im folgenden Absatz werden die verschiedenen Sensoren vorgestellt. Dabei sei angemerkt, dass die gemessenen Daten in einem sogenannten \textit{Sensorkoordinatensystem $TF_{sensor}$} erfasst werden. Dieses ist um etwa $15^\circ$ in der Z-Achse rotiert zum \textit{Brillenkoordinatensystem $TF_{glasses}$} welches seinen Ursprung in der Mitte des Brillenstegs hat. Dieses Koordinatensystem wurde so gewählt, dass es in etwa mit der Kameraposition der Brille übereinstimmt \footnote{Anbetracht der vorhanden Messungenauigkeiten wurden die Translationen zwischen Sensor und Brillensteg sowie Kamera und Brillensteg vernachlässigt, da sie keinen eklatanten Einfluss auf die Orientierung der Brille bzw. des Kopfes haben.}. In Abb. \ref{fig:tf_baum_sensorik}
 
+\todo[inline]{Ich bitte den Ersteller des TF-Baums sich dieser Grafik anzunehmen, der sieht sehr proffesionell aus, sowas in abgespeckter Form brauchen wir hier auch, damit wir uns in den nachfolgenden Sections drauf beziehen können, bitte die Textreferenzen in \ref{headtracking_imu_subsec} dazu anpassen.}
 
 \subsubsection{Gyroskop}
 \label{headtracking_imu_gyro_subsubsec}
