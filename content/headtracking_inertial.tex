@@ -113,12 +113,16 @@ Die durch das Gyroskop berechnete Orientierung reagiert schnell auf
 
 \subsubsection{Beschleunigungssensor}
 
-Der Beschleunigungssensor misst die Gravitation entlang der X, Y und Z-Achse, im Folgenden als $acc_x$, $acc_y$ und $acc_z$ bezeichnet. Anhand dieses Gravitationsvektors kann die Orientierung der Brille bezüglich der horizontalen Ebene bestimmt werden.
+
+Der Beschleunigungssensor misst die Gravitation entlang der X, Y und Z-Achse, im Folgenden als $acc_x$, $acc_y$ und $acc_z$ bezeichnet.
+\todo[inline]{TR: Das ist meiner Meinung nach falsch, es wird die Beschleunigung gemessen! Gravitation ist eine Untermenge davon. Was der Sensor misst, ist: Gravitation + Beschleunigung beispielsweise durch Kopf/Auto-Bewegung!}
+Anhand dieses Gravitationsvektors kann die Orientierung der Brille bezüglich der horizontalen Ebene bestimmt werden\todo{s. vorigen Kommentar}.
 
 Zur Verwendung des Beschleunigungssensors wird zunächst wie auch beim
 Gyroskop ein Tiefpassfilter angewendet, um das Rauschen der Rohdaten zu
-reduzieren. Dabei wird die gleiche Fenstergröße wie beim Gyroskop
-verwendet, da ein ungleicher Wert zu Fehlern bei der späteren Fusion
+reduzieren.
+Dabei wird ein Mittelwertfilter eingesetzt.
+Als Fenstergröße wird die gleiche wie beim Gyroskop gewählt, da ein ungleicher Wert zu Fehlern bei der späteren Fusion
 führen würde. 
 
 % XXX: die umrechung auf m/s2 hab ich mal rausgelassen, die ist ja glaub ich auch garnicht so wichtig und verwirrt den leser nur
@@ -133,7 +137,10 @@ Die Orientierung in Roll und Pitch kann direkt aus den Winkeln des Gravitationsv
     pitch = -atan2(acc_x, \sqrt{ {acc_y}^2 + {acc_z}^2 })
 \end{equation}
 
-Die so bestimmten Roll und Pitch Werte sind frei von Drift, und können als Stützwerte für die aus den Gyroskopdaten berechneten Orientierungswerte verwendet werden. Jedoch ist zu beachten, dass der Beschleunigungssensor nicht zuverlässig zur Berechnung des Yaw-Winkels verwendet werden kann. Dies liegt darin begründet, dass sich die Sensordaten des Beschleunigungssensors nicht ändern, wenn sich der Sensor parallel zur Erdoberfläche befindet um den Yaw-Winkel gedreht wird.
+Die so bestimmten Roll und Pitch Werte sind frei von Drift, und können als Stützwerte für die aus den Gyroskopdaten berechneten Orientierungswerte verwendet werden.
+Jedoch ist zu beachten, dass der Beschleunigungssensor nicht zuverlässig zur Berechnung des Yaw-Winkels verwendet werden kann.
+Dies liegt darin begründet, dass sich die Sensordaten des Beschleunigungssensors nicht ändern, wenn sich der Sensor parallel zur Erdoberfläche befindet und um den Yaw-Winkel gedreht wird.
+
 
 %  roll = atan2(acc_data[1], acc_data[2]);
 %  pitch = -atan2(acc_data[0], sqrt(acc_data[1]*acc_data[1] + acc_data[2]*acc_data[2]));
