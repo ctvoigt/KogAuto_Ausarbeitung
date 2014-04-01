@@ -1,47 +1,36 @@
-
 \subsection{Sensordaten-Fusion}
 \label{headtracking_fusion_subsec}
-
-
 Die Sensordaten-Fusion beschreibt die Verknüpfung von mehreren Sensoren um Informationen besserer Qualität zu gewinnen.
 In diesem Projekt gilt es, die aufbereiteten Daten aus beiden Gyroskopen, Beschleunigungsensor und Magenetometer derart zu fusionieren, dass letztlich die zu ermittelnde \emph{Orientierung} des Kopfes möglichst exakt bestimmt werden kann.
 Da die bereits vorgestellten Sensoren jeweils Vor- und Nachteile haben, müssen diese bestmöglich ausgenutzt werden.
 In den folgenden Abschnitten werden unterschiedliche Fusionsansätze dargestellt und entsprechend der Aufgabenstellung des Projekts bewertet. 
 
-
 \subsubsection{Madgwick-Filter}
-
 Die Filterung nach Madgwick \cite{madgwick2010efficient} gilt als neuartiger Ansatz zur Bestimmung der Orientierung basierend auf Gyroskop, Beschleunigungssensor und Magnetometer.
 Es wird dabei versucht, die magnetische Distorsion sowie den Bias-Trift des Gyroskopes auszugleichen.
 Berechnungsgrundlage ist dafür eine auf Quaternionen basierte Darstellungsform, welche in einem Gradienten-Abstiegsverfahren zum Einsatz kommt.
 Vorteile dieses Ansatzes sind seine niedrigen Berechnungskosten, Effektivität bei niedrigen Sampleraten und ein hoher Grad an Parametrisierung, welcher eine Anpassung an die jeweiligen Sensor- und Umgebungscharakteristiken zulässt.
 
 Auch wenn der Madgwick-Filter bereits als fertige ROS-Node\footnote{\url{http://wiki.ros.org/imu_filter_madgwick}} vorhanden ist und bessere Ergebnisse als der Kalman-Filter liefern soll, haben wir uns gegen den Madgwick-Filter entschieden.
-Grund dafür ist, dass unsere bestehende Implementierung nur schwer an den Madgwick-Filter angepasst werden konnte, und dadurch der erzielte Mehrwert so nur schwer nachvollziehbar bzw. debuggbar gewesen ist. 
-
-
+Grund dafür ist, dass unsere bestehende Implementierung nur schwer an den Madgwick-Filter angepasst werden konnte, und dadurch der erzielte Mehrwert so nur schwer nachvollziehbar bzw. verifizierbar gewesen wären. 
 
 \subsubsection{Kalman-Filter}
-
-
-Beim Kalman-Filter Verfahren \cite{kalman1960new} handelt es sich um eine probabilitische Methode der Zustandsschätzung.
+Das Kalman-Filter Verfahren \cite{kalman1960new} ist eine probabilitische Methode der Zustandsschätzung.
 Dabei fließen in einem ersten \emph{Prädiktionsschritt} zuvor festgelegte Annahmen inklusive dazugehöriger Fehlerwahrscheinlichkeiten in die Berechnung ein.
 Danach wird in einem zweiten Schritt, dem \emph{Innovationsschritt}, eine Beobachtung mit dazugehöriger Messungenauigkeit mit einbezogen.
 
 Um bei einer fehlerbehafteten Beobachtung den Systemzustand zu korrigieren, müssen diese Beobachtungen über mathematische Gleichungen beschreibbar und Fehlerverteilungen für Sensoren bekannt sein.
 Diese Informationen sind im vorliegenden Projekt nicht bekannt.
 Infolgedessen kann eine Modellierung gemäß dem Kalman-Filter nicht durchgeführt werden. 
-Des weiteren ist unklar, ob durch eine solche Umsetzung tatsächlich Vorteile erzielt werden können, da die Änderung eines plötzlichen Ereignisses (Kurvenfahrt) über mehre Zeitschritte hinweg angepasst wird und somit eine mögliche Latenz hinzugefügt werden könnte.
-
+Des Weiteren ist unklar, ob durch eine solche Umsetzung tatsächlich Vorteile erzielt werden können, da die Änderung eines plötzlichen Ereignisses (z. Bsp. eine Kurvenfahrt) über mehre Zeitschritte hinweg angepasst wird und somit eine mögliche Latenz hinzugefügt werden könnte.
 
 \subsubsection{Komplementär-Filter}
-
 Nach Brooks und Iyengar \cite{Brooks.1998} hat eine komplementäre Fusion das Ziel, die Genauigkeit von Daten zu verbessern. 
 Dabei wirken die Sensoren unabhängig voneinander und liefern unterschiedliche Erkenntnisse und Sichtbereiche, die die Orientierung zu unterschiedlichen Zeiten verbessert.
 
 Die Gyroskope sind wie bereits erwähnt bei einer langen Laufzeit fehleranfällig und erzeugen einen Drift. 
 Daher wird im ersten Schritt eine \ac{SLERP}-Interpolation eingesetzt, die bei jedem Zeitschritt die Orientierung der Gyroskope zu $95\%$ und die Orientierung des Beschleunigungssensors zu $5\%$ berücksichtigt.
-Hierbei wird das \emph{Roll} und \emph{Pitch} gestützt.
+Hierbei wird das \emph{Roll} und \emph{Pitch} durch Daten des Beschleunigungssensor gestützt und der Gyroskopdrift ausgeglichen.
 Der zweite Schritt zielt auf die Verbesserung von \emph{Yaw} ab.
 Eine weitere Interpolation verrechnet das vorige Ergebnis mit den aufbereiteten Magnetometerwerten zu $5\%$ pro Zeitschritt.
 Formal lässt sich die Gewichtung folgendermaßen beschreiben:
@@ -72,7 +61,8 @@ Eine Übersicht der Fusionierung mit dem Komplementär-Filter ist Abbildung \ref
 	]
 		\tikzstyle{every node}=[shape=rectangle,draw,fill=white,
 		anchor=center] % Stil der Node-Beschriftung der
-	\node[rectangle, rotate=-30, draw=orange, text width=2.5cm, outer sep=3pt, minimum size=1.5cm] at (0.6,4.5) {\textbf{$\alpha X+(1-\alpha)Y$}};
+	% DHA: Die Gewichtung wird bereits durch die Formel vorher klar.
+	%\node[rectangle, rotate=-30, draw=orange, text width=2.5cm, outer sep=3pt, minimum size=1.5cm] at (0.6,4.5) {\textbf{$\alpha X+(1-\alpha)Y$}};
 	\node[rectangle, font=\bfseries, double=green, text width=2.0cm, outer sep=3pt, minimum size=1.5cm](gyro) at (-7.0,5.5) {Gyro};
 	\node[rectangle, font=\bfseries, double=green, text width=2.0cm, outer sep=3pt, minimum size=1.5cm](acc) at (-3.0,5.5) {Acc};
 	
