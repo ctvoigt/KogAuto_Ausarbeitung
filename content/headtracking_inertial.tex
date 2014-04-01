@@ -15,7 +15,7 @@ Die Kompensation der Eigenbewegung des Fahrzeugs wird in Abs. \ref{headtracking_
 \label{headtracking_imu_subsec}
 Im folgenden Absatz werden die verschiedenen Sensoren vorgestellt. Dabei sei angemerkt, dass die gemessenen Daten in einem sogenannten \textit{Sensorkoordinatensystem $TF_{sensor}$} erfasst werden. Dieses ist um etwa $15^\circ$ in der Z-Achse rotiert zum \textit{Brillenkoordinatensystem $TF_{glasses}$} welches seinen Ursprung in der Mitte des Brillenstegs hat. Dieses Koordinatensystem wurde so gewählt, dass es in etwa mit der Kameraposition der Brille übereinstimmt \footnote{Anbetracht der vorhanden Messungenauigkeiten wurden die Translationen zwischen Sensor und Brillensteg sowie Kamera und Brillensteg vernachlässigt, da sie keinen eklatanten Einfluss auf die Orientierung der Brille bzw. des Kopfes haben.}. In Abb. \ref{fig:tf_baum_sensorik}
 
-\todo[inline]{Ich bitte den Ersteller des TF-Baums sich dieser Grafik anzunehmen, der sieht sehr proffesionell aus, sowas in abgespeckter Form brauchen wir hier auch, damit wir uns in den nachfolgenden Sections drauf beziehen können, bitte die Textreferenzen in \ref{headtracking_imu_subsec} dazu anpassen.}
+\todo[inline]{Ich bitte den Ersteller des TF-Baums sich dieser Grafik anzunehmen, der sieht sehr professionell aus, so was in abgespeckter Form brauchen wir hier auch, damit wir uns in den nachfolgenden Sections drauf beziehen können, bitte die Textreferenzen in \ref{headtracking_imu_subsec} dazu anpassen.}
 
 \subsubsection{Gyroskop}
 \label{headtracking_imu_gyro_subsubsec}
@@ -26,7 +26,7 @@ die Integration der Winkelgeschwindigkeiten über die Zeit kann die
 Orientierung der Brille bestimmt werden.  
 
 Die \ac{IMU} der Brille enthält zwei
-Gyroskope, ein \emph{High Bandwidth} Gyrosokp sowie ein
+Gyroskope, ein \emph{High Bandwidth} Gyroskop sowie ein
 \emph{Low Bandwidth} Gyroskop. Die Gyroskope unterscheiden sich
 hinsichtlich der Genauigkeit und des Wertebereiches. Das \ac{HBW}-Gyroskop
 hat einen größeren Wertebereich, jedoch die geringere
@@ -47,7 +47,7 @@ Bias-Korrektur.
    \label{fig:gyro_bias}
 \end{figure}
 
-Desweiteren unterliegen die Sensordaten einem Rauschen. Daher wird als
+Des Weiteren unterliegen die Sensordaten einem Rauschen. Daher wird als
 nächster Schritt ein Tiefpassfilter verwendet, um dieses Rauschen zu
 reduzieren. In unserem Fall hat sich ein Mittelwertfilter mit einer 
 Fenstergröße von 5 als praktikabel erwiesen. Je höher die Fenstergröße gewählt wird,
@@ -96,7 +96,7 @@ zurückgeliefert.
 \end{equation}
 
 Aus den gefilterten Sensordaten wird daraufhin durch Integration über
-die Zeit die Orientierung berechnet. Hierzu wird die Orientierung in einem Quaternion gespeichert, welches nach jeder Sensor-Abtastung aktualisiert wird. Hierbei ist $dt$ die Abtastrate der Gyroskop-Sensoren\todo{beträgt 200Hz(?)}.
+die Zeit die Orientierung berechnet. Hierzu wird die Orientierung in einem Quaternion gespeichert, welches nach jeder Sensor-Abtastung aktualisiert wird. Hierbei ist $dt$ die Abtastrate der Gyroskop-Sensoren, welche 100Hz beträgt.
 
 \begin{equation}
     \Delta q = quaternion({\omega_x \over dt}, {\omega_y \over dt}, {\omega_z \over dt}) \\
@@ -228,6 +228,6 @@ Trotz allem muss eine Kalibrierung in einem möglichst störfreien Umfeld durchg
 	\label{fig:uncalibrated_error}
 \end{figure}
 
-Um die Magnetometerdaten letzlich zur Stützung des Yaw-Winkels zu nutzen, werden die Daten zuerst in das Weltkoordinatensystem transformiert.
+Um die Magnetometerdaten letztlich zur Stützung des Yaw-Winkels zu nutzen, werden die Daten zuerst in das Weltkoordinatensystem transformiert.
 Danach wird das vorhandene Rotationsquaternion $q_{gyro,acc}$ mit $q_{mag}$ (Magnetometer-Quaternion) interpoliert.
-Das genaue Verfahren wird im nachfolgenden Abs. \ref{headtracking_fusion_subsec}  vorgestellt.
+Das genaue Verfahren wird im nachfolgenden Abs. \ref{headtracking_fusion_subsec} vorgestellt.
