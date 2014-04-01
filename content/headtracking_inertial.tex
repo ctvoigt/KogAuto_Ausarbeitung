@@ -1,7 +1,11 @@
 
 \section{Headtracking}
 
-Ziel des Headtrackings ist es, die Kopforientierung des Fahrers --auch bei bewegtem \todo{``fahrendem'' statt ``bewegendem''?} Fahrzeug-- sowohl relativ zum Fahrzeug als auch in Weltkoordinaten anzugeben. Unter Orientierung wird hier die Drehung entlang der X (\emph{Roll}), Y (\emph{Pitch}) und Z-Achse (\emph{Yaw}) verstanden.
+Ziel des Headtrackings ist es, die Kopforientierung des Fahrers --auch bei bewegtem Fahrzeug--
+%\todo{``fahrendem'' statt ``bewegendem''?}
+% -> ich würde bei bewegt bleiben: es ist ja denkbar, dass das Auto nicht selber "fährt", aber trotzdem "bewegt" wird, beispielsweise auf einer Fähre oder so
+sowohl relativ zum Fahrzeug als auch in Weltkoordinaten anzugeben. Unter Orientierung wird hier die Drehung entlang der X (\emph{Roll}), Y (\emph{Pitch}) und Z-Achse (\emph{Yaw}) verstanden:
+\acs{RPY}.
 
 Dazu wird die Inertialsensorik der \ac{AR}-Brille, bestehend aus zwei Gyroskopen, Beschleunigungssensor und Magnetometer, ausgewertet (Abs. \ref{headtracking_imu_subsec}).
 Diese Daten werden mit einem geeigneten Filter-Algorithmus fusioniert (Abs. \ref{headtracking_fusion_subsec}).
@@ -20,11 +24,11 @@ $\omega = [{Grad \over Sekunde}]$ bei Drehungen um die X, Y und Z-Achse. Durch
 die Integration der Winkelgeschwindigkeiten über die Zeit kann die
 Orientierung der Brille bestimmt werden.  
 
-Die IMU der Brille enthält zwei
-Gyroskope, ein \emph{High Bandwidth} Gyrosokp (HBW) sowie ein
-\emph{Low Bandwidth} Gyroskop (LBW). Die Gyroskope unterscheiden sich
-hinsichtlich der Genauigkeit und des Wertebereiches. Das HBW-Gyroskop
-hat hierbei einen größeren Wertebereich, jedoch die geringere
+Die \ac{IMU} der Brille enthält zwei
+Gyroskope, ein \emph{High Bandwidth} Gyrosokp sowie ein
+\emph{Low Bandwidth} Gyroskop. Die Gyroskope unterscheiden sich
+hinsichtlich der Genauigkeit und des Wertebereiches. Das \ac{HBW}-Gyroskop
+hat einen größeren Wertebereich, jedoch die geringere
 Genauigkeit.
 
 Die Rohdaten des Sensors enthalten einen konstanten Versatz, so dass bei
@@ -35,9 +39,9 @@ der Bias gemittelt, dieser wird nach Beendigung des Kalibriervorganges von den
 Rohdaten abgezogen. Abb. \ref{fig:gyro_bias} zeigt die Daten vor und nach der
 Bias-Korrektur.
 
-\begin{figure}
+\begin{figure}[h]
    \centering
-   \includegraphics[width=0.5\textwidth]{stationary_calibration_before_after}
+   \includegraphics[width=0.45\textwidth]{stationary_calibration_before_after}
    \caption{Korrektur des Gyroskop-Bias}
    \label{fig:gyro_bias}
 \end{figure}
@@ -49,27 +53,26 @@ Fenstergröße von 5 als praktikabel erwiesen. Je höher die Fenstergröße gew�
 desto stärker werden die Rohdaten geglättet, damit steigt jedoch auch
 die Verzögerung der Daten. Abb. \ref{fig:lowpass-delay} zeigt den Effekt des Tiefpassfilters.
 
-\begin{figure}
+\begin{figure}[h]
    \centering
-   \includegraphics[width=0.5\textwidth]{FilteringDelay}
-   \caption{Auswirkung des Tiefpassfilters}
+   \includegraphics[width=0.45\textwidth]{FilteringDelay}
+   \caption{Auswirkung des Tiefpassfilters: Ungefilterte Daten (blau) vs. gefilterte Daten (rot)}
    \label{fig:lowpass-delay}
 \end{figure}
 
-Zur Fusionierung des HBW- und LBW-Gyroskops kommt ein einfaches
-Schwellwertverfahren zum Einsatz. Die Wertebereiche der Gyroskope sind
+Die Wertebereiche der Gyroskope sind
 in Tab. \ref{tab:ranges-gyros} aufgeführt. Beide Gyroskope liefern
-einen 12-Bit-Datenwert. Somit stellt ein Zählwert des LBW-Gyroskops eine
-kleinere Veränderung dar als beim HBW-Gyroskop, was gleichbedeutend mit
-einer höheren Genauigkeit ist.
+einen 12-Bit-Datenwert. Somit stellt ein Zählwert des \ac{LBW}-Gyroskops eine
+kleinere Veränderung dar als beim \ac{HBW}-Gyroskop.
+Dies bedeutet, dass das \ac{LBW}-Gyroskop eine höhere Genauigkeit besitzt.
 
 \begin{table}[ht]
   \centering
   \begin{tabular}{ | c | c | c | }
     \hline
     & Min. & Max. \\ \hline
-    LBW & -420   & 420   \\ \hline
-    HBW & -1680   & 1680   \\
+    \ac{LBW} & -420   & 420   \\ \hline
+    \ac{HBW} & -1680   & 1680   \\
     \hline
   \end{tabular}
   \caption{Gyroskop-Wertebereiche in $[{\degree \over s}]$}
@@ -77,13 +80,22 @@ einer höheren Genauigkeit ist.
 \end{table}
 
 
+Zur Fusionierung des \ac{HBW}- und \ac{LBW}-Gyroskops kommt ein einfaches Schwellwertverfahren zum Einsatz. 
 Im Wertebereich, welcher von beiden Gyroskopen abgedeckt wird, werden
-die Sensordaten gemittelt. Wird der Wertebereich des LBW-Gyroskops
-überschritten, wird lediglich der Wert des HBW-Gyroskops
-zurückgeliefert. 
+die Sensordaten gemittelt. Wird der Wertebereich des \ac{LBW}-Gyroskops
+überschritten, wird lediglich der Wert des \ac{HBW}-Gyroskops
+zurückgeliefert.
+
+\begin{equation}
+    G = \left\{
+    \begin{array}{ll}
+        \frac{G_{HBW} + G_{LBW}}{2}, & G_{LBW} < G_{LBW_{max}}  \\
+        G_{HBW}, & G_{LBW} = G_{LBW_{max}}
+    \end{array}\right. \\
+\end{equation}
 
 Aus den gefilterten Sensordaten wird daraufhin durch Integration über
-die Zeit die Orientierung berechnet. Hierzu wird die Orientierung in einem Quaternion gespeichert, welches nach jeder Sensor-Abtastung aktualisiert wird. Hierbei ist $dt$ die Abtastrate der Gyroskop-Sensoren.
+die Zeit die Orientierung berechnet. Hierzu wird die Orientierung in einem Quaternion gespeichert, welches nach jeder Sensor-Abtastung aktualisiert wird. Hierbei ist $dt$ die Abtastrate der Gyroskop-Sensoren\todo{beträgt 200Hz(?)}.
 
 \begin{equation}
     \Delta q = quaternion({\omega_x \over dt}, {\omega_y \over dt}, {\omega_z \over dt}) \\
@@ -94,7 +106,9 @@ die Zeit die Orientierung berechnet. Hierzu wird die Orientierung in einem Quate
 \end{equation}
 
 Die durch das Gyroskop berechnete Orientierung reagiert schnell auf
-Änderungen, durch die Integration entseht in jedem Integrationsschritt jedoch ein Fehler, welcher sich summiert. Dieser Fehler wird als \emph{Drift} bezeichnet. In den folgenden Abschnitten wird beschrieben, wie Beschleunigungssensor und Magnetometer verwendet werden können, um diesen Fehler zu kompensieren.
+Änderungen. Durch die Integration entsteht in jedem Integrationsschritt jedoch ein Fehler, welcher sich summiert. Dieser Fehler wird als \emph{Drift} bezeichnet. In den folgenden Abschnitten wird beschrieben wie Beschleunigungssensor und Magnetometer verwendet werden können, um diesen Fehler zu kompensieren.
+
+% TR: Schöner Abschnitt  :-)
 
 
 \subsubsection{Beschleunigungssensor}
