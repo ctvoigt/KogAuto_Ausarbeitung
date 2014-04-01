@@ -115,9 +115,8 @@ Die durch das Gyroskop berechnete Orientierung reagiert schnell auf
 \subsubsection{Beschleunigungssensor}
 
 
-Der Beschleunigungssensor misst die Gravitation entlang der X, Y und Z-Achse, im Folgenden als $acc_x$, $acc_y$ und $acc_z$ bezeichnet.
-\todo[inline]{TR: Das ist meiner Meinung nach falsch, es wird die Beschleunigung gemessen! Gravitation ist eine Untermenge davon. Was der Sensor misst, ist: Gravitation + Beschleunigung beispielsweise durch Kopf/Auto-Bewegung!}
-Anhand dieses Gravitationsvektors kann die Orientierung der Brille bezüglich der horizontalen Ebene bestimmt werden\todo{s. vorigen Kommentar}.
+Der Beschleunigungssensor misst die Beschleunigung entlang der X, Y und Z-Achse, im Folgenden als $acc_x$, $acc_y$ und $acc_z$ bezeichnet.
+Anhand dieses Beschleunigungsvektors kann die Orientierung der Brille bezüglich der horizontalen Ebene bestimmt werden.
 
 Zur Verwendung des Beschleunigungssensors wird zunächst wie auch beim
 Gyroskop ein Tiefpassfilter angewendet, um das Rauschen der Rohdaten zu
