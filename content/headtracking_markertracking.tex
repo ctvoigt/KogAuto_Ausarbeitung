@@ -2,10 +2,10 @@
 \subsection{Kompensation Störgröße Fahrzeug}
 \label{headtracking_marker_subsec}
 
-Bei einem stationären Fahrzeug genügt es, die Kopforientierung mittels \acs{IMU}-Daten der Brille zu bestimmen.
+Bei einem stationären Fahrzeug genügt es, die Kopforientierung mittels \ac{IMU}-Daten der Brille zu bestimmen.
 Die gesuchte Kopforientierung relativ zum Fahrzeug stimmt dabei mit der Kopforientierung bezüglich der Weltkoordinaten überein.
 Sobald sich das Fahrzeug jedoch bewegt, wird die Schätzung der Kopforientierung verfälscht.
-Fährt das Fahrzeug beispielsweise eine Kurve, so wird die von der IMU gemessene Drehung als Änderung des Yaw-Winkels der Kopforientierung interpretiert, obwohl der Fahrer in Bezug zum Fahrzeug weiterhin geradeaus blickt.
+Fährt das Fahrzeug beispielsweise eine Kurve, so wird die von der IMU gemessene Rotation als Änderung des Yaw-Winkels der Kopforientierung interpretiert, obwohl der Fahrer in Bezug zum Fahrzeug weiterhin geradeaus blickt.
 
 Eine weitere Störquelle stellt die Fahrzeugelektronik und die damit einhergehenden Änderungen des Magnetfelds dar.
 Diese Störungen wirken sich negativ auf das zur Driftkorrektur eingesetzte Magnetometer aus (siehe Abschnitt \ref{headtracking_magnetometer_subsubsec}).
@@ -16,7 +16,7 @@ Abb.~\ref{fig:tracking_ansaetze} zeigt die beiden Ansätze konzeptionell.
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.4\textwidth]{Tracking_Ansaetze}
-  \caption{Tracking-Ansätze: unten: Face-Tracking mit stationärer Kamera und bewegtem Kopf; oben: Marker-Tracking mit stationärem Marker und beweglicher Kamera }
+  \caption{Tracking-Ansätze: Unten: Face-Tracking mit stationärer Kamera und bewegtem Kopf; Oben: Marker-Tracking mit stationärem Marker und beweglicher Kamera }
   \label{fig:tracking_ansaetze}
 \end{figure}
 
@@ -24,17 +24,20 @@ Abb.~\ref{fig:tracking_ansaetze} zeigt die beiden Ansätze konzeptionell.
 \subsubsection{Ansatz: Face-Tracking}
 \label{headtracking_facetracking_subsubsec}
 
-Die Idee beim Face-Tracking-Ansatz ist es, zu untersuchen, inwieweit die bestehende Hardware- und Software-Umgebung des CoCars für die Bestimmung der Kopforientierung verwendet werden kann.
+Die Idee beim Face-Tracking-Ansatz ist es, zu untersuchen, inwieweit die bestehende Hardware- und Software-Umgebung des \emph{CoCars} für die Bestimmung der Kopforientierung verwendet werden kann.
+
 Das Fahrzeug verfügt über eine fest installierte Kinect-Kamera, die auf den Fahrer ausgerichtet ist.
 Für diese Kamera wurde am \ac{FZI} bereits ein Algorithmus zur Blickrichtungserkennung des Fahrers implementiert.
-Der Algorithmus benutzt dafür ein Gesichtsmodell.
+Der Algorithmus benutzt dafür ein Gesichtsmodell, welches im Kamerabild gesucht wird.
 Das Gesichtsmodell berücksichtigt jedoch keine Brille.
-Trägt der Fahrer eine Durchsichtbrille, ist ein Teil des Gesichts verdeckt.
+Trägt der Fahrer eine die in diesem Projekt verfügbare Durchsichtbrille, ist ein Teil des Gesichts verdeckt.
 Hierdurch wird die Erkennungsleistung stark beeinträchtigt.
 Ein möglicher Ausweg ist das Einlernen des Gesichtsmodells mit Brille.
 Jedoch ist die Spiegelung der von der Kinect verwendeten Infrarot-Strahlung an der Brille weiterhin problematisch.
-Der Ansatz wird aus einem weiteren Grund nicht weiter verfolgt:
+
+Der Ansatz wird zudem aus einem anderen Grund nicht weiter verfolgt:
 Die Verwendung von zusätzlicher Hardware schränkt die Wiederverwendbarkeit des Algorithmus zur Bestimmung der Kopforientierung ein.
+
 Stattdessen fällt die Entscheidung auf einen Marker-Tracking-Ansatz, der alleine mit der Brillen-Hardware auskommt.
 
 
@@ -42,14 +45,16 @@ Stattdessen fällt die Entscheidung auf einen Marker-Tracking-Ansatz, der allein
 \label{headtracking_markertracking_subsubsec}
 
 Beim markerbasierten Tracking handelt es sich um ein optisches Trackingverfahren.
-Dabei wird die Position und Orientierung eines speziellen Markers bestimmt, der im Kamerabild zu sehen ist.
+Die Position und Orientierung eines speziellen Markers, der im Kamerabild zu sehen ist, wird bestimmt.
+
 Das Tracking übernimmt das \ac{ROS}-Paket \emph{ar\_track\_alvar}~\cite{ros_ar_track_alvar}, ein Wrapper für die Bibliothek \alvar.
-Mit \alvar \ lassen sich Marker generieren, identifizieren sowie deren Posen im Kamerabild bestimmen - vorausgesetzt es wird eine kalibrierte Kamera verwendet.
+Mit \alvar \ lassen sich Marker generieren, identifizieren sowie deren Posen im Kamerabild bestimmen --vorausgesetzt es wird eine kalibrierte Kamera verwendet.
 Die Kamerakalibrierung kann mit dem \ac{ROS}-Paket \emph{camera\_calibration}~\cite{ros_camera_calibration} unter Verwendung eines Kalibrierschachbretts durchgeführt werden.
 \alvar \ ermittelt die Pose des Markers in Bezug zum Kamerakoordinatensystem.
+
 Für die Anwendung ist jedoch die Orientierung der Kamera von Interesse.
 Sie wird als Kopforientierung interpretiert.
-Wird der Marker als stationär angenommen, so kann die Inverse der von \alvar \ bestimmten Markerpose als Kamera- und somit als Kopfpose aufgefasst werden.
+Wird der Marker als stationär angenommen, so kann die Inverse der von \alvar \ bestimmten Markerpose als Kamera-, und somit als Kopfpose aufgefasst werden.
 Abb.~\ref{fig:marker_in_vehicle_driver_view} zeigt den im Versuchsfahrzeug angebrachten Marker aus der Perspektive eines Fahrers.
 
 \begin{figure}
@@ -67,7 +72,7 @@ Abb.~\ref{fig:marker_in_vehicle_driver_view} zeigt den im Versuchsfahrzeug angeb
 \end{figure}
 
 Damit die berechnete Orientierung des Kopfes in Bezug zum Fahrzeug steht, muss der Marker im Fahrzeug kalibriert werden.
-Die Kalibrierungsdaten setzen sich aus Position und Orientierung des Markers angegeben in Fahrzeugkoordinaten zusammen.
+Die Kalibrierungsdaten setzen sich aus Position und Orientierung des Markers --angegeben in Fahrzeugkoordinaten-- zusammen.
 Für die Kalibrierung des Markers im Fahrzeug stehen drei Varianten zur Wahl:
 \begin{enumerate}
  \item Manuelle Ausmessung im Versuchsfahrzeug.
@@ -77,13 +82,16 @@ Für die Kalibrierung des Markers im Fahrzeug stehen drei Varianten zur Wahl:
 
 Mit der ersten Variante lassen sich die Kalibrierungsdaten am genauesten bestimmen.
 Allerdings ist der Aufwand für die Ermittlung auch am größten.
-Die erste Variante hat mit der zweiten Variante gemein, dass sie anfällig für Variationen der Markerpose im Fahrzeug sind. Wird der Marker beispielsweise aus- und wieder eingebaut, ist es schwierig, den Marker in die zuvor kalibrierte Pose zu bringen.
+
+Die zweite Variante hat mit der ersten Variante gemein, dass sie anfällig für Variationen der Markerpose im Fahrzeug ist.
+Wird der Marker beispielsweise aus- und wieder eingebaut, ist es schwierig, den Marker in die zuvor kalibrierte Pose zu bringen.
 Folglich muss die Kalibrierung neu durchgeführt werden.
+
 Die dritte Variante ist mit dem geringsten Zeitaufwand verbunden und bietet gleichzeitig die größte Flexibilität.
 Das zur Verfügung stehende Fahrzeugmodell ist dabei auch hinreichend genau.
-Mittels \emph{dynamic\_reconfigure}-Paket~\cite{ros_dynamic_reconfigure} kann eine grafische Benutzerschnittstelle zur Konfiguration der Posenparameter des Markermodells generiert werden.
+Mittels dem \emph{dynamic\_reconfigure}-Paket~\cite{ros_dynamic_reconfigure} kann eine grafische Benutzerschnittstelle zur Konfiguration der Posenparameter des Markermodells generiert werden.
 So lassen sich die Parameter auch zur Laufzeit anpassen.
-Unter Nutzung der rviz-Ansicht kann die konfigurierte Markerpose visuell überprüft werden (siehe Abb.~\ref{fig:marker_in_vehicle_model_driver_view}).
+Unter Nutzung der \emph{rviz}-Ansicht kann die konfigurierte Markerpose visuell überprüft werden (siehe Abb.~\ref{fig:marker_in_vehicle_model_driver_view}).
 
 Die Positionsangabe der von \alvar\ berechneten Markerpose wird in der Anwendung nicht genutzt, da die Kopfposition des Fahrers zur Vereinfachung als statisch angenommen wird.
 Lediglich die Orientierung fließt in die folgende Fusion ein.
@@ -92,16 +100,20 @@ Lediglich die Orientierung fließt in die folgende Fusion ein.
 \label{headtracking_markerfusion_subsubsec}
 
 Ziel der Fusion der mittels IMU-Daten berechneten Orientierung und der mittels Marker-Tracking bestimmten Kameraorientierung ist eine korrigierte Orientierung mit höherer Genauigkeit.
+
 Bevor die Fusion durchgeführt werden kann, müssen IMU- und Kameraorientierung in ein einheitliches Koordinatensystem transformiert werden.
-Während die IMU-Orientierung in Weltkoordinaten berechnet wird, ist die Kameraorientierung zuerst im Markerkoordinatensystem angegeben.
+Während die IMU-Orientierung in Weltkoordinaten berechnet wird, ist die Kameraorientierung zunächst im Markerkoordinatensystem angegeben.
 Durch den stationären Marker im Fahrzeug lässt sich die Kameraorientierung dann in Fahrzeugkoordinaten umrechnen.
 Die Verbindung vom Fahrzeug- zum Weltkoordinatensytem ermöglicht die Transformation der Kameraorientierung in das für die Fusion genutzte Weltkoordinatensystem.
+
 Für die Umsetzung wurde das Transformationsframework von ROS verwendet~\cite{ros_tf}.
 Dadurch ist es möglich, das Fusionsergebnis in einem beliebigen Koordinatensystem anzugeben. Abb.~\ref{fig:tf_tree} zeigt die in der Anwendung vorkommenden Koordinatensysteme.
+
 Die Orientierungen werden durch lineare Interpolation fusioniert.
-Es muss darauf geachtet werden, dass eine Fusion nur dann stattfindet, wenn auch der Marker detektiert wurde.
+Es ist zu beachten, dass eine Fusion nur dann stattfindet, wenn auch der Marker detektiert wurde.
 Im anderen Fall wird nur die IMU-Orientierung als Ergebnis ausgegeben.
 Ein Gewichtungsfaktor für die Kameraorientierung von 5\% hat sich bei der Realisierung als praktikabel erwiesen.
+\todo[inline]{War das die extra langsame Variante für die Demo? Wenn ja, dann sollten wir hier vielleicht was größeres rein schreiben.}
 
 \begin{figure*}[tb]
  \centering
