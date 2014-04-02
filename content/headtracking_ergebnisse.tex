@@ -1,7 +1,7 @@
 
 \subsection{Ergebnisse}
 
-Die Kopf-Orientierung wird auf Basis verschiedener Sensordaten bestimmt.
+Die Kopforientierung wird auf Basis verschiedener Sensordaten bestimmt.
 Die aus unterschiedlichen Kombinationen der Sensoren berechneten Orientierungen stehen als Ausgabe zur Verfügung:
 \begin{itemize}
   \item Marker-Tracking
@@ -14,7 +14,7 @@ Durch Einsatz des \ac{ROS}-Frameworks und durchgängige Verwendung des Transform
 In der Visualisierung können die gewünschten Berechnungsergebnisse vom Benutzer ausgewählt werden, s. Abb. \ref{fig:kopf_orientierung_rviz}.
 
 
-Die Applikation konnte erfolgreich im unbewegten CoCar getestet werden.
+Die Applikation konnte erfolgreich im unbewegten \emph{CoCar} getestet werden.
 Tests im bewegten Fahrzeug sind noch durchzuführen.
 
 
@@ -32,20 +32,20 @@ Tests im bewegten Fahrzeug sind noch durchzuführen.
 
 Für Weiterentwicklungen des Systems bieten sich interessante Bereiche an:
 
-Das System ist derzeit beschränkt auf die Bestimmung der Kopf-Orientierung.
+Das System ist derzeit beschränkt auf die Bestimmung der Kopforientierung.
 Eine Erweiterung, sodass zusätzlich auch die Position des Kopfes geschätzt wird, ist sicherlich der interessanteste Ansatzpunkt.
 Dazu ist eine Integration der Orientierungsdaten über die Zeit nötig.
-Da von der in Abs. \ref{headtracking_markertracking_subsubsec} beschriebenen ALVAR-Bibliothek auch --bisher nicht verwendete-- Positionsinformationen geliefert werden, kann voraussichtlich die Stützung durch Kameradaten zu großen Teilen unverändert übernommen werden.
+Da von der in Abs. \ref{headtracking_markertracking_subsubsec} beschriebenen \alvar-Bibliothek auch --bisher nicht verwendete-- Positionsinformationen geliefert werden, kann voraussichtlich die Stützung durch Kameradaten zu großen Teilen unverändert übernommen werden.
 
-Außerdem bietet ALVAR eine Bundle-Funktionalität, die bisher noch nicht eingesetzt wird.
+Außerdem bietet \alvar \ eine Bundle-Funktionalität, die bisher noch nicht eingesetzt wird.
 Damit können im Innenraum des Autos weitere Marker angebracht werden, sodass bei nahezu beliebiger Blickrichtung des Fahrers immer ein Marker im Kamerabild zu erkennen ist.
 Die Korrektur der \ac{IMU}-Daten durch Kameradaten wäre damit nicht mehr auf eine Blickrichtung in Fahrtrichtung beschränkt.
 
 Möglich ist auch eine weitere Untersuchung des in Abs. \ref{headtracking_facetracking_subsubsec} beschriebenen Face-Trackings.
-Hier ist die Erstellung einer neuen Gesichts-Maske --mit \ac{AR}-Brille-- ein vielversprechender Ansatz.
+Hier ist die Erstellung einer neuen Gesichtsmaske --mit \ac{AR}-Brille-- ein vielversprechender Ansatz.
 \todo[inline]{Ist das so? Es gibt doch einige Argumente dagegen. -> siehe Antwort im sourcecode}
 % TR: Ich glaube schon, dass es ein Ansatz ist, den man nochmal tiefer angehen könnte. Angeblich funktioniert der bisherige Face-Tracker auch mit normalen Brillen; sprich mit Spiegelung kann er umgehen. Von daher ist der Hauptgrund, dass es bei uns nicht auf Anhieb geklappt hat, wahrscheinlich die falsche Maske. Oder würdest du/ihr das hier raus nehmen?
 
-Ein Ausbau der Hardware-Kompatibilität auf weitere Brillen-Modelle wie beispielsweise \emph{Google Glass, Oculus Rift} \oae erscheint ebenfalls interessant.
+Ein Ausbau der Hardware-Kompatibilität auf weitere Brillenmodelle wie beispielsweise \emph{Google Glass, Oculus Rift} \oae erscheint ebenfalls interessant.
 
 
