@@ -72,7 +72,7 @@ Abb.~\ref{fig:marker_in_vehicle_driver_view} zeigt den im Versuchsfahrzeug angeb
 \end{figure}
 
 Damit die berechnete Orientierung des Kopfes in Bezug zum Fahrzeug steht, muss der Marker im Fahrzeug kalibriert werden.
-Die Kalibrierungsdaten setzen sich aus Position und Orientierung des Markers --angegeben in Fahrzeugkoordinaten-- zusammen.
+Die Kalibrierungsdaten setzen sich aus Position und Orientierung des Markers, angegeben in Fahrzeugkoordinaten, zusammen.
 Für die Kalibrierung des Markers im Fahrzeug stehen drei Varianten zur Wahl:
 \begin{enumerate}
  \item Manuelle Ausmessung im Versuchsfahrzeug.
@@ -106,11 +106,11 @@ Während die IMU-Orientierung in Weltkoordinaten berechnet wird, ist die Kamerao
 Durch den stationären Marker im Fahrzeug lässt sich die Kameraorientierung dann in Fahrzeugkoordinaten umrechnen.
 Die Verbindung vom Fahrzeug- zum Weltkoordinatensytem ermöglicht die Transformation der Kameraorientierung in das für die Fusion genutzte Weltkoordinatensystem.
 
-Für die Umsetzung wurde das Transformationsframework von ROS verwendet~\cite{ros_tf}.
+Für die Umsetzung wurde das Transformationsframework von \ac{ROS} verwendet~\cite{ros_tf}.
 Dadurch ist es möglich, das Fusionsergebnis in einem beliebigen Koordinatensystem anzugeben. Abb.~\ref{fig:tf_tree} zeigt die in der Anwendung vorkommenden Koordinatensysteme.
 
 Die Orientierungen werden durch lineare Interpolation fusioniert.
-Es ist zu beachten, dass eine Fusion nur dann stattfindet, wenn auch der Marker detektiert wurde.
+Es ist zu beachten, dass eine Fusion nur dann stattfindet, wenn der Marker auch detektiert wurde.
 Im anderen Fall wird nur die IMU-Orientierung als Ergebnis ausgegeben.
 Ein Gewichtungsfaktor für die Kameraorientierung von 5\% hat sich bei der Realisierung als praktikabel erwiesen.
 \todo[inline]{War das die extra langsame Variante für die Demo? Wenn ja, dann sollten wir hier vielleicht was größeres rein schreiben.}
