@@ -4,16 +4,16 @@
 Ziel des Headtrackings ist es, die Kopforientierung des Fahrers --~auch bei bewegtem Fahrzeug~--
 %\todo{``fahrendem'' statt ``bewegendem''?}
 % -> ich würde bei bewegt bleiben: es ist ja denkbar, dass das Auto nicht selber "fährt", aber trotzdem "bewegt" wird, beispielsweise auf einer Fähre oder so
-sowohl relativ zum Fahrzeug als auch in Weltkoordinaten anzugeben. Unter Orientierung wird hier die Drehung entlang der X (\emph{Roll}), Y (\emph{Pitch}) und Z-Achse (\emph{Yaw}) verstanden:
+sowohl relativ zum Fahrzeug als auch in Weltkoordinaten anzugeben. Unter Orientierung wird hier die Drehung entlang der X- (\emph{Roll}), Y- (\emph{Pitch}) und Z-Achse (\emph{Yaw}) verstanden:
 \acs{RPY}.
 
 Dazu wird die Inertialsensorik der \ac{AR}-Brille, bestehend aus zwei Gyroskopen, Beschleunigungssensor und Magnetometer, ausgewertet (Abs. \ref{headtracking_imu_subsec}).
-Diese Daten werden mit einem geeigneten Filter-Algorithmus fusioniert (Abs. \ref{headtracking_fusion_subsec}).
+Diese Daten werden mit einem geeigneten Filter-Algorithmus fusioniert (Abs.~\ref{headtracking_fusion_subsec}).
 Die Kompensation der Eigenbewegung des Fahrzeugs wird in Abs. \ref{headtracking_marker_subsec} behandelt.
 
 \subsection{Inertialsensoren}
 \label{headtracking_imu_subsec}
-Im folgenden Absatz werden die verschiedenen Sensoren vorgestellt. Dabei sei angemerkt, dass die gemessenen Daten in einem sogenannten \textit{Sensorkoordinatensystem $TF_{sensor}$} erfasst werden. Dieses ist um etwa $15^\circ$ in der Z-Achse rotiert zum \textit{Brillenkoordinatensystem $TF_{glasses}$} welches seinen Ursprung in der Mitte des Brillenstegs hat. Dieses Koordinatensystem wurde so gewählt, dass es in etwa mit der Kameraposition der Brille übereinstimmt \footnote{Anbetracht der vorhanden Messungenauigkeiten wurden die Translationen zwischen Sensor und Brillensteg sowie Kamera und Brillensteg vernachlässigt, da sie keinen eklatanten Einfluss auf die Orientierung der Brille bzw. des Kopfes haben.}. In Abb. \ref{fig:tf_baum_sensorik}
+Im folgenden Absatz werden die verschiedenen Sensoren vorgestellt. Dabei sei angemerkt, dass die gemessenen Daten in einem sogenannten \textit{Sensorkoordinatensystem $TF_{sensor}$} erfasst werden. Dieses ist um etwa $15^\circ$ in der Z-Achse rotiert zum \textit{Brillenkoordinatensystem $TF_{glasses}$}, welches seinen Ursprung in der Mitte des Brillenstegs hat. Dieses Koordinatensystem wurde so gewählt, dass es in etwa mit der Kameraposition der Brille übereinstimmt \footnote{Anbetracht der vorhandenen Messungenauigkeiten wurden die Translationen zwischen Sensor und Brillensteg sowie Kamera und Brillensteg vernachlässigt, da sie keinen eklatanten Einfluss auf die Orientierung der Brille bzw. des Kopfes haben.}. In Abb. \ref{fig:tf_baum_sensorik}
 
 \todo[inline]{Ich bitte den Ersteller des TF-Baums sich dieser Grafik anzunehmen, der sieht sehr professionell aus, so was in abgespeckter Form brauchen wir hier auch, damit wir uns in den nachfolgenden Sections drauf beziehen können, bitte die Textreferenzen in \ref{headtracking_imu_subsec} dazu anpassen.}
 
@@ -21,7 +21,7 @@ Im folgenden Absatz werden die verschiedenen Sensoren vorgestellt. Dabei sei ang
 \label{headtracking_imu_gyro_subsubsec}
 
 Das in der Brille enthaltene Gyroskop misst Winkelgeschwindigkeiten in
-$\omega = [{Grad \over Sekunde}]$ bei Drehungen um die X, Y und Z-Achse. Durch
+$\omega = [{Grad \over Sekunde}]$ bei Drehungen um die X-, Y- und Z-Achse. Durch
 die Integration der Winkelgeschwindigkeiten über die Zeit kann die
 Orientierung der Brille bestimmt werden.  
 
@@ -36,7 +36,7 @@ Die Rohdaten des Sensors enthalten einen konstanten Versatz, so dass bei
 stationärer Brille eine Geschwindigkeit $\omega \neq 0$ gemessen wird. Dieser
 Versatz wird \emph{Bias} genannt, und muss in einem stationären
 Kalibriervorgang ermittelt werden. Während des Kalibriervorganges wird
-der Bias gemittelt, dieser wird nach Beendigung des Kalibriervorganges von den
+der Bias gemittelt \todo{Der Bias selbst wird nicht gemittelt. Er wird bestimmt durch den Mittelwert der während des Kalibriervorgangs anfallenden Daten.}, dieser wird nach Beendigung des Kalibriervorganges von den
 Rohdaten abgezogen. Abb. \ref{fig:gyro_bias} zeigt die Daten vor und nach der
 Bias-Korrektur.
 
@@ -95,8 +95,10 @@ zurückgeliefert.
     \end{array}\right. \\
 \end{equation}
 
+\todo{Die Unterscheidung deckt nicht alle Fälle ab. Was ist mit dem größer-Fall?}
+
 Aus den gefilterten Sensordaten wird daraufhin durch Integration über
-die Zeit die Orientierung berechnet. Hierzu wird die Orientierung in einem Quaternion gespeichert, welches nach jeder Sensor-Abtastung aktualisiert wird. Hierbei ist $dt$ die Abtastrate der Gyroskop-Sensoren, welche 100Hz beträgt.
+die Zeit die Orientierung berechnet. Hierzu wird die Orientierung in einem Quaternion gespeichert, welches nach jeder Sensorabtastung aktualisiert wird. Hierbei ist $dt$ die Abtastrate der Gyroskop-Sensoren, welche 100Hz beträgt.
 
 \begin{equation}
     \Delta q = quaternion({\omega_x \over dt}, {\omega_y \over dt}, {\omega_z \over dt}) \\
@@ -115,7 +117,7 @@ Die durch das Gyroskop berechnete Orientierung reagiert schnell auf
 \subsubsection{Beschleunigungssensor}
 
 
-Der Beschleunigungssensor misst die Beschleunigung entlang der X, Y und Z-Achse, im Folgenden als $acc_x$, $acc_y$ und $acc_z$ bezeichnet.
+Der Beschleunigungssensor misst die Beschleunigung entlang der X-, Y- und Z-Achse, im Folgenden als $acc_x$, $acc_y$ und $acc_z$ bezeichnet.
 Anhand dieses Beschleunigungsvektors kann die Orientierung der Brille bezüglich der horizontalen Ebene bestimmt werden.
 
 Zur Verwendung des Beschleunigungssensors wird zunächst wie auch beim
@@ -137,7 +139,7 @@ Die Orientierung in Roll und Pitch kann direkt aus den Winkeln des Gravitationsv
     pitch = -atan2(acc_x, \sqrt{ {acc_y}^2 + {acc_z}^2 })
 \end{equation}
 
-Die so bestimmten Roll und Pitch Werte sind frei von Drift, und können als Stützwerte für die aus den Gyroskopdaten berechneten Orientierungswerte verwendet werden.
+Die so bestimmten Roll- und Pitch-Werte sind frei von Drift, und können als Stützwerte für die aus den Gyroskopdaten berechneten Orientierungswerte verwendet werden.
 Jedoch ist zu beachten, dass der Beschleunigungssensor nicht zuverlässig zur Berechnung des Yaw-Winkels verwendet werden kann.
 Dies liegt darin begründet, dass sich die Sensordaten des Beschleunigungssensors nicht ändern, wenn sich der Sensor parallel zur Erdoberfläche befindet und um den Yaw-Winkel gedreht wird.
 
@@ -173,7 +175,7 @@ Zum anderen entstehen aber Messungenauigkeiten, die im Rahmen der Sensorkalibrie
 
 Gemessen werden die Magnetfeldlinien der Erde, welche in Abb. \ref{fig:mag_world} dargestellt sind.
 Diese sind abhängig von der aktuellen Position auf der Erdoberfläche\footnote{Tatsächlich verändert sich das Erdmagnetfeld auch über die Zeit hinweg.
-Diese Änderung kann aber im Rahmen des Praktikums vernachlässigt werden, da es sich um eine sehr kleine Änderung handelt (z. Bsp. für den Praktikumsort Karlsruhe ca. $1^\circ 46$'~$7.8$ arcmin/Jahr im Deklinationswinkel).}.
+Diese Änderung kann aber im Rahmen des Praktikums vernachlässigt werden, da es sich um eine sehr kleine Änderung handelt (\zB für den Praktikumsort Karlsruhe ca. $1^\circ 46$'~$7.8$ arcmin/Jahr im Deklinationswinkel).}.
 Sobald das Erdmagnetfeld nicht am Äquator gemessen wird, sondern im Falle des Praktikums bei etwa $49^\circ$ geographischer Breite, muss der Inklinationswinkel\footnote{Bezeichnet den Neigungswinkel des örtlichen Erdmagnetfeldes zur Horizontalen.} bei der Messung mit beachtet werden.
 Dieser wird in Abb. \ref{fig:mag_mapping} mit I beschrieben.
 Die Abbildung auf die XY-Ebene wird durch folgende Formel bewerkstelligt:
@@ -182,12 +184,12 @@ Die Abbildung auf die XY-Ebene wird durch folgende Formel bewerkstelligt:
     \varphi = atan2(h_y,h_x)
 \end{equation}
 
-Dabei sind $h_x$ und $h_y$ die Anteile des Magnetfeldvektors $H_{Earth}$ in X- sowie Y- Richtung.
+Dabei sind $h_x$ und $h_y$ die Anteile des Magnetfeldvektors $H_{Earth}$ in X- sowie Y-Richtung.
 
 Der gemessene 3D-Magnetfeldvektor ist zunächst unkalibriert und einheitenlos.
 Daher ist zuerst eine Kalibrierung der gemessenen Werte notwendig, um sie weiterverarbeiten zu können.
-Diese Kalibrierung hat zum Ziel, einen Kanal-spezifischen Bias auszugleichen. 
-Dieser entsteht durch die bereits angesprochenen Messungenauigkeiten des Sensors sowie durch sogenannte \textit{Hard Iron}-Störeffekte, welche durch eigenständige Magnetquellen induziert werden.
+Diese Kalibrierung hat zum Ziel, einen kanalspezifischen Bias auszugleichen. 
+Dieser entsteht durch die bereits angesprochenen Messungenauigkeiten des Sensors sowie durch sogenannte \textit{Hard Iron} Störeffekte, welche durch eigenständige Magnetquellen induziert werden.
 Beispiele für diese Störeffekte sowie die letztlich kalibrierten Daten sind in Abb. \ref{fig:mag_kugel_plots} als Kugelplots dargestellt.
 
 \begin{figure}[ht]
@@ -217,7 +219,7 @@ Die Anwendung der Kalibrierung und Normierung wird durch nachfolgende Formel bew
 Dabei bezeichnet $m_{norm}$ einen normierten Magnetfeldvektorkanal, $m_{raw}$ die Rohdaten des jeweiligen Kanals und $m_{\lbrace max, min\rbrace}$ den gemessenen Maximal- bzw. Minimalwert.
 
 Ursprünglich war die Verwendung des Magentometers zur Stützung des Yaw-Winkels fraglich, da der Einsatz im Versuchsträger \emph{CoCar} viele magnetische Störquellen in Form der vorhandenen Boardtechnik vermuten lies. 
-Allerdings konnten durch mehrere Testläufe im Fahrzeug keine größeren Störeffekte gemessen werden. Trotz allem muss eine Kalibrierung in einem möglichst störfreien Umfeld durchgeführt werden, da durch Störquellen (wie bspw. ein Dauermagnet, eine Tastatur, \oae) die Messdaten wie in Abb. \ref{fig:uncalibrated_error} zu erkennen wesentlich beeinflusst werden. In der Abb. sind unkalibriete Messdaten dargestellt (Kreise liegen nicht über einander). Die Störungen sind dadurch zu erkennen, dass sie außerhalb der Kreise der einzelnen Kanäle liegen.
+Allerdings konnten durch mehrere Testläufe im Fahrzeug keine größeren Störeffekte gemessen werden. Trotz allem muss eine Kalibrierung in einem möglichst störfreien Umfeld durchgeführt werden, da durch Störquellen (wie bspw. ein Dauermagnet, eine Tastatur, \oae) die Messdaten wie in Abb. \ref{fig:uncalibrated_error} zu erkennen wesentlich beeinflusst werden. In Abb.~\ref{fig:uncalibrated_error} sind unkalibriete Messdaten dargestellt (Kreise liegen nicht über einander). Die Störungen sind dadurch zu erkennen, dass sie außerhalb der Kreise der einzelnen Kanäle liegen.
 
 \begin{figure}[ht]
 	\centering
@@ -227,5 +229,6 @@ Allerdings konnten durch mehrere Testläufe im Fahrzeug keine größeren Störef
 \end{figure}
 
 Um die Magnetometerdaten letztlich zur Stützung des Yaw-Winkels zu nutzen, werden die Daten zuerst in das Weltkoordinatensystem transformiert.
+\todo{Es geht nicht hervor welche Daten hier gemeint sind: Nur Mag oder auch Gyro, Acc? Hat das auch wieder mit der 15-Grad-Verdrehung zu tun? Haben die Implementierung leider grad nicht hier zum Nachschauen ;)}
 Danach wird das vorhandene Rotationsquaternion $q_{gyro,acc}$ mit $q_{mag}$ (Magnetometer-Quaternion) interpoliert.
-Das genaue Verfahren wird im nachfolgenden Abs. \ref{headtracking_fusion_subsec} vorgestellt.
+Das genaue Verfahren wird im nachfolgenden Abs.~\ref{headtracking_fusion_subsec} vorgestellt.
