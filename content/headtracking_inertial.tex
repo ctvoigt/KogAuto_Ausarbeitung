@@ -118,8 +118,16 @@ Die durch das Gyroskop berechnete Orientierung reagiert schnell auf
 \subsubsection{Beschleunigungssensor}
 
 
-Der Beschleunigungssensor misst die Beschleunigung entlang der X-, Y- und Z-Achse, im Folgenden als $acc_x$, $acc_y$ und $acc_z$ bezeichnet.
-Anhand dieses Beschleunigungsvektors kann die Orientierung der Brille bezüglich der horizontalen Ebene bestimmt werden.
+Der Beschleunigungssensor misst die Beschleunigung entlang der X-, Y-
+und Z-Achse, im Folgenden als $acc_x$, $acc_y$ und $acc_z$ bezeichnet.
+Bei stationärer Brille wird lediglich die Erdbeschleunigung $\vec g$
+gemessen, somit kann aus dem Beschleunigungsvektor die Orientierung der
+Brille bezüglich der horizontalen Ebene bestimmt werden. Zu beachten
+ist hierbei, dass durch eine Bewegung der Brille eine zusätzliche
+Beschleunigung gemessen wird, welche die berechnete Orientierung
+verfälscht. Dieser Fehler ist jedoch vernachlässigbar, da die berechnete
+Orientierung lediglich zur Langzeitkorrektur verwendet wird.
+
 
 Zur Verwendung des Beschleunigungssensors wird zunächst wie auch beim
 Gyroskop ein Tiefpassfilter angewendet, um das Rauschen der Rohdaten zu
