@@ -33,12 +33,13 @@ hat einen größeren Wertebereich, jedoch die geringere
 Genauigkeit.
 
 Die Rohdaten des Sensors enthalten einen konstanten Versatz, so dass bei
-stationärer Brille eine Geschwindigkeit $\omega \neq 0$ gemessen wird. Dieser
-Versatz wird \emph{Bias} genannt, und muss in einem stationären
-Kalibriervorgang ermittelt werden. Während des Kalibriervorganges wird
-der Bias gemittelt \todo{Der Bias selbst wird nicht gemittelt. Er wird bestimmt durch den Mittelwert der während des Kalibriervorgangs anfallenden Daten.}, dieser wird nach Beendigung des Kalibriervorganges von den
-Rohdaten abgezogen. Abb. \ref{fig:gyro_bias} zeigt die Daten vor und nach der
-Bias-Korrektur.
+stationärer Brille eine Geschwindigkeit $\omega \neq 0$ gemessen wird.
+Dieser Versatz wird \emph{Bias} bezeichnet, und muss in einem
+stationären Kalibriervorgang ermittelt werden. Dazu werden die
+Sensordaten über einen kurzen Zeitraum bei unbewegter Brille erfasst und
+über die Zeit gemittelt. Der so ermittelte Wert wird von den
+Sensor-Rohdaten subtrahiert. Abb. \ref{fig:gyro_bias} zeigt die Daten vor
+und nach der Bias-Korrektur.
 
 \begin{figure}[h]
    \centering
