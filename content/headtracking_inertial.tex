@@ -96,7 +96,7 @@ zurückgeliefert.
     \end{array}\right. \\
 \end{equation}
 
-\todo{Die Unterscheidung deckt nicht alle Fälle ab. Was ist mit dem größer-Fall?}
+\todo[inline]{Die Unterscheidung deckt nicht alle Fälle ab. Was ist mit dem größer-Fall?}
 
 Aus den gefilterten Sensordaten wird daraufhin durch Integration über
 die Zeit die Orientierung berechnet. Hierzu wird die Orientierung in einem Quaternion gespeichert, welches nach jeder Sensorabtastung aktualisiert wird. Hierbei ist $dt$ die Abtastrate der Gyroskop-Sensoren, welche 100Hz beträgt.
@@ -176,11 +176,9 @@ Zum anderen entstehen aber Messungenauigkeiten, die im Rahmen der Sensorkalibrie
 \begin{figure}[h]
    \centering
    \includegraphics[width=0.4\textwidth]{magnetometer-yaw-calculation}
-   \caption[mag_mapping]{Berechungsgrundlage des Magnetfeldvektors}
+   \caption[mag_mapping]{Berechungsgrundlage des Magnetfeldvektors\cite{wang2006intelligent}}
    \label{fig:mag_mapping}
 \end{figure}
-%\todo[inline]{cite Inklinationswinkel?}
-%DHA: Beschreibung siehe Footnote unten
 
 Gemessen werden die Magnetfeldlinien der Erde, welche in Abb. \ref{fig:mag_world} dargestellt sind.
 Diese sind abhängig von der aktuellen Position auf der Erdoberfläche\footnote{Tatsächlich verändert sich das Erdmagnetfeld auch über die Zeit hinweg.
