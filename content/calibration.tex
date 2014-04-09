@@ -72,12 +72,13 @@ Um auf den Referenzpunkt zu gelangen, gibt es eine triviale Addtion, um den stat
 \subsection{Stereoskopisches 3D}
 
 \subsubsection{Allgemeine Information}
-Es existieren mehrere Gründe des menschliches Raumwahrnehmung.
-Menschen sehen die Objekte dreidimensional wegen der Linearperspektive, relativer Größe zur anderen Objekte, Verdeckung der Objekten und wegen stereoskopisches Sehen. 
+Es existieren mehrere Gründe der menschlichen Raumwahrnehmung.
+Menschen sehen die Objekte dreidimensional wegen der Linearperspektive, relativer Größe zur anderen Objekte, Verdeckung der Objekte und wegen des stereoskopischen Sehens. 
 Stereoskopisches Sehen vermittelt durch die beidäugige Betrachtung von Objekten und Gegenständen eine echte, messbare Tiefenwahrnehmung und räumliche Wirkung des Außenraums. 
-Das passiert mit der Hilfe beider unseren Augen.
-Jede Auge bekommt ein eigenes Bild und sendet das ins Gehirn. 
+Das passiert mit der Hilfe unserer beiden Augen.
+Jedes Auge bekommt ein eigenes Bild und sendet das ins Gehirn. 
 Dort werden diese beide Bilder zu eine einzige zusammengefasst.
+
 Genauere Beschreibung ist im Abb. \ref{fig:3D} zu finden.
 
 \begin{figure}[h]
@@ -89,16 +90,13 @@ Genauere Beschreibung ist im Abb. \ref{fig:3D} zu finden.
 
 Die Bilder des linken und rechten Auges sich an manchen Stellen unterscheiden und menschliches Gehirn kann aus dieser Unterschiede die Positionen, Formen und Großen der Objekte extrahieren.
 
-Damit ein Bild dreidimensional aussieht, ist meistens genug mit ungefähren Werten zu arbeiten.
-Man nimmt zwei unterschiedliche Bilder, die anhand der mittlere Werte ausgerechnet werden, und zeigt jeder Auge eine davon. 
+Damit ein Bild dreidimensional aussieht, ist meistens genug mit approximierten Werten zu arbeiten.
+Man nimmt zwei unterschiedliche Bilder, die anhand der mittleren Werte ausgerechnet werden, und zeigt jedem Auge eine davon. 
 Damit bekommt man ein 3D-Bild. 
-Für manche Anwendungen (wie 3D-Filme, oder sterioskopische Bilder) ist schon genug,  dass ein Bild als 3D interpretiert wird. 
+Für manche Anwendungen (wie 3D-Filme, oder stereoskopische Bilder) ist schon genug,  dass ein Bild als 3D interpretiert wird. 
 Für uns aber nicht, da mit so eine Realisation unterschiedliche Menschen sehen dasselbe Bild unterschiedlich.
-Alle Menschen werden diese Bilder als 3D interpretieren, aber die Position und Größe der gesehenen Objekte kann sich stark unterscheiden.
-Für die Anwendungen, wie Testen des autonomes Fahrens des Fahrzeugs, sind aber diese Werte entscheidend.
-Es ist sehr wichtig, ob ein anderes Fahrzeug schon getroffen ist, oder nicht.
-Um die benötigte Genauigkeit zu realisieren, sind gemittelte Werte nicht genug.
-Eine individuelle Kalibrierung der Brille soll diese Genauigkeit ermöglichen.
+Alle Menschen werden diese Bilder als 3D interpretieren, aber die Position und Größe der gesichteten Objekte können sich stark unterscheiden. Für kritische Anwendung im Fahrzeug, beispielsweise das Anzeigen der Passanten in der realitätserweiternden Sicht mithilfe der Brille, ist dies jedoch entscheidend. Aus dem Grund ist eine individuelle Kalibrierung vorzunehmen.
+
 
 \subsubsection{Geometrische Beschreibung der Kalibrierung}
 Dieses Kapitel beschreibt wofür die Kalibrierung durchgeführt wird und welche Daten dafür benötigt werden.
@@ -118,12 +116,63 @@ Blaue Linien ml und mr sind Winkelhalbierenden.
 
 Für die Anzeige der Bilder auf der Brillenbildschirme, werden Augen als Kameras interpretiert und damit werden benötigte Bilder erstellt.
 Dementsprechend sind die Winkeln wal und war die Öffnungswinkel dieser Kameras.
-Wie auf dieser Abb. ref{fig:geom} gut zu sehen ist, müssen die Augepositionen nicht unbedingt in der mitte des Bildschirms liegen.
+Wie auf dieser Abb. ref{fig:geom} gut zu sehen ist, müssen die Augenpositionen nicht unbedingt in der Mitte des Bildschirms liegen.
 In meisten Anwendungen, die Kameras simulieren, ist aber vorausgesetzt, dass die Kameras in der Mitte sind.
-Das ist das selbe, wie Winkelhalbierende der Öffnungswinkel senkrecht zur Bildschirm ist.
-Wir nehmen an, dass dafür benötigte Drehwinkel gl bzw. gr spielt keine entscheidende Rolle in der Bildanzeige.
-Mit dieser Annahme rechnen wir die Winkeln gl und gr aus  um die Virtuelle Bildschirme theoretisch zu drehen.
+Das ist dasselbe, wie dass der Winkelhalbierende der Öffnungswinkel senkrecht zur Bildschirm ist.
+Wir nehmen an, dass dafür benötigte Drehwinkel gl bzw. gr keine entscheidende Rolle in der Bildanzeige spielt.
+Mit dieser Annahme rechnen wir die Winkeln gl und gr aus  um die virtuelle Kameras theoretisch zu drehen.
 Das wird benötigt um passende Daten für die Benutzung anderer Anwendungen zu bekommen.
 
+\subsection{Augensimulierung mithilfe der virtuellen Rviz-Kameras }
+Für die technische Realisierung des Stereoskopischen 3D werden alle erkannten Objekte in die virtuelle Welt auf korrespondierende Positionen übertragen. Zusätzlich dazu werden 2 Kameras in der virtuellen Welt definiert, die permanent Sichtbilder auf die virtuellen Objekte ermöglichen. Allerdings reicht eine einfache Augensimulation aufgrund der technischen Voraussetzungen nicht aus. Denn die realen Display ist sind nur ein kleiner integrierter Teil der Brillen und unterscheidet hinsichtlich der Brennweite und des Öffnungs- und Drehwinkels erheblich von den Standardeinstellungen einer virtuellen Kamera ab. Aus diesem Grund sind an den virtuellen Kameras Konfigurationen und Änderungen notwendig, die nun im Weiteren erläutert werden soll. 
+
+
+\subsubsection{Einstellung des Öffnungswinkels der virtuellen Kameras}
+
+Je nach anatomischen Aufbau des Gesichts hinsichtlich  der Nasenform und der Augenpositionen des menschlichen Nutzers, variiert der tatsächliche Öffnungswinkel, der aufgrund des Abstandes vom Auge zur Brille entsteht. Im Rahmen des Praktikums wurden mithilfe eines eigenständigen Versuches Augenpositionen relativ zur Kamera gemessen. Da die Lage der Brillendisplays zur Kamera als konstant angenommen wird, ist der Abstand zwischen Auge und Brillendisplays nun bestimmbar.
+
+Da der Öffnungswinkel der virtuellen Kameras nicht direkt manipuliert werden kann, wird ein alternativer Weg verwendet. Dabei wurde die virtuelle Kamera mithilfe der intrinsischen Parameter verändert. Zum einen entspricht die Brennweite f der virtuellen Kamera dem Abstand der Augen zum Display, zum anderen bilden die Größen der Brillendisplays die Grundlage für die Berechnung der Auflösung der virtuellen Kameras. Konkrete Berechnung findet sich in der Projektionsmatrix in \ref{table:instrisische Kameraparameter} wieder. $f_x$ und $f_y$ beschreiben die fokalen Längen in Pixel (d.h. Abstand*px/m), $c_x$ und $c_y$ beschreiben den "Principle Point" der Kamera, welche sich aus der Auflösung (1280x 760 für die Vuzix-Brille ) ergibt. 
+
+%
+
+\begin{equation}
+\begin{pmatrix}
+f_x & 0& 0& c_x \\
+0 & f_y & 0 & c_y\\ 
+0 & 0&   1 &  0  
+\end{pmatrix}
+\label{table:instrisische Kameraparameter}
+\end{equation}
+
+Die Displaygrößen variieren je nach Abstand Auge-Display. Die gemessenen Werte befinden sich mit obengenannten Größen in \ref{table:Messwerte DisplayAuge}.
+%
+ \begin{table}[ht]
+
+ \begin{tabular}{lc} 
+  Beschreibung & Wert \\ \\
+  Displaypixelbreite & 2.0403 cm/px \\
+  Displaypixellänge &  1.9537 cm/px \\
+ \end{tabular}
+ \caption{Gemessene Größen für eine Versuchsperson}
+ \label{table:Messwerte DisplayAuge}
+ \end{table}
+
+
+
+%
+Mit der kalibrierten Brennweite und dem Blickwinkel der virtuellen Kameras können nun Objekte in der richtigen Größen angezeigt werden, wie sie von den Augen wahrgenommen werden sollen. Allerdings weicht die wahrgenommene Position der Objekte von der realen Position noch stark ab. 
+
+\subsubsection{Drehwinkeleinstellung}
+3-D-Sehen wird erst ermöglicht, wenn für beide Augen ein entsprechender Drehwinkel (d.h. Drehung in der horizontalen Ebene) eigestellt werden. Dies wurde im \ref{subsection: Stereoskopisches 3D} erläutert.  Entsprechende Drehwinkeln für das linke Auge $gl$ und für das rechte $gr$ werden dabei jeweils für die korrespondierende, virtuelle Kamera verwendet
+Es ist dabei eine wichtige Annahme zu berücksichtigen. Im Verhältnis zum Brillendisplay liegen die Augen hinsichtlich der Höhe in der Mitte. Dies bedeutet dass eine Betrachtung der Drehung des Winkels in der vertikalen Ebene ebenfalls notwendig ist. Dies ist in realen Anwendungen nicht zu vernachlässigen und darf auch deshalb in späteren Entwicklungen nicht außer Acht gelassen werden.
+
+Mithilfe obiger Konfigurationen lassen sie sowohl erkannte reale Objekte als auch virtuelle Objekte anzeigen.  Ein Beispiel dafür findet sich in Abbildung \ref{fig:Virtuelle Quadrate aus Prezi}
+
+\begin{figure}[h]
+   \centering
+   \includegraphics[width=0.45\textwidth]{3d.png}
+   \caption{Virtuelle Objekte für das linke und das rechte Auge}
+   \label{fig:Virtuelle Quadrate aus Prezi}
+\end{figure}
 
 
