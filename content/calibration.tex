@@ -54,17 +54,14 @@ Die Position des Bildschrimes wurd aus empirischen Ergebnissen gewonnen. Hierzu 
  \end{tabular}
  \label{tab:konstanteWerte}
  \end{table}
-    
-    Pixelgröße (links und rechts):      
-    Größe des virtuellen Bildschirms (links und rechts):      1
-    Position des Bildschirms (links):
-    Position des Bildschirms (rechts):
-        
+            
 Durch diese Ausmessungen konnte die  Transformation eines Koordinatenpunktes u,v in Weltkoordinaten auf zwei einfache Transformationen vereinfacht werden
 
-    1. Statische Transformation: Translation vom Oberen linken virtuellen Bildschirmpixel zum Ursprung
+   \begin{enumerate}
+      \item Statische Transformation: Translation vom Oberen linken virtuellen Bildschirmpixel zum Ursprung
+      \item Dynamische Transformation: Translation um u,v Pixel nach obiger Vermessung umgerechnet in Meter
+   \end{enumerate}
 
-    2. Dynamische Transformation: Translation um u,v Pixel nach obiger Vermessung umgerechnet in Meter
 
 In der Implementierung wurde noch folgende Vereinfachung festgestellt: Da die virtuellen bildschirme immer eine parallele Ebene zur x,y-Achsen-Ebene aufstellen, kann die transformation durch eine einfache Addition durchgeführt werden
 
