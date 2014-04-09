@@ -75,9 +75,10 @@ Die Transformation von einem Bildschirmpixel in das Weltkoordinatensystem stellt
     Größe eines Markern in Pixeln/CM:
 Das Konkrete Vorgehen beschreibt sich bezüglich der Transformation folgendermaßen:
 
-    1. Dynamische Transformation:  Translation  um u,v der auf der Fensterfläche angeklickt wurde auf den Referenzpunkt der Anwendung (konkret, dem Mittelpunkt des obigen linken Markers) 
-
-    2. Dynamische Transformation: Translation um die von ALVAR bestimmte entfernung
+   \begin{enumerate}
+      \item Dynamische Transformation:  Translation  um u,v der auf der Fensterfläche angeklickt wurde auf den Referenzpunkt der Anwendung (konkret, dem Mittelpunkt des obigen linken Markers) 
+      \item Dynamische Transformation: Translation um die von ALVAR bestimmte Entfernung
+   \end{enumerate}
 
 Um auf den Referenzpunkt zu gelangen, gibt es eine triviale Addtion, um den statischen Offset der Anzeigelemente und der centrierten ALVAR position zu kompensieren. Um nun die Translation um einen u,v Pixel zu realisiren, wird eine Ebene durch die drei marker gelegt und daruf die Verschiebung durchgeführt. Im Anschlass kann die Rücktransformation zum Koordinatenursprung geschehen.
 
