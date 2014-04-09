@@ -25,6 +25,50 @@ Ein Fensteranwendung implementiert mit Qt zeigt die für die Bildverarbeitung n�
 Screenshot!
 
 
+\subsection{Koordinatentransformation
+\subsubsection{Übersicht}
+Die Koordinatentransformationen sind nötig, um aus den Punktepaaren (wie in Kap. ?? beschrieben) , Koordinaten im 3D Weltkoordinatensystem zu erhalten. Nur aus Punkten in einem einheitlichen Koordinatensystem können später korrekte Gerade berechnet werden.
+Die Eingaben für das Verfahren erhält die Anwendung aus ROS-Paketen, siehe hierzu in Kapitel ??.
+\subsubsection{Weltkoordinatensystem}
+Das Weltkoordinatensystem für die Transformation hat seinen Ursprung in der Camera, gerichtet in Scihtrichtung mit der Knvention angelehnt an Kamerasysteme: x nach rechts  ,y nach unten, z nach vorne.
+\subsubsection{Transformation für Brillenpunkte}
+Das ausgewählte Koordinatensystem macht es einfach die Transformation von einem Brillenpixel in das Weltkoordnitensystem abzubilden. Es handelt sich um eine statische Transformation, da die Camera fest mit der Brille verschraubt ist. Die Herausforderung besteht darin, den virtuellen Bildschirm der Brille abzubilden. In den einzelnen Brillengläsern befindet sich Optik (Lines und ein Spiegel), mit denen dem Brillenträger ein großer Bildschirm Simuliert wird. Da es für uns jedoch nicht möglich war, festzustellen, ob für jeden Brillenträger die Anzeige gleich war, haben wir folgenden Verfahren angewendet: Wir haben den virtuellen Bildschirm, projeziert per strahlensatz, auf einen weiteren virtuellen Bildschirm genau im Mittelpunkt der Brille festgelegt. Dieser Bildschirm ist unabhängig vom Benutzer, da zu Vermessung dieses Bildschirmes der Abstand zum virtuellen Bildschirm keine Rolle spielt.
+Die Wahl des virtuellen Bildschirms genau in der Brillenmitte hat ebenfalls den Vorteil, dass die gewonnenen Daten später auch für die Berechnung des Öffnungswinkels verwendet werden können, da diese identisch mit den physikalischen Brillengläsern sind.
+Die Position des Bildschrimes wurd aus empirischen Ergebnissen gewonnen. Hierzu haben wir die Brille wagerecht zu einer Wand festgeschraubt und Punktepaare zu einem von Hand vermessenen Auge aufgenommen. Hierzu haben wir Punktekoordinaten auf dem Bildschirm zu konstanten Punkten auf der waagerecht zur Brille montierten Referenzwand (mit Punkten) vermessen. Die Brille wurde in die für den jeweiligen Probanden korrekte Position gebracht, so dass es genau für einen Öffnungswinkel die Referenzwand füllend im Bild sehen kann. Anschließend wird der Abstand zur Wand vermessen. Aus dem Abstand zur Wand und den Vermessenen Punkten auf der Wand, konnte mit Hilfe der gemessenen Pixel auf der Brille, die größe eines Pixel auf unserem virtuellen Bildschirm innerhalb der Brille erechnet werden. Der Abstand auf dem referenzbildschirm war für jeden Probanden gleich, die angeklickte Position war ebenfalls gleich, jedoch der Abstand zur Wand leicht verschieden, da verschiedene Probanden einen leicht Abweichenden Sichtöffnungswinkel hatten, da die Augen je nach physiologischen Eigenschaften verschieden weit hinter der Brille sich befinden. Hierdurch war es uns möglich eine Fehlerrechnung über alle Daten durchzuführen, da wir 15 Punkteppare hatten. Hierdurch kamen wir zu relativ genauen Ergebnissen des Brillenbildschirms:
+    
+    Statisch ermittelte Werte:
+    Pixelgröße (links und rechts):      2.5219887302047E-02 cm/px 
+    Größe des virtuellen Bildschirms (links und rechts):      1
+    Position des Bildschirms (links):
+    Position des Bildschirms (rechts):
+        
+Durch diese Ausmessungen konnte die  Transformation eines Koordinatenpunktes u,v in Weltkoordinaten auf zwei einfache Transformationen vereinfacht werden
+
+    1. Statische Transformation: Translation vom Oberen linken virtuellen Bildschirmpixel zum Ursprung
+
+    2. Dynamische Transformation: Translation um u,v Pixel nach obiger Vermessung umgerechnet in Meter
+
+In der Implementierung wurde noch folgende Vereinfachung festgestellt: Da die virtuellen bildschirme immer eine parallele Ebene zur x,y-Achsen-Ebene aufstellen, kann die transformation durch eine einfache Addition durchgeführt werden
+
+    Listing einfügen.
+
+\subsubsection{Transformationen für Bildschirmpunkte}
+Die Transformation von einem Bildschirmpixel in das Weltkoordinatensystem stellt andere Herausforderungen. Der Bildschirm kann als eine physikalische Gröse angesehen werden und vermessen werden. Es liegen konstante DPI-Werte vor, es kann also ebenfalls eine statische Transformation von einem Referenzpunkt auf dem Bildschirm zum angeziegten Punkt geschehen. Hierzu ist lediglich eine Transformation nötig, die die DPI-Werte des Bildschirms berücksichtigt und durchführt. Der Referenzpunkt des Bildschirms haben wir innerhalb unserer Anwendung (sihe Kapitel ??) gewählt, da dieser somit invariant gegen verschiebungen bleibt. Bei diesem Vorgehen besteht jedoch die größte Herausforderung darin, dass die Position des Bildschirmes benötigt wird. Heirzu wird die Camera mit Bildverarbeitung eingesetzt. Der erste Ansatz war es, openCV mit einem Schachbrett zur Erkennung zu verwenden. Da sich während der Implementierung herausgestellt hat, dass einiger Code, der beim Einsatz von openCV nötig ist, durch die Bibiolothek ALVAR, die sich ebenfalls noch wesentlich einfacher in ROS integrieren lässt abnimmt, wurde die Strategie geändert. Drei ALVAR Marker werden nun mittels der Webcam erkannt und zur Entfernungsbestimmung vermittelt. Hiermit sind nun beide Transformatione auch für die Berechnung der Position vorhanden. Dieser Ansatz bietet den Nachteil, dass ALVAR eine gewisse ungenauigkeit und eine gewisse Verzögerung mit sich bringt, wodurch die Benutzbarkeit erschwert wird. Ein längerfristiges Ziel sollte es also sein, die Integration des Headtrackingalgorithmuses auch in die Kalibrieung einzufügen.
+    Statisch ermittelte Werte:
+    Pixelgröße:
+    Größe eines Markern in Pixeln/CM:
+Das Konkrete Vorgehen beschreibt sich bezüglich der Transformation folgendermaßen:
+
+    1. Dynamische Transformation:  Translation  um u,v der auf der Fensterfläche angeklickt wurde auf den Referenzpunkt der Anwendung (konkret, dem Mittelpunkt des obigen linken Markers) 
+
+    2. Dynamische Transformation: Translation um die von ALVAR bestimmte entfernung
+
+Um auf den Referenzpunkt zu gelangen, gibt es eine triviale Addtion, um den statischen Offset der Anzeigelemente und der centrierten ALVAR position zu kompensieren. Um nun die Translation um einen u,v Pixel zu realisiren, wird eine Ebene durch die drei marker gelegt und daruf die Verschiebung durchgeführt. Im Anschlass kann die Rücktransformation zum Koordinatenursprung geschehen.
+
+    Listing einfügen
+
+
+
 \subsection{Stereoskopisches 3D}
 
 \subsubsection{Allgemeine Information}
