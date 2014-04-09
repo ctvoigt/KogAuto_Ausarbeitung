@@ -2,6 +2,18 @@
 
 Wie kalibriert man eine Durchsichtbrille in einem Auto?
 
+\section{Workflow}
+    Um eine 3D-Durchsichtbrille so zu kalibrieren, dass auf dieser reale und authentisch wirkende 3D Welten angezeigt werden können, muss präzise kalibriert sein. Wichtig ist dies nur für die prezise Simulation einer AR-Welt. Dies wird wichtig um die Durchsichtbrille für diverse Dinge im UUmfang der kognitiven Automibile zu verwenden. Hierzuu gehören Anwendungen, bei den z.B. Fußgänger SImuliert werden um menschliche Fahrerinteraktionen zu messen und als Lerndaten zu aquireren. Eine weitere Anwendung wäre die SImulation von simulierten Daten des Fahrzeuges für den Fahrer, damit dieser in einer Simulierten Welt beurteilen kann, wie gut das kognitive Automobil sich einer Sitziuation, z.B. dem Einparken verhält. Ebenfalls wird es möglich, mit einer Kalibrierten Brille simulierte neue Bedienelemente eines Autos zu testen und deren Wirkung auf den Fahrer auszuprobieren.
+
+    Hierzu werden die Parameter benötigt, mit denen die Bilder für ein solch akkurates stereoscopic 3D benötigt werden. Zu diesen Parametern zählt die Position der Augen, die Position der Bildschirme in den Brillengläßern und die Öffnungswinkel, mit denen ein einzelnen Individuum durch eine spezifische Brille sehen kann.
+
+    Um diese Parameter zu Bestimmen haben wir uns auf ein interaktives Kalibrierungsverfahren geeinigt, da es wichtig ist, dass die Kalibrierung komfortabel und ohene große Hilfestellung von statten geht, da es für jeden Benutzter nötig ist, die Brille individuell zu kalibrieren. Das Minimum an benötigten Punkten um die Position eines Auges zu bestimmen sind zwei Geraden, also zwei Punkte auf einer Sichtiline je Geraden. Um die Daten präziser zu machen können mehrere Geraden verwendet werden, die dann einen Genaueren Schnittpunkt ermöglichen, es sollen aber immer nur 2 Punkte je Gerade verwendet werden, da das aufeinanderlegen von 3 Punkten in unangenhemen Positionen für den Benutzer während der Kalibrierung endet.
+
+    Der erste Ansstz war es einen Punkt im Auto zu verwenden, der in seiner Position bekannt ist und durhc Bildverarbeitung erkannt werden kann und n Punkte auf der Brille. Hierbei hat sich jedoch herausgestellt, dass der Abstand der einzelnen Schnittlinien in einem sehr kleinen WInkel von statten geht und somit fehleranfällig ist. Der zweite Ansatz verwendet den Bildschirm, der im Auto verbaut ist und die Brillengläser. Hiermit sind beidseitig die Punkte variabel und können somit so gewählt werden, dass sich Messfehler nicht so gravierend auswirken wie im vorherigen Ansatz. Desweiter ist das Verfahren erweiterbar auf eine Onlinebewertung während der Kalibrieung, so dass über ein Algorithmus passende Punkte ausgewählt werden können, um die Kalibrierung zu optimieren.
+
+    Im Ablauf werden nun also Punkte auf dem Brillenglas angezeigt, die der Benutzer per Klick auf die Stelle auf dem Bildschirm markiert, so dass sie für ihn übereinander liegen. Somit konnte ein idealer Kompromiss zwiscen Benutzerfreundlichkeit und der Aquisition von geeigneten Linienpaaren gefunden werden.
+
+
 \subsection{Stereoskopisches 3D}
 
 \subsubsection{Allgemeine Information}
