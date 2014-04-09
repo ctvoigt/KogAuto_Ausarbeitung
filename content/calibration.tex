@@ -14,6 +14,7 @@ Nach dem Kalibrierungsprozess für jedes Auge können die benötigten parameter 
 
 
 \subsection{Bestimmung von Punktepaaren}
+\label{chap:punktepaare}
 \subsubsection{Konzept}
 Um nun also Punktepaare für die Kalibrieung aufzeichnen zu können, ist die Grafikausgabe der Software nötig. Hierzu wurden zwei Anwendungen als ROS Nodes implementiert. Die Nodes werden mittels der Frameworks SDL und Qt umgesetzt.
 \subsubsection{Anzeige auf der Brille}
@@ -31,8 +32,8 @@ Um auf den im Auto integrierten Bildschirm eine Anzeige durchzufüren, wurde ein
 
 \subsection{Koordinatentransformation}
 \subsubsection{Übersicht}
-Die Koordinatentransformationen sind nötig, um aus den Punktepaaren (wie in Kap. ?? beschrieben) , Koordinaten im 3D Weltkoordinatensystem zu erhalten. Nur aus Punkten in einem einheitlichen Koordinatensystem können später korrekte Gerade berechnet werden.
-Die Eingaben für das Verfahren erhält die Anwendung aus ROS-Paketen, siehe hierzu in Kapitel ??.
+Die Koordinatentransformationen sind nötig, um aus den Punktepaaren (Die über die Anwednungen aus Kapitel \ref{chap:punktepaare}), Koordinaten im 3D Weltkoordinatensystem zu erhalten. Nur aus Punkten in einem einheitlichen Koordinatensystem können später korrekte Geraden berechnet werden.
+Die Eingaben für das Verfahren erhält die Anwendung aus ROS-Messages und published diese auch wieder auf gleichem Wege.
 \subsubsection{Weltkoordinatensystem}
 Das Weltkoordinatensystem für die Transformation hat seinen Ursprung in der Camera, gerichtet in Scihtrichtung mit der Knvention angelehnt an Kamerasysteme: x nach rechts  ,y nach unten, z nach vorne.
 \subsubsection{Transformation für Brillenpunkte}
