@@ -41,8 +41,21 @@ Das ausgewählte Koordinatensystem macht es einfach die Transformation von einem
 Die Wahl des virtuellen Bildschirms genau in der Brillenmitte hat ebenfalls den Vorteil, dass die gewonnenen Daten später auch für die Berechnung des Öffnungswinkels verwendet werden können, da diese identisch mit den physikalischen Brillengläsern sind.
 Die Position des Bildschrimes wurd aus empirischen Ergebnissen gewonnen. Hierzu haben wir die Brille wagerecht zu einer Wand festgeschraubt und Punktepaare zu einem von Hand vermessenen Auge aufgenommen. Hierzu haben wir Punktekoordinaten auf dem Bildschirm zu konstanten Punkten auf der waagerecht zur Brille montierten Referenzwand (mit Punkten) vermessen. Die Brille wurde in die für den jeweiligen Probanden korrekte Position gebracht, so dass es genau für einen Öffnungswinkel die Referenzwand füllend im Bild sehen kann. Anschließend wird der Abstand zur Wand vermessen. Aus dem Abstand zur Wand und den Vermessenen Punkten auf der Wand, konnte mit Hilfe der gemessenen Pixel auf der Brille, die größe eines Pixel auf unserem virtuellen Bildschirm innerhalb der Brille erechnet werden. Der Abstand auf dem referenzbildschirm war für jeden Probanden gleich, die angeklickte Position war ebenfalls gleich, jedoch der Abstand zur Wand leicht verschieden, da verschiedene Probanden einen leicht Abweichenden Sichtöffnungswinkel hatten, da die Augen je nach physiologischen Eigenschaften verschieden weit hinter der Brille sich befinden. Hierdurch war es uns möglich eine Fehlerrechnung über alle Daten durchzuführen, da wir 15 Punkteppare hatten. Hierdurch kamen wir zu relativ genauen Ergebnissen des Brillenbildschirms:
     
-    Statisch ermittelte Werte:
-    Pixelgröße (links und rechts):      2.5219887302047E-02 cm/px 
+ \begin{table}
+ \caption{Empirisch ermittelte Werte}
+ \begin{tabular}{l|l|l}
+  Eigenschaft & Brillenseite & Wert \\
+  \hline
+  \hline
+  Pixelgröße & links/rechts & 2.5219887302047E-02 cm/px \\
+  Größe des Virtuellen Bildschirms & links/rechts &  \\
+  Position des Bildschrims & links & \\
+  Position des Bildschrims & rechts & \\
+ \end{tabular}
+ \label{tab:konstanteWerte}
+ \end{table}
+    
+    Pixelgröße (links und rechts):      
     Größe des virtuellen Bildschirms (links und rechts):      1
     Position des Bildschirms (links):
     Position des Bildschirms (rechts):
