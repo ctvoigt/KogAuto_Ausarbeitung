@@ -1,27 +1,27 @@
 \section{Kalibrierung der Brille}
-Im folgenden Kapitel soll geklärt werden, warum eine Druchsichtbrille kalibriert werden sollte. Hierbei werden folgende Fragen beantwortet: Wie ist die Brille zu kalibrieren, sodass eine Darstellung der erweiterten Realität problemlos möglich ist? Welche Konfigurationen sollen individuell vorgenommen werden, damit nicht jeder Nutzer "schielen" muss, sobald er durch die 3D-Brille schaut? Wie wird die Wahrnehmung der 3D-Objekte mithilfe der Brillendisplays überhaupt möglich?
+Im folgenden Kapitel soll geklärt werden, warum eine Durchsichtbrille kalibriert werden sollte. Hierbei werden folgende Fragen beantwortet: Wie ist die Brille zu kalibrieren, sodass eine Darstellung der erweiterten Realität problemlos möglich ist? Welche Konfigurationen sollen individuell vorgenommen werden, damit nicht jeder Nutzer " schielen" muss, sobald er durch die 3D-Brille schaut? Wie wird die Wahrnehmung der 3D-Objekte mithilfe der Brillendisplays überhaupt möglich?
 
 \subsection{Workflow}
-Um eine 3D-Durchsichtbrille so zu kalibrieren, dass auf dieser reale und authentisch wirkende 3D Welten angezeigt werden können, muss diese präzise kalibriert sein. Wird ein 3D Film angesehen, ist die exatke Kalibrieung nicht entscheidend, soll jedoch eine Simulation einer AR-Welt in korrekten Dimensionen wahrgenommen werden, wird die Kalibrieung unabdingbar. Dies ist der Fall, wenn die Durchsichtbrille für diverse Szenarien im Kontext der kognitiven Automibile verwendet wird. Hierzuu gehören Anwendungen, bei den z.B. Fußgänger simuliert werden um menschliche Fahrerinteraktionen zu messen und als Lerndaten zu aquireren. Eine weitere Anwendung wäre die Visualisierung von simulierten Daten des Fahrzeuges für den Fahrer, damit dieser in einer Simulierten Welt beurteilen kann, wie gut das kognitive Automobil sich einer Sitziuation, z.B. beim Einparken verhält. Ebenfalls wird es möglich, mit einer Kalibrierten Brille simulierte neue Bedienelemente eines Autos zu testen und deren Wirkung auf den Fahrer auszuprobieren.
+Um eine 3D-Durchsichtbrille so zu kalibrieren, dass auf dieser reale und authentisch wirkende 3D Welten angezeigt werden können, muss diese präzise kalibriert sein. Wird ein 3D Film angesehen, ist die exakte Kalibrierung nicht entscheidend, soll jedoch eine Simulation einer AR-Welt in korrekten Dimensionen wahrgenommen werden, wird die Kalibrierung unabdingbar. Dies ist der Fall, wenn die Durchsichtbrille für diverse Szenarien im Kontext der kognitiven Automobile verwendet wird. Hierzu gehören Anwendungen, bei den z.B. Fußgänger simuliert werden um menschliche Fahrerinteraktionen zu messen und als Lerndaten zu akquirieren. Eine weitere Anwendung wäre die Visualisierung von simulierten Daten des Fahrzeuges für den Fahrer, damit dieser in einer Simulierten Welt beurteilen kann, wie gut das kognitive Automobil sich einer Situation, z.B. beim Einparken verhält. Ebenfalls wird es möglich, mit einer Kalibrierten Brille simulierte neue Bedienelemente eines Autos zu testen und deren Wirkung auf den Fahrer auszuprobieren.
 
-Hierzu werden die Parameter benötigt, mit denen die Bilder für ein solch akkurates stereoscopic 3D benötigt werden. Zu diesen Parametern zählt die Position der Augen, die Position der Bildschirme in den Brillengläßern und die Öffnungswinkel, mit denen ein einzelnen Individuum durch eine spezifische Brille sehen kann. Um diese Parameter zu bestimmen wurde ein interaktives Kalibrierungsverfahren ausgewählt, da es wichtig ist, dass die Kalibrierung komfortabel und ohene externe Gerätschaften von statten geht, da es für jeden Benutzter nötig ist, die Brille individuell zu kalibrieren. Das Minimum an benötigten Punkten um die Position eines Auges zu bestimmen sind zwei Geraden, also zwei Punkte auf einer Sichtiline je Geraden. Um die Daten präziser zu machen können mehrere Geraden verwendet werden, die dann einen genaueren Schnittpunkt ermöglichen, es sollen aber immer nur 2 Punkte je Gerade verwendet werden, da bei dem Aufeinanderlegen von 3 Punkten für den benutzer unangenhemen Haltungen während der Kalibrierung resultieren.
+Hierzu werden die Parameter benötigt, mit denen die Bilder für ein solch akkurates Stereoscopic-3D benötigt werden. Zu diesen Parametern zählen die Position der Augen, die Position der Bildschirme in den Brillengläsern und die Öffnungswinkel, mit denen ein einzelnes Individuum durch eine spezifische Brille sehen kann. Um diese Parameter zu bestimmen wurde ein interaktives Kalibrierungsverfahren ausgewählt, da es wichtig ist, dass die Kalibrierung komfortabel und ohne externe Gerätschaften von statten geht, da es für jeden Benutzter nötig ist, die Brille individuell zu kalibrieren. Das Minimum an benötigten Punkten um die Position eines Auges zu bestimmen sind zwei Geraden, also zwei Punkte auf einer Sichtlinie je Geraden. Um die Daten präziser zu machen können mehrere Geraden verwendet werden, die dann einen genaueren Schnittpunkt ermöglichen, es sollen aber immer nur 2 Punkte je Gerade verwendet werden, da bei dem Aufeinanderlegen von 3 Punkten für den Benutzer unangenehmen Haltungen während der Kalibrierung resultieren.
 
-Der erste Ansstz war es einen Punkt im Auto zu verwenden, der in seiner Position bekannt ist und durhc Bildverarbeitung erkannt werden kann und n Punkte auf der Brille. Hierbei hat sich jedoch herausgestellt, dass der Abstand der einzelnen Schnittlinien in einem sehr kleinen WInkel von statten geht und somit fehleranfällig ist. Der zweite Ansatz verwendet den Bildschirm, der im Auto verbaut ist und die Brillengläser. Hiermit sind beidseitig die Punkte variabel und können somit so gewählt werden, dass sich Messfehler nicht so gravierend auswirken wie im vorherigen Ansatz. Desweiter ist das Verfahren erweiterbar auf eine Onlinebewertung während der Kalibrieung, so dass über ein Algorithmus passende Punkte ausgewählt werden können, um die Kalibrierung zu optimieren.
+Der erste Ansatz war es einen Punkt im Auto zu verwenden, der in seiner Position bekannt ist und durch Bildverarbeitung erkannt werden kann und n Punkte auf der Brille. Hierbei hat sich jedoch herausgestellt, dass der Abstand der einzelnen Schnittlinien in einem sehr kleinen Winkels von statten geht und somit fehleranfällig ist. Der zweite Ansatz verwendet den Bildschirm, der im Auto verbaut ist und die Brillengläser. Hiermit sind beidseitig die Punkte variabel und können somit so gewählt werden, dass sich Messfehler nicht so gravierend auswirken wie im vorherigen Ansatz. Desweiter ist das Verfahren erweiterbar auf eine Onlinebewertung während der Kalibrierung, so dass über ein Algorithmus passende Punkte ausgewählt werden können, um die Kalibrierung zu optimieren.
 
-Im Ablauf werden nun also Punkte auf dem Brillenglas angezeigt, die der Benutzer per Klick auf die Stelle auf dem Bildschirm markiert, so dass sie für ihn übereinander liegen. Somit konnte ein idealer Kompromiss zwiscen Benutzerfreundlichkeit und der Aquisition von geeigneten Linienpaaren gefunden werden.
+Im Ablauf werden nun also Punkte auf dem Brillenglas angezeigt, die der Benutzer per Klick auf die Stelle auf dem Bildschirm markiert, so dass sie für ihn übereinander liegen. Somit konnte ein idealer Kompromiss zwischen Benutzerfreundlichkeit und der Akquisition von geeigneten Linienpaaren gefunden werden.
 
-Nach dem Kalibrierungsprozess für jedes Auge können die benötigten parameter berechnet werden.
+Nach dem Kalibrierungsprozess für jedes Auge können die benötigten Parameter berechnet werden.
 
 
 \subsection{Bestimmung von Punktepaaren}
 \label{chap:punktepaare}
 \subsubsection{Konzept}
-Um nun also Punktepaare für die Kalibrieung aufzeichnen zu können, ist die Grafikausgabe der Software nötig. Hierzu wurden zwei Anwendungen als ROS Nodes implementiert. Die Nodes werden mittels der Frameworks SDL und Qt umgesetzt.
+Um nun also Punktepaare für die Kalibrierung aufzeichnen zu können, ist die Grafikausgabe der Software nötig. Hierzu wurden zwei Anwendungen als ROS Nodes implementiert. Die Nodes werden mittels der Frameworks SDL und Qt umgesetzt.
 \subsubsection{Anzeige auf der Brille}
-Eine Vollbildanzeige mit fester Auflösung der nativen Auflösung der Brillenanzeige wird mittels SDL implementiert. Diese Anwendung erkennt automatisch die Brille als zweiten Bildschirm und wählt diesen für die Anzeige aus. Ansonsten ermöglicht die Anwendung es, einen Punkt an eine per ROS-Paket vorgegebenen Position anzuzeiegn.
+Eine Vollbildanzeige mit fester Auflösung der nativen Auflösung der Brillenanzeige wird mittels SDL implementiert. Diese Anwendung erkennt automatisch die Brille als zweiten Bildschirm und wählt diesen für die Anzeige aus. Ansonsten ermöglicht die Anwendung es, einen Punkt an eine per ROS-Paket vorgegebene Position anzuzeigen.
 Screenshot
 \subsubsection{Anzeige auf dem Bildschirm}
-Um auf den im Auto integrierten Bildschirm eine Anzeige durchzufüren, wurde eine Oberfläche (siehe Abbildung \ref{fig:fensteranwendung}) mit Qt implementiert. Diese enthält die für die Bildverarbeitung nötigen Marker (siehe Kapitel \ref{ssection:alva}) und nimmt die Klickpositionen vom Nutzer entgegen. Die ermittelte Klickposition wirden als ROS-Messages versendet.
+Um auf den im Auto integrierten Bildschirm eine Anzeige durchzuführen, wurde eine Oberfläche (siehe Abbildung \ref{fig:fensteranwendung}) mit Qt implementiert. Diese enthält die für die Bildverarbeitung nötigen Marker (siehe Kapitel \ref{ssection:alva}) und nimmt die Klickpositionen vom Nutzer entgegen. Die ermittelte Klickposition wird als ROS-Messages versendet.
 \begin{figure}[h]
    \centering
    \includegraphics[width=0.45\textwidth]{bildschirm_anwendung}
@@ -32,14 +32,14 @@ Um auf den im Auto integrierten Bildschirm eine Anzeige durchzufüren, wurde ein
 
 \subsection{Koordinatentransformation}
 \subsubsection{Übersicht}
-Die Koordinatentransformationen sind nötig, um aus den Punktepaaren (Die über die Anwednungen aus Kapitel \ref{chap:punktepaare}), Koordinaten im 3D Weltkoordinatensystem zu erhalten. Nur aus Punkten in einem einheitlichen Koordinatensystem können später korrekte Geraden berechnet werden.
+Die Koordinatentransformationen sind nötig, um aus den Punktepaaren (Die über die Anwendungen aus Kapitel \ref{chap:punktepaare}), Koordinaten im 3D Weltkoordinatensystem zu erhalten. Nur aus Punkten in einem einheitlichen Koordinatensystem können später korrekte Geraden berechnet werden.
 Die Eingaben für das Verfahren erhält die Anwendung aus ROS-Messages und published diese auch wieder auf gleichem Wege.
 \subsubsection{Weltkoordinatensystem}
-Das Weltkoordinatensystem für die Transformation hat seinen Ursprung in der Camera, gerichtet in Scihtrichtung mit der Knvention angelehnt an Kamerasysteme: x nach rechts  ,y nach unten, z nach vorne.
+Das Weltkoordinatensystem für die Transformation hat seinen Ursprung in der Kamera, gerichtet in Sichtrichtung mit der Konvention angelehnt an Kamerasysteme: x nach rechts, y nach unten, z nach vorne.
 \subsubsection{Transformation für Brillenpunkte}
-Das ausgewählte Koordinatensystem macht es einfach die Transformation von einem Brillenpixel in das Weltkoordnitensystem abzubilden. Es handelt sich um eine statische Transformation, da die Camera fest mit der Brille verschraubt ist. Die Herausforderung besteht darin, den virtuellen Bildschirm der Brille abzubilden. In den einzelnen Brillengläsern befindet sich Optik (Lines und ein Spiegel), mit denen dem Brillenträger ein großer Bildschirm Simuliert wird. Da es für uns jedoch nicht möglich war, festzustellen, ob für jeden Brillenträger die Anzeige gleich war, haben wir folgenden Verfahren angewendet: Wir haben den virtuellen Bildschirm, projeziert per strahlensatz, auf einen weiteren virtuellen Bildschirm genau im Mittelpunkt der Brille festgelegt. Dieser Bildschirm ist unabhängig vom Benutzer, da zu Vermessung dieses Bildschirmes der Abstand zum virtuellen Bildschirm keine Rolle spielt.
+Das ausgewählte Koordinatensystem macht es einfach die Transformation von einem Brillenpixel in das Weltkoordinatensystem abzubilden. Es handelt sich um eine statische Transformation, da die Kamera fest mit der Brille verschraubt ist. Die Herausforderung besteht darin, den virtuellen Bildschirm der Brille abzubilden. In den einzelnen Brillengläsern befindet sich Optik (Lines und ein Spiegel), mit denen dem Brillenträger ein großer Bildschirm Simuliert wird. Da es für uns jedoch nicht möglich war, festzustellen, ob für jeden Brillenträger die Anzeige gleich war, haben wir folgenden Verfahren angewendet: Wir haben den virtuellen Bildschirm, projiziert per Strahlensatz, auf einen weiteren virtuellen Bildschirm genau im Mittelpunkt der Brille festgelegt. Dieser Bildschirm ist unabhängig vom Benutzer, da zu Vermessung dieses Bildschirmes der Abstand zum virtuellen Bildschirm keine Rolle spielt.
 Die Wahl des virtuellen Bildschirms genau in der Brillenmitte hat ebenfalls den Vorteil, dass die gewonnenen Daten später auch für die Berechnung des Öffnungswinkels verwendet werden können, da diese identisch mit den physikalischen Brillengläsern sind.
-Die Position des Bildschrimes wurd aus empirischen Ergebnissen gewonnen. Hierzu haben wir die Brille wagerecht zu einer Wand festgeschraubt und Punktepaare zu einem von Hand vermessenen Auge aufgenommen. Hierzu haben wir Punktekoordinaten auf dem Bildschirm zu konstanten Punkten auf der waagerecht zur Brille montierten Referenzwand (mit Punkten) vermessen. Die Brille wurde in die für den jeweiligen Probanden korrekte Position gebracht, so dass es genau für einen Öffnungswinkel die Referenzwand füllend im Bild sehen kann. Anschließend wird der Abstand zur Wand vermessen. Aus dem Abstand zur Wand und den Vermessenen Punkten auf der Wand, konnte mit Hilfe der gemessenen Pixel auf der Brille, die größe eines Pixel auf unserem virtuellen Bildschirm innerhalb der Brille erechnet werden. Der Abstand auf dem referenzbildschirm war für jeden Probanden gleich, die angeklickte Position war ebenfalls gleich, jedoch der Abstand zur Wand leicht verschieden, da verschiedene Probanden einen leicht Abweichenden Sichtöffnungswinkel hatten, da die Augen je nach physiologischen Eigenschaften verschieden weit hinter der Brille sich befinden. Hierdurch war es uns möglich eine Fehlerrechnung über alle Daten durchzuführen, da wir 15 Punkteppare hatten. Hierdurch kamen wir zu relativ genauen Ergebnissen des Brillenbildschirms:
+Die Position des Bildschirmes wird aus empirischen Ergebnissen gewonnen. Hierzu haben wir die Brille waagerecht zu einer Wand festgeschraubt und Punktepaare zu einem von Hand vermessenen Auge aufgenommen. Hierzu haben wir Punktekoordinaten auf dem Bildschirm zu konstanten Punkten auf der waagerecht zur Brille montierten Referenzwand (mit Punkten) vermessen. Die Brille wurde in die für den jeweiligen Probanden korrekte Position gebracht, so dass es genau für einen Öffnungswinkel die Referenzwand füllend im Bild sehen kann. Anschließend wird der Abstand zur Wand vermessen. Aus dem Abstand zur Wand und den Vermessenen Punkten auf der Wand, konnte mit Hilfe der gemessenen Pixel auf der Brille, die Größe eines Pixel auf unserem virtuellen Bildschirm innerhalb der Brille errechnet werden. Der Abstand auf dem referenzbildschirm war für jeden Probanden gleich, die angeklickte Position war ebenfalls gleich, jedoch der Abstand zur Wand leicht verschieden, da verschiedene Probanden einen leicht Abweichenden Sichtöffnungswinkel hatten, da die Augen je nach physiologischen Eigenschaften verschieden weit hinter der Brille sich befinden. Hierdurch war es uns möglich eine Fehlerrechnung über alle Daten durchzuführen, da wir 15 Punktepaare hatten. Hierdurch kamen wir zu relativ genauen Ergebnissen des Brillenbildschirms:
     
  \begin{table}
  \caption{Empirisch ermittelte Werte}
@@ -47,15 +47,15 @@ Die Position des Bildschrimes wurd aus empirischen Ergebnissen gewonnen. Hierzu 
   Eigenschaft & Brillenseite & Wert \\
   \hline
   \hline
-  Pixelgröße & links/rechts & 2.5219887302047E-02 cm/px \\
+  Pixelgröße & links/rechts & ~2.52E-02 cm/px \\
   Größe des Virtuellen Bildschirms & links/rechts &  \\
-  Position des Bildschrims & links & \\
-  Position des Bildschrims & rechts & \\
+  Position des Bildschirms & links & \\
+  Position des Bildschirms & rechts & \\
  \end{tabular}
  \label{tab:konstanteWerte}
  \end{table}
             
-Durch diese Ausmessungen konnte die  Transformation eines Koordinatenpunktes u,v in Weltkoordinaten auf zwei einfache Transformationen vereinfacht werden
+Durch diese Ausmessungen konnte die  Transformation eines Koordinatenpunktes u, v in Weltkoordinaten auf zwei einfache Transformationen vereinfacht werden
 
    \begin{enumerate}
       \item Statische Transformation: Translation vom Oberen linken virtuellen Bildschirmpixel zum Ursprung
@@ -63,9 +63,26 @@ Durch diese Ausmessungen konnte die  Transformation eines Koordinatenpunktes u,v
    \end{enumerate}
 
 
-In der Implementierung wurde noch folgende Vereinfachung festgestellt: Da die virtuellen bildschirme immer eine parallele Ebene zur x,y-Achsen-Ebene aufstellen, kann die transformation durch eine einfache Addition durchgeführt werden
+In der Implementierung wurde noch folgende Vereinfachung festgestellt: Da die virtuellen Bildschirme immer eine parallele Ebene zur x, y-Achsen-Ebene aufstellen, kann die Transformation durch eine einfache Addition durchgeführt werden
 
     Listing einfügen.
+
+\subsubsection{Transformationen für Bildschirmpunkte}
+\label{ssection:alva}
+Die Transformation von einem Bildschirmpixel in das Weltkoordinatensystem stellt andere Herausforderungen. Der Bildschirm kann als eine physikalische Größe angesehen werden und vermessen werden. Es liegen konstante DPI-Werte vor, es kann also ebenfalls eine statische Transformation von einem Referenzpunkt auf dem Bildschirm zum angezeigten Punkt geschehen. Hierzu ist lediglich eine Transformation nötig, die die DPI-Werte des Bildschirms berücksichtigt und durchführt. Der Referenzpunkt des Bildschirms haben wir innerhalb unserer Anwendung (siehe Kapitel ??) gewählt, da dieser somit invariant gegen Verschiebungen bleibt. Bei diesem Vorgehen besteht jedoch die größte Herausforderung darin, dass die Position des Bildschirmes benötigt wird. Hierzu wird die Kamera mit Bildverarbeitung eingesetzt. Der erste Ansatz war es, openCV mit einem Schachbrett zur Erkennung zu verwenden. Da sich während der Implementierung herausgestellt hat, dass einiger Code, der beim Einsatz von openCV nötig ist, durch die Bibliothek ALVAR, die sich ebenfalls noch wesentlich einfacher in ROS integrieren lässt abnimmt, wurde die Strategie geändert. Drei ALVAR Marker werden nun mittels der Webcam erkannt und zur Entfernungsbestimmung vermittelt. Hiermit sind nun beide Transformationen auch für die Berechnung der Position vorhanden. Dieser Ansatz bietet den Nachteil, dass ALVAR eine gewisse Ungenauigkeit und eine gewisse Verzögerung mit sich bringt, wodurch die Benutzbarkeit erschwert wird. Ein längerfristiges Ziel sollte es also sein, die Integration des Headtrackingalgorithmuses auch in die Kalibrierung einzufügen.
+    Statisch ermittelte Werte:
+    Pixelgröße:
+    Größe eines Markern in Pixeln/CM:
+Das Konkrete Vorgehen beschreibt sich bezüglich der Transformation folgendermaßen:
+
+   \begin{enumerate}
+      \item Dynamische Transformation:  Translation  um u, v der auf der Fensterfläche angeklickt wurde auf den Referenzpunkt der Anwendung (konkret, dem Mittelpunkt des obigen linken Markers) 
+      \item Dynamische Transformation: Translation um die von ALVAR bestimmte Entfernung
+   \end{enumerate}
+
+Um auf den Referenzpunkt zu gelangen, gibt es eine triviale Addition, um den statischen Offset der Anzeigelemente und der zentrierten ALVAR Position zu kompensieren. Um nun die Translation um einen u,v Pixel zu realisieren, wird eine Ebene durch die drei Marker gelegt und drauf die Verschiebung durchgeführt. Im Anschluss kann die Rücktransformation zum Koordinatenursprung geschehen.
+
+    Listing einfügen
 
 \subsubsection{Transformationen für Bildschirmpunkte}
 \label{ssection:alva}
