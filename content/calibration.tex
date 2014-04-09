@@ -14,6 +14,17 @@ Wie kalibriert man eine Durchsichtbrille in einem Auto?
     Im Ablauf werden nun also Punkte auf dem Brillenglas angezeigt, die der Benutzer per Klick auf die Stelle auf dem Bildschirm markiert, so dass sie für ihn übereinander liegen. Somit konnte ein idealer Kompromiss zwiscen Benutzerfreundlichkeit und der Aquisition von geeigneten Linienpaaren gefunden werden.
 
 
+\subsection{Bestimmung von Punktepaaren}
+\subsubsection{Konzept}
+Um nun also Punktepaare für die Kalibrieung aufzeichnen zu können, ist die Grafikausgabe der Software nötig. Hierzu wurden zwei Anwendungen als ROS Nodes implementiert. Die Nodes werden mittels der Frameworks SDL und Qt umgesetzt.
+\subsubsection{Anzeige auf der Brille}
+Eine Vollbildanzeige mit fester Auflösung der nativen Auflösung der Brillenanzeige wird mittels SDL implementiert. Diese Anwendung erkennt automatisch die Brille als zweiten Bildschirm und wählt diesen für die Anzeige aus. Ansonsten ermöglicht die Anwendung es, einen Punkt an eine per ROS-Paket vorgegebenen Position anzuzeiegn.
+Screenshot
+\subsubsection{Anzeige auf dem Bildschirm}
+Ein Fensteranwendung implementiert mit Qt zeigt die für die Bildverarbeitung nötigen marker (siehe Kapitel??) an und nimmt die Klickpositionen vom Nutzer entgegen. Die ermittelte Clickposition wird als ROS-Paket versendet.
+Screenshot!
+
+
 \subsection{Stereoskopisches 3D}
 
 \subsubsection{Allgemeine Information}
