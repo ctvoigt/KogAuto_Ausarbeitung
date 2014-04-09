@@ -84,23 +84,6 @@ Um auf den Referenzpunkt zu gelangen, gibt es eine triviale Addition, um den sta
 
     Listing einfügen
 
-\subsubsection{Transformationen für Bildschirmpunkte}
-\label{ssection:alva}
-Die Transformation von einem Bildschirmpixel in das Weltkoordinatensystem stellt andere Herausforderungen. Der Bildschirm kann als eine physikalische Gröse angesehen werden und vermessen werden. Es liegen konstante DPI-Werte vor, es kann also ebenfalls eine statische Transformation von einem Referenzpunkt auf dem Bildschirm zum angeziegten Punkt geschehen. Hierzu ist lediglich eine Transformation nötig, die die DPI-Werte des Bildschirms berücksichtigt und durchführt. Der Referenzpunkt des Bildschirms haben wir innerhalb unserer Anwendung (sihe Kapitel ??) gewählt, da dieser somit invariant gegen verschiebungen bleibt. Bei diesem Vorgehen besteht jedoch die größte Herausforderung darin, dass die Position des Bildschirmes benötigt wird. Heirzu wird die Camera mit Bildverarbeitung eingesetzt. Der erste Ansatz war es, openCV mit einem Schachbrett zur Erkennung zu verwenden. Da sich während der Implementierung herausgestellt hat, dass einiger Code, der beim Einsatz von openCV nötig ist, durch die Bibiolothek ALVAR, die sich ebenfalls noch wesentlich einfacher in ROS integrieren lässt abnimmt, wurde die Strategie geändert. Drei ALVAR Marker werden nun mittels der Webcam erkannt und zur Entfernungsbestimmung vermittelt. Hiermit sind nun beide Transformatione auch für die Berechnung der Position vorhanden. Dieser Ansatz bietet den Nachteil, dass ALVAR eine gewisse ungenauigkeit und eine gewisse Verzögerung mit sich bringt, wodurch die Benutzbarkeit erschwert wird. Ein längerfristiges Ziel sollte es also sein, die Integration des Headtrackingalgorithmuses auch in die Kalibrieung einzufügen.
-    Statisch ermittelte Werte:
-    Pixelgröße:
-    Größe eines Markern in Pixeln/CM:
-Das Konkrete Vorgehen beschreibt sich bezüglich der Transformation folgendermaßen:
-
-   \begin{enumerate}
-      \item Dynamische Transformation:  Translation  um u,v der auf der Fensterfläche angeklickt wurde auf den Referenzpunkt der Anwendung (konkret, dem Mittelpunkt des obigen linken Markers) 
-      \item Dynamische Transformation: Translation um die von ALVAR bestimmte Entfernung
-   \end{enumerate}
-
-Um auf den Referenzpunkt zu gelangen, gibt es eine triviale Addtion, um den statischen Offset der Anzeigelemente und der centrierten ALVAR position zu kompensieren. Um nun die Translation um einen u,v Pixel zu realisiren, wird eine Ebene durch die drei marker gelegt und daruf die Verschiebung durchgeführt. Im Anschlass kann die Rücktransformation zum Koordinatenursprung geschehen.
-
-    Listing einfügen
-
 
 
 \subsection{Stereoskopisches 3D}
@@ -118,7 +101,7 @@ Genauere Beschreibung ist im Abb. \ref{fig:3D} zu finden.
 \begin{figure}[h]
    \centering
    \includegraphics[width=0.45\textwidth]{3D-bild}
-   \caption{steteoskopisches Sehen}
+   \caption{stereoskopisches Sehen}
    \label{fig:3D}
 \end{figure}
 
@@ -143,18 +126,18 @@ Die gegebene Daten sind im Abb. \ref{fig:geom} dargestellt.
    \label{fig:geom}
 \end{figure}
 
-Punkte Bl, Cl bzw. Br, Cr sind die Endpunkte des linkes bzw. rechtes Bildschirms der Brille.
+Punkte Bl, Cl bzw. Br, Cr sind die Endpunkte des linken bzw. rechten Bildschirms der Brille.
 Die Punkte Al (grün) bzw. Ar (rot) beschreiben die Positionen der Augen.
 wal bzw. war sind die Sehwinkel des Benutzers durch welche die Bildschirme und dort dargestellte Objekte gesehen werden. 
 Blaue Linien ml und mr sind Winkelhalbierenden.
 
 Für die Anzeige der Bilder auf der Brillenbildschirme, werden Augen als Kameras interpretiert und damit werden benötigte Bilder erstellt.
-Dementsprechend sind die Winkeln wal und war die Öffnungswinkel dieser Kameras.
+Dementsprechend sind die Winkel wal und war die Öffnungswinkel dieser Kameras.
 Wie auf dieser Abb. ref{fig:geom} gut zu sehen ist, müssen die Augenpositionen nicht unbedingt in der Mitte des Bildschirms liegen.
 In meisten Anwendungen, die Kameras simulieren, ist aber vorausgesetzt, dass die Kameras in der Mitte sind.
 Das ist dasselbe, wie dass der Winkelhalbierende der Öffnungswinkel senkrecht zur Bildschirm ist.
 Wir nehmen an, dass dafür benötigte Drehwinkel gl bzw. gr keine entscheidende Rolle in der Bildanzeige spielt.
-Mit dieser Annahme rechnen wir die Winkeln gl und gr aus  um die virtuelle Kameras theoretisch zu drehen.
+Mit dieser Annahme rechnen wir die Winkel gl und gr aus  um die virtuellen Kameras theoretisch zu drehen.
 Das wird benötigt um passende Daten für die Benutzung anderer Anwendungen zu bekommen.
 
 \subsection{Augensimulierung mithilfe der virtuellen Rviz-Kameras }
@@ -165,7 +148,7 @@ Für die technische Realisierung des Stereoskopischen 3D werden alle erkannten O
 
 Je nach anatomischen Aufbau des Gesichts hinsichtlich  der Nasenform und der Augenpositionen des menschlichen Nutzers, variiert der tatsächliche Öffnungswinkel, der aufgrund des Abstandes vom Auge zur Brille entsteht. Im Rahmen des Praktikums wurden mithilfe eines eigenständigen Versuches Augenpositionen relativ zur Kamera gemessen. Da die Lage der Brillendisplays zur Kamera als konstant angenommen wird, ist der Abstand zwischen Auge und Brillendisplays nun bestimmbar.
 
-Da der Öffnungswinkel der virtuellen Kameras nicht direkt manipuliert werden kann, wird ein alternativer Weg verwendet. Dabei wurde die virtuelle Kamera mithilfe der intrinsischen Parameter verändert. Zum einen entspricht die Brennweite f der virtuellen Kamera dem Abstand der Augen zum Display, zum anderen bilden die Größen der Brillendisplays die Grundlage für die Berechnung der Auflösung der virtuellen Kameras. Konkrete Berechnung findet sich in der Projektionsmatrix in \ref{table:instrisische Kameraparameter} wieder. $f_x$ und $f_y$ beschreiben die fokalen Längen in Pixel (d.h. Abstand*px/m), $c_x$ und $c_y$ beschreiben den "Principle Point" der Kamera, welche sich aus der Auflösung (1280x 760 für die Vuzix-Brille ) ergibt. 
+Da der Öffnungswinkel der virtuellen Kameras nicht direkt manipuliert werden kann, wird ein alternativer Weg verwendet. Dabei wurde die virtuelle Kamera mithilfe der intrinsischen Parameter verändert. Zum einen entspricht die Brennweite f der virtuellen Kamera dem Abstand der Augen zum Display, zum anderen bilden die Größen der Brillendisplays die Grundlage für die Berechnung der Auflösung der virtuellen Kameras. Konkrete Berechnung findet sich in der Projektionsmatrix in \ref{table:instrisische Kameraparameter} wieder. $f_x$ und $f_y$ beschreiben die fokalen Längen in Pixel (d.h. Abstand*px/m), $c_x$ und $c_y$ beschreiben den "Principle Point" der Kamera, welche sich aus der Auflösung (1280x 760 für die Vuzix-Brille) ergibt. 
 
 %
 
@@ -173,7 +156,7 @@ Da der Öffnungswinkel der virtuellen Kameras nicht direkt manipuliert werden ka
 \begin{pmatrix}
 f_x & 0& 0& c_x \\
 0 & f_y & 0 & c_y\\ 
-0 & 0&   1 &  0  
+0 & 0&   1 & 0  
 \end{pmatrix}
 \label{table:instrisische Kameraparameter}
 \end{equation}
