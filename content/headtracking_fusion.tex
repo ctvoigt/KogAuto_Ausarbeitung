@@ -11,7 +11,7 @@ Es wird dabei versucht, die magnetische Distorsion sowie den Bias-Drift des Gyro
 Berechnungsgrundlage ist dafür eine auf Quaternionen basierte Darstellungsform, welche in einem Gradienten-Abstiegsverfahren zum Einsatz kommt.
 Vorteile dieses Ansatzes sind seine niedrigen Berechnungskosten, Effektivität bei niedrigen Sampleraten und ein hoher Grad an Parametrisierung, welcher eine Anpassung an die jeweiligen Sensor- und Umgebungscharakteristiken zulässt.
 
-Auch wenn der Madgwick-Filter bereits als fertige \ac{ROS}-Node\footnote{\url{http://wiki.ros.org/imu_filter_madgwick}} vorhanden ist und bessere Ergebnisse als der Kalman-Filter liefern soll, fiel die Entscheidung gegen den Madgwick-Filter aus.
+Auch wenn der Madgwick-Filter bereits als fertige \ac{ROS}-Node\footnote{\url{http://wiki.ros.org/imu_filter_madgwick}} vorhanden ist und bessere Ergebnisse als der Kalman-Filter liefert, fiel die Entscheidung gegen den Madgwick-Filter aus.
 Grund dafür ist, dass der Stand der bestehenden Implementierung nur schwer an den Madgwick-Filter angepasst werden konnte, und dadurch der erzielte Mehrwert so nur schwer nachvollziehbar bzw. verifizierbar gewesen wäre. 
 
 \subsubsection{Kalman-Filter}
@@ -19,8 +19,9 @@ Das Kalman-Filter-Verfahren \cite{kalman1960new} ist eine probabilistische Metho
 Dabei fließen in einem ersten \emph{Prädiktionsschritt} zuvor festgelegte Annahmen inklusive dazugehöriger Fehlerwahrscheinlichkeiten in die Berechnung ein.
 Danach wird in einem zweiten Schritt, dem \emph{Innovationsschritt}, eine Beobachtung mit dazugehöriger Messungenauigkeit mit einbezogen.
 
-Um bei einer fehlerbehafteten Beobachtung den Systemzustand zu korrigieren, müssen diese Beobachtungen über mathematische Gleichungen beschreibbar und Fehlerverteilungen für Sensoren bekannt sein.
-Diese Informationen sind im vorliegenden Projekt nicht bekannt.
+Um bei einer fehlerbehafteten Beobachtung den Systemzustand zu korrigieren, müssen diese Beobachtugen über mathematische Gleichungen beschreibbar sein. Eine mögliche Herangehensweise wird im \textit{Leitfaden zur Ermittlung von Messunsicherheiten} (engl. \ac{GUM}) näher erläutert \cite{gum1995guide}. Zusätzlich müssen Fehlerverteilungen und somit Unsicherheiten der Sensoren bekannt sein.
+
+Letztere Informationen sind im vorliegenden Projekt nicht bekannt.
 Infolgedessen kann eine Modellierung gemäß dem Kalman-Filter nicht durchgeführt werden. 
 Des Weiteren ist unklar, ob durch eine solche Umsetzung tatsächlich Vorteile erzielt werden können, da die Änderung eines plötzlichen Ereignisses (\zB eine Kurvenfahrt) über mehrere Zeitschritte hinweg angepasst wird und somit eine mögliche Latenz hinzugefügt werden könnte.
 
