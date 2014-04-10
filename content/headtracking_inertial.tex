@@ -183,9 +183,9 @@ Zum anderen entstehen aber Messungenauigkeiten, die im Rahmen der Sensorkalibrie
 Gemessen werden die Magnetfeldlinien der Erde, welche in Abb. \ref{fig:mag_world} dargestellt sind.
 Diese sind abhängig von der aktuellen Position auf der Erdoberfläche\footnote{Tatsächlich verändert sich das Erdmagnetfeld auch über die Zeit hinweg.
 Diese Änderung kann aber im Rahmen des Praktikums vernachlässigt werden, da es sich um eine sehr kleine Änderung handelt (\zB für den Praktikumsort Karlsruhe ca. $1^\circ 46$'~$7.8$ arcmin/Jahr im Deklinationswinkel).}.
-Sobald das Erdmagnetfeld nicht am Äquator gemessen wird, sondern im Falle des Praktikums bei etwa $49^\circ$ geographischer Breite, muss der Inklinationswinkel\footnote{Bezeichnet den Neigungswinkel des örtlichen Erdmagnetfeldes zur Horizontalen.} bei der Messung mit beachtet werden.
+Sobald das Erdmagnetfeld nicht am Äquator gemessen wird, wie beispielsweise in Karlsruhe der Fall bei ca. $49^\circ$ geographischer Breite, muss der Inklinationswinkel\footnote{Bezeichnet den Neigungswinkel des örtlichen Erdmagnetfeldes zur Horizontalen.} bei der Messung mit beachtet werden.
 Dieser wird in Abb. \ref{fig:mag_mapping} mit I beschrieben.
-Die Abbildung auf die XY-Ebene wird durch folgende Formel bewerkstelligt:
+Die Abbildung \todo{@honnel: Vorschlag: Die Abbildung von den 3D-Magentometerwerten auf die XY-Ebene ...} auf die XY-Ebene wird durch folgende Formel bewerkstelligt:
 
 \begin{equation}
     \varphi = atan2(h_y,h_x)
@@ -221,7 +221,7 @@ Des Weiteren werden die Daten noch durch einen Tiefpassfilter geglättet, sowie 
 Der Tiefpassfilter wird wie in Abs. \ref{headtracking_imu_gyro_subsubsec} bereits beschrieben durchgeführt. 
 Die Anwendung der Kalibrierung und Normierung wird durch nachfolgende Formel bewerkstelligt:
 \begin{equation}
-    m_{norm} = \frac{m_{raw}- \frac{m_{\delta}}{2}}{2~m_{\delta}}, {\scriptstyle mit~m_{\delta}~=~m_{max}~-~m_{min}}
+    m_{norm} = \frac{m_{raw}- \frac{m_{\delta}}{2}}{2~m_{\delta}},  {\delta}~=~m_{max}~-~m_{min}
 \end{equation}
 Dabei bezeichnet $m_{norm}$ einen normierten Magnetfeldvektorkanal, $m_{raw}$ die Rohdaten des jeweiligen Kanals und $m_{\lbrace max, min\rbrace}$ den gemessenen Maximal- bzw. Minimalwert.
 
