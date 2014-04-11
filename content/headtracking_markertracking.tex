@@ -38,7 +38,7 @@ Jedoch ist die Spiegelung der von der Kinect verwendeten Infrarot-Strahlung an d
 Der Ansatz wird zudem aus einem anderen Grund nicht weiter verfolgt:
 Die Verwendung von zusätzlicher Hardware schränkt die Wiederverwendbarkeit des Algorithmus zur Bestimmung der Kopforientierung ein.
 
-Stattdessen fällt die Entscheidung auf einen Marker-Tracking-Ansatz, der alleine mit der Brillen-Hardware auskommt.
+Stattdessen fällt die Entscheidung auf einen Marker-Tracking-Ansatz, der aufgrund der integrierten Kamera alleine mit der Brillen-Hardware auskommt.
 
 
 \subsubsection{Ansatz: Marker-Tracking}
@@ -112,8 +112,7 @@ Dadurch ist es möglich, das Fusionsergebnis in einem beliebigen Koordinatensyst
 Die Orientierungen werden durch lineare Interpolation fusioniert.
 Es ist zu beachten, dass eine Fusion nur dann stattfindet, wenn der Marker auch detektiert wurde.
 Im anderen Fall wird nur die IMU-Orientierung als Ergebnis ausgegeben.
-Ein Gewichtungsfaktor für die Kameraorientierung von 5\% hat sich bei der Realisierung als praktikabel erwiesen.
-\todo[inline]{War das die extra langsame Variante für die Demo? Wenn ja, dann sollten wir hier vielleicht was größeres rein schreiben.}
+Ein Gewichtungsfaktor für die Kameraorientierung von 20\% hat sich bei der Realisierung als praktikabel erwiesen.
 
 \begin{figure*}[tb]
  \centering
