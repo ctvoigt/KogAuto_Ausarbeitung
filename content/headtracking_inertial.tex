@@ -20,8 +20,7 @@ Im folgenden Absatz werden die verschiedenen Sensoren vorgestellt. Dabei sei ang
 \subsubsection{Gyroskop}
 \label{headtracking_imu_gyro_subsubsec}
 
-Das in der Brille enthaltene Gyroskop misst Winkelgeschwindigkeiten in
-$\omega = [{Grad \over Sekunde}]$ bei Drehungen um die X-, Y- und Z-Achse. Durch
+Das in der Brille enthaltene Gyroskop misst die Winkelgeschwindigkeit $\omega$ in $[{\degree \over Sekunde}]$ bei Drehungen um die X-, Y- und Z-Achse. Durch
 die Integration der Winkelgeschwindigkeiten über die Zeit kann die
 Orientierung der Brille bestimmt werden.  
 
@@ -32,8 +31,17 @@ hinsichtlich der Genauigkeit und des Wertebereiches. Das \ac{HBW}-Gyroskop
 hat einen größeren Wertebereich, jedoch die geringere
 Genauigkeit.
 
-Die Rohdaten des Sensors enthalten einen konstanten Versatz, so dass bei
-stationärer Brille eine Geschwindigkeit $\omega \neq 0$ gemessen wird.
+Die Rohdaten des Gyroskops sind fehlerbehaftet und enthalten einen
+konstanten Fehleranteil. Somit wird bei stationärer Brillenlage eine
+Geschwindigkeit $\omega \neq 0$ gemessen.  Dieser Versatz wird
+\emph{Bias} bezeichnet, und muss in einem stationären Kalibriervorgang
+ermittelt werden. Dazu werden die Sensordaten über einen kurzen Zeitraum
+bei unbewegter Brille erfasst und über die Zeit gemittelt. Der so
+ermittelte Wert wird von den Sensor-Rohdaten subtrahiert. Abb.
+\ref{fig:gyro_bias} zeigt die Daten vor und nach der Bias-Korrektur.
+
+Die Rohdaten des Gyroskops enthalten einen konstanten Versatz, so dass bei
+stationärer Brillenlage eine Geschwindigkeit $\omega \neq 0$ gemessen wird.
 Dieser Versatz wird \emph{Bias} bezeichnet, und muss in einem
 stationären Kalibriervorgang ermittelt werden. Dazu werden die
 Sensordaten über einen kurzen Zeitraum bei unbewegter Brille erfasst und
@@ -106,7 +114,7 @@ die Zeit die Orientierung berechnet. Hierzu wird die Orientierung in einem Quate
 \end{equation}
 
 \begin{equation}
-    q = q * \Delta q
+    q_{t+1} = q_t * \Delta q
 \end{equation}
 
 Die durch das Gyroskop berechnete Orientierung reagiert schnell auf
@@ -133,8 +141,7 @@ Zur Verwendung des Beschleunigungssensors wird zunächst wie auch beim
 Gyroskop ein Tiefpassfilter angewendet, um das Rauschen der Rohdaten zu
 reduzieren.
 Dabei wird ein Mittelwertfilter eingesetzt.
-Als Fenstergröße wird die gleiche wie beim Gyroskop gewählt, da ein ungleicher Wert zu Fehlern bei der späteren Fusion
-führen würde. 
+Als Fenstergröße wird die gleiche wie beim Gyroskop gewählt, da ein ungleicher Wert zu einer zeitlich inkonsistenten Datenfusion führen würde.
 
 % XXX: die umrechung auf m/s2 hab ich mal rausgelassen, die ist ja glaub ich auch garnicht so wichtig und verwirrt den leser nur
 
