@@ -90,17 +90,33 @@ Zur Fusionierung des \ac{HBW}- und \ac{LBW}-Gyroskops kommt ein einfaches Schwel
 Im Wertebereich, welcher von beiden Gyroskopen abgedeckt wird, werden
 die Sensordaten gemittelt. Wird der Wertebereich des \ac{LBW}-Gyroskops
 überschritten, wird lediglich der Wert des \ac{HBW}-Gyroskops
-zurückgeliefert.
+zurückgeliefert. Die Werte des \ac{LBW}-Gyroskops werden im
+Nachfolgenden $\omega_{l}$ bezeichnet, die des \ac{HBW}-Gyroskops als
+$\omega_{h}$. Die Fusion erfolgt nach
 
 \begin{equation}
-    G = \left\{
+    \omega_{fus} = \left\{
     \begin{array}{ll}
-        \frac{G_{HBW} + G_{LBW}}{2}, & G_{LBW} < G_{LBW_{max}}  \\
-        G_{HBW}, & G_{LBW} = G_{LBW_{max}}
+        \frac{\omega_l + \omega_h}{2}, & \omega_h > \delta_l^{min}~ \land ~ \omega_h < \delta_l^{max}  \\
+        \omega_h & \text{sonst}
     \end{array}\right. \\
 \end{equation}
 
-\todo[inline]{Die Unterscheidung deckt nicht alle Fälle ab. Was ist mit dem größer-Fall?}
+Dabei ist $\delta_l^{min}$ und $\delta_l^{max}$ der minimale bzw.
+maximale Schwellwert für das LBW-Gyroskop, welcher experimentell für
+jede Achse ermittelt wurde. In Abbildung \ref{fig:gyro_threshold} sind
+die Wertebereiche der Gyroskope schematisch dargestellt. Hier ist zu
+erkennen, dass das LBW-Gyroskop (blau dargestellt) einen minimalen und
+maximalen Wertebereich hat, welcher auf der Ordinate mit
+$\delta_l^{min}$ und $\delta_l^{max}$ markiert ist.
+
+\begin{figure}[h]
+    \centering
+    \def\svgwidth{0.4\textwidth}
+    \input{images/gyro_threshold.pdf_tex}
+    \caption{Gyroskop-Wertebereiche}
+    \label{fig:gyro_threshold}
+\end{figure}
 
 Aus den gefilterten Sensordaten wird daraufhin durch Integration über
 die Zeit die Orientierung berechnet. Hierzu wird die Orientierung in einem Quaternion gespeichert, welches nach jeder Sensorabtastung aktualisiert wird. Hierbei ist $dt$ die Abtastrate der Gyroskop-Sensoren, welche 100Hz beträgt.
