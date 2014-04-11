@@ -42,10 +42,15 @@ zeigt die Daten vor und nach der Bias-Korrektur.
 
 Des Weiteren unterliegen die Sensordaten einem Rauschen. Daher wird als
 nächster Schritt ein Tiefpassfilter verwendet, um dieses Rauschen zu
-reduzieren. In unserem Fall hat sich ein Mittelwertfilter mit einer 
-Fenstergröße von 5 als praktikabel erwiesen. Je höher die Fenstergröße gewählt wird,
-desto stärker werden die Rohdaten geglättet, damit steigt jedoch auch
-die Verzögerung der Daten. Abb. \ref{fig:lowpass-delay} zeigt den Effekt des Tiefpassfilters.
+reduzieren. In unserem Fall hat sich ein Mittelwertfilter mit einer
+Fenstergröße von 5 als praktikabel erwiesen. Hierzu wird ein Ringpuffer
+verwendet, welcher die letzten 5 Sensorwerte enthält. In jedem
+Zeitschritt wird der aktuelle Sensorwert dem Ringpuffer hinzugefügt, und
+der Mittelwert aus den enthaltenen Daten gebildet. Dieser Wert wird als
+gefilteter Wert zurückgegeben. Je größer die Fenstergröße gewählt wird,
+desto stärker werden die Rohdaten geglättet. Damit steigt jedoch auch
+die Verzögerung und Dämpfung der Daten. Abb. \ref{fig:lowpass-delay}
+zeigt den Effekt des Tiefpassfilters.
 
 \begin{figure}[h]
    \centering
