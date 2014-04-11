@@ -20,16 +20,9 @@ Im folgenden Absatz werden die verschiedenen Sensoren vorgestellt. Dabei sei ang
 \subsubsection{Gyroskop}
 \label{headtracking_imu_gyro_subsubsec}
 
-Das in der Brille enthaltene Gyroskop misst die Winkelgeschwindigkeit $\omega$ in $[{\degree \over Sekunde}]$ bei Drehungen um die X-, Y- und Z-Achse. Durch
+Die in der Brille enthaltenen Gyroskop unterschiedlicher Genauigkeit messen die Winkelgeschwindigkeiten $\omega$ in $[{\degree \over Sekunde}]$ bei Drehungen um die X-, Y- und Z-Achse. Durch
 die Integration der Winkelgeschwindigkeiten über die Zeit kann die
 Orientierung der Brille bestimmt werden.  
-
-Die \ac{IMU} der Brille enthält zwei
-Gyroskope, ein \emph{High Bandwidth} Gyroskop sowie ein
-\emph{Low Bandwidth} Gyroskop. Die Gyroskope unterscheiden sich
-hinsichtlich der Genauigkeit und des Wertebereiches. Das \ac{HBW}-Gyroskop
-hat einen größeren Wertebereich, jedoch die geringere
-Genauigkeit.
 
 Die Rohdaten des Gyroskops sind fehlerbehaftet und enthalten einen
 konstanten Fehleranteil. Somit wird bei stationärer Brillenlage eine
@@ -60,6 +53,13 @@ die Verzögerung der Daten. Abb. \ref{fig:lowpass-delay} zeigt den Effekt des Ti
    \caption{Auswirkung des Tiefpassfilters: Ungefilterte Daten (blau) vs. gefilterte Daten (rot)}
    \label{fig:lowpass-delay}
 \end{figure}
+
+Die \ac{IMU} der Brille enthält zwei
+Gyroskope, ein \emph{High Bandwidth} Gyroskop sowie ein
+\emph{Low Bandwidth} Gyroskop. Die Gyroskope unterscheiden sich
+hinsichtlich der Genauigkeit und des Wertebereiches. Das \ac{HBW}-Gyroskop
+hat einen größeren Wertebereich, jedoch die geringere
+Genauigkeit.
 
 Die Wertebereiche der Gyroskope sind
 in Tabelle \ref{tab:ranges-gyros} aufgeführt. Beide Gyroskope liefern
