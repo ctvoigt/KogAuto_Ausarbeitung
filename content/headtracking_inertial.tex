@@ -13,9 +13,25 @@ Die Kompensation der Eigenbewegung des Fahrzeugs wird in Abs. \ref{headtracking_
 
 \subsection{Inertialsensoren}
 \label{headtracking_imu_subsec}
-Im folgenden Absatz werden die verschiedenen Sensoren vorgestellt. Dabei sei angemerkt, dass die gemessenen Daten in einem sogenannten \textit{Sensorkoordinatensystem $TF_{sensor}$} erfasst werden. Dieses ist um etwa $15^\circ$ in der Z-Achse rotiert zum \textit{Brillenkoordinatensystem $TF_{glasses}$}, welches seinen Ursprung in der Mitte des Brillenstegs hat. Dieses Koordinatensystem wurde so gewählt, dass es in etwa mit der Kameraposition der Brille übereinstimmt \footnote{Anbetracht der vorhandenen Messungenauigkeiten wurden die Translationen zwischen Sensor und Brillensteg sowie Kamera und Brillensteg vernachlässigt, da sie keinen eklatanten Einfluss auf die Orientierung der Brille bzw. des Kopfes haben.}. In Abb. \ref{fig:tf_baum_sensorik}
+Im folgenden Abschnitt werden die verschiedenen Sensoren vorgestellt.
+Dabei sei angemerkt, dass die gemessenen Daten in einem sogenannten \textit{Sensorkoordinatensystem} erfasst werden.
+Dieses ist um etwa $15^\circ$ in der Z-Achse rotiert zum \textit{Brillenkoordinatensystem}, welches seinen Ursprung in der Mitte des Brillenstegs hat. 
+Das Brillenkoordinatensystem wurde so gewählt, dass es in etwa mit der Kameraposition der Brille übereinstimmt.
+Abb.~\ref{fig:glasses_sensor_axes_separate} zeigt diesen Sachverhalt.
+Anbetracht der vorhandenen Messungenauigkeiten wurden die Translationen zwischen Sensor und Brillensteg sowie Kamera und Brillensteg vernachlässigt, da sie keinen eklatanten Einfluss auf die Orientierung der Brille bzw. des Kopfes haben (siehe Abb.~\ref{fig:glasses_sensor_axes_combined}).
 
-\todo[inline]{Ich bitte den Ersteller des TF-Baums sich dieser Grafik anzunehmen, der sieht sehr professionell aus, so was in abgespeckter Form brauchen wir hier auch, damit wir uns in den nachfolgenden Sections drauf beziehen können, bitte die Textreferenzen in \ref{headtracking_imu_subsec} dazu anpassen.}
+\begin{figure}
+  \subfigure[Tatsächliche Lage der Koordinatensysteme]{
+    \includegraphics[width=0.22\textwidth]{glasses_sensor_axes_separate}
+    \label{fig:glasses_sensor_axes_separate}
+  }
+  \subfigure[Für Berechnungen angenommene Lage der Koordinatensysteme]{
+    \includegraphics[width=0.22\textwidth]{glasses_sensor_axes_combined}
+    \label{fig:glasses_sensor_axes_combined}
+  }
+  \caption{Lage des Brillenkoordinatensystems (grün) und des Sensorkoordinatensystems (blau) in der Durchsichtbrille (vgl.~\cite{vuzix_user_guide}).}
+  \label{fig:glasses_sensor_axes}
+\end{figure}
 
 \subsubsection{Gyroskop}
 \label{headtracking_imu_gyro_subsubsec}
@@ -30,7 +46,7 @@ bei stationärer Brillenlage eine Geschwindigkeit $\omega \neq 0$
 gemessen, welche in einem stationären Kalibriervorgang ermittelt werden
 muss. Dazu werden die Sensordaten über einen kurzen Zeitraum bei
 unbewegter Brille erfasst und über die Zeit gemittelt. Der so ermittelte
-Wert wird von den Sensor-Rohdaten subtrahiert. Abb.  \ref{fig:gyro_bias}
+Wert wird von den Sensor-Rohdaten subtrahiert. Abb.~\ref{fig:gyro_bias}
 zeigt die Daten vor und nach der Bias-Korrektur.
 
 \begin{figure}[h]
