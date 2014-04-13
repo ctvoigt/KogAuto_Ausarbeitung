@@ -40,9 +40,8 @@ Das Weltkoordinatensystem für die Transformation hat seinen Ursprung in der Kam
 Das ausgewählte Koordinatensystem macht es einfach die Transformation von einem Brillenpixel in das Weltkoordinatensystem abzubilden. Es handelt sich um eine statische Transformation, da die Kamera fest mit der Brille verschraubt ist. Die Herausforderung besteht darin, den virtuellen Bildschirm der Brille abzubilden. In den einzelnen Brillengläsern befindet sich Optik (Lines und ein Spiegel), mit denen dem Brillenträger ein großer Bildschirm Simuliert wird. Da es für uns jedoch nicht möglich war, festzustellen, ob für jeden Brillenträger die Anzeige gleich war, haben wir folgenden Verfahren angewendet: Wir haben den virtuellen Bildschirm, projiziert per Strahlensatz, auf einen weiteren virtuellen Bildschirm genau im Mittelpunkt der Brille festgelegt. Dieser Bildschirm ist unabhängig vom Benutzer, da zu Vermessung dieses Bildschirmes der Abstand zum virtuellen Bildschirm keine Rolle spielt.
 Die Wahl des virtuellen Bildschirms genau in der Brillenmitte hat ebenfalls den Vorteil, dass die gewonnenen Daten später auch für die Berechnung des Öffnungswinkels verwendet werden können, da diese identisch mit den physikalischen Brillengläsern sind.
 Die Position des Bildschirmes wird aus empirischen Ergebnissen gewonnen. Hierzu haben wir die Brille waagerecht zu einer Wand festgeschraubt und Punktepaare zu einem von Hand vermessenen Auge aufgenommen. Hierzu haben wir Punktekoordinaten auf dem Bildschirm zu konstanten Punkten auf der waagerecht zur Brille montierten Referenzwand (mit Punkten) vermessen. Die Brille wurde in die für den jeweiligen Probanden korrekte Position gebracht, so dass es genau für einen Öffnungswinkel die Referenzwand füllend im Bild sehen kann. Anschließend wird der Abstand zur Wand vermessen. Aus dem Abstand zur Wand und den vermessenen Punkten auf der Wand, konnte mit Hilfe der gemessenen Pixel auf der Brille, die Größe eines Pixel auf unserem virtuellen Bildschirm innerhalb der Brille errechnet werden. Der Abstand auf dem referenzbildschirm war für jeden Probanden gleich, die angeklickte Position war ebenfalls gleich, jedoch der Abstand zur Wand leicht verschieden, da verschiedene Probanden einen leicht Abweichenden Sichtöffnungswinkel hatten, da die Augen je nach physiologischen Eigenschaften verschieden weit hinter der Brille sich befinden. Hierdurch war es uns möglich eine Fehlerrechnung über alle Daten durchzuführen, da wir 15 Punktepaare hatten. Hierdurch kamen wir zu relativ genauen Ergebnissen des Brillenbildschirms:
-    
- \begin{table}
- \caption{Empirisch ermittelte Werte}
+
+ \begin{table}[h]
  \begin{tabular}{l|l|l}
   Eigenschaft & Brillenseite & Wert \\
   \hline
@@ -53,8 +52,9 @@ Die Position des Bildschirmes wird aus empirischen Ergebnissen gewonnen. Hierzu 
   Position des Bildschirms & rechts & \\
  \end{tabular}
  \label{tab:konstanteWerte}
+ \caption{Empirisch ermittelte Werte}
  \end{table}
-            
+\todo[inline]{Tabelle sieht etwas verhunzt aus. Fix me!}               
 Durch diese Ausmessungen konnte die  Transformation eines Koordinatenpunktes u, v in Weltkoordinaten auf zwei einfache Transformationen vereinfacht werden
 
    \begin{enumerate}
@@ -63,9 +63,7 @@ Durch diese Ausmessungen konnte die  Transformation eines Koordinatenpunktes u, 
    \end{enumerate}
 
 
-In der Implementierung wurde noch folgende Vereinfachung festgestellt: Da die virtuellen Bildschirme immer eine parallele Ebene zur x, y-Achsen-Ebene aufstellen, kann die Transformation durch eine einfache Addition durchgeführt werden
-
-    Listing einfügen.
+In der Implementierung wurde noch folgende Vereinfachung festgestellt: Da die virtuellen Bildschirme immer eine parallele Ebene zur x, y-Achsen-Ebene aufstellen, kann die Transformation durch eine einfache Addition durchgeführt werden.
 
 \subsubsection{Transformationen für Bildschirmpunkte}
 \label{ssection:alva}
@@ -82,8 +80,26 @@ Das konkrete Vorgehen beschreibt sich bezüglich der Transformation folgenderma�
 
 Um auf den Referenzpunkt zu gelangen, gibt es eine triviale Addition, um den statischen Offset der Anzeigelemente und der zentrierten ALVAR Position zu kompensieren. Um nun die Translation um einen u,v Pixel zu realisieren, wird eine Ebene durch die drei Marker gelegt und drauf die Verschiebung durchgeführt. Im Anschluss kann die Rücktransformation zum Koordinatenursprung geschehen.
 
-    Listing einfügen
+\subsection{Bestimmung der Augenposition}
+\label{sec:Augenposition}
+Als Input für die Bestimmung der Augenposition dienen Punktpaare in Weltkoordinaten. Die Punktpaare bestehen jeweils aus einem Punkt auf dem Bildschirm der Brille und einem auf dem Monitor des Computers.\\
+Im ersten Schritt erhalten wir eine Menge an Geraden indem wir durch jedes Punktpaar eine Gerade legen. im zweiten Schritt berechnen wir aus dieser Menge an Geraden eine Schnittumgebung. Hierbei nehmen wir jede Gerade aus der Menge und berechnen für jedes andere verbleibende Element der Menge den entsprechenden Pseudoschnittpunkt. Als Pseudoschnittpunkt definieren wir den      Mittelpunkt des kleinsten Abstandes zwischen zwei Geraden.\\
+Als Ergebnis dieser Schritte erhalten wir nun eine Menge an Pseudoschnittpunkten. Um hieraus nun die Position der beiden Augen zu berechnen nutzen wir das \emph{Fast and Robust Smallest Enclosing Balls} Verfahren von Gärtner \cite{gaertner}, mit dem man die kleinste Kugel um eine Menge an Punkten im dreidimensionalen Raum berechnen kann.\\
+Wir haben das Verfahren zusätzlich um eine dynamische Optimierung erweitert, mit dem Ziel
+Messfehler zu minimieren und eine höhere Genauigkeit zu erzielen.\\ \\
+Hierbei wird das Verfahren erst auf die Menge \emph{P} der Pseudoschnittpunkte angewandt, wir erhalten als Ergebnis die Kugel $K_i$ mit  dem Mittelpunkt $K_m$ und dem Radius $K_r$. Dann wird ein Punkt \emph{S} aus \emph{P} frei gewählt, mit der Einschränkung dass \emph{S} auf der Oberfläche der Kugel liegt, also
 
+\begin{align}
+| K_m - S | &= K_r
+\end{align} Dann wird der Algorithmus von Gärtner erneut angewandt, auf die Menge \emph{P\textbackslash S}. Dies wird so lange ausgeführt, bis
+der Radius $K_r$ der resultierenden Kugel \emph{K} unter einen gewissen Grenzwert fällt; der spezifische Grenzwert unserer Implementierung ist \emph{max\_eye\_width} = 0.02.\\
+Dieses Verfahren war sinnvoll für anfängliche Testdaten, welche sich aber im Laufe der Implementierung als fehlerbehaftet erwiesen. Die korrekten Daten unterschieden sich stark von den anfänglichen Annahmen, welche durch eine fehlerhafte Implementierung erzielt wurden. So lagen die errechneten Pseudoschnittpunkte viel näher beisammen als erwartet. Damit wurde der Mittelpunkt unseres errechneten Auges zunehmend ungenauer, da wir diesen mit dem Mittelpunkt
+unserer Kugel \emph{K} gleichsetzten.\\
+Um hier eine höhere Genauigkeit zu erzielen wird nun nach der Berechnung der Mittelpunkt $K_r$ ersetzt, $K_r$ = $K_{r_{median}}$. $K_{r_{median}}$ ist hierbei der Median der Menge $P_{opt}$ an Pseudoschnittpunkten, wobei $P_{opt}$ die Menge der Pseudoschnittpunkte ist die bei der letzten Iteration der dynamischen Optimierung in Betracht gezogen wurde.\\
+
+\begin{align}
+K_{r_{median}} &= \frac{\sum\limits_{i=1}^{count(P)} P_i}{count(p)} 
+\end{align}
 
 
 \subsection{Stereoskopisches 3D}
@@ -192,4 +208,8 @@ Mithilfe obiger Konfigurationen lassen sie sowohl erkannte reale Objekte als auc
    \label{fig:Virtuelle Quadrate aus Prezi}
 \end{figure}
 
+\subsection{Ausblick}
+Um die Implementierung einsatztauglich zu machen, müsste für die Kalibrierung die dynamische Einblende der Punkteanzahl ergänzt werden. Während dem Kalibrieren kann die Güte der eingegebenen Punkte festgestellt werden, aus dieser kann abgeleitet werden, wie viele weitere Punkte noch nötig sind. Desweiteren wäre es möglich, dem Benutzer deutlicher zu signalisieren, mit welchem Auger er gerade kalibrieren muss.
+
+Desweiteren wäre eine Plausibilisierung des Ergebnises angebracht, sodass Fehlkalibrierungen direkt erkannt werden können. Hierzu würden Schwellwerte ausreichen.
 
