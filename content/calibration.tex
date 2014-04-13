@@ -63,9 +63,7 @@ Durch diese Ausmessungen konnte die  Transformation eines Koordinatenpunktes u, 
    \end{enumerate}
 
 
-In der Implementierung wurde noch folgende Vereinfachung festgestellt: Da die virtuellen Bildschirme immer eine parallele Ebene zur x, y-Achsen-Ebene aufstellen, kann die Transformation durch eine einfache Addition durchgef체hrt werden
-
-    Listing einf체gen.
+In der Implementierung wurde noch folgende Vereinfachung festgestellt: Da die virtuellen Bildschirme immer eine parallele Ebene zur x, y-Achsen-Ebene aufstellen, kann die Transformation durch eine einfache Addition durchgef체hrt werden.
 
 \subsubsection{Transformationen f체r Bildschirmpunkte}
 \label{ssection:alva}
@@ -81,8 +79,6 @@ Das konkrete Vorgehen beschreibt sich bez체glich der Transformation folgenderma�
    \end{enumerate}
 
 Um auf den Referenzpunkt zu gelangen, gibt es eine triviale Addition, um den statischen Offset der Anzeigelemente und der zentrierten ALVAR Position zu kompensieren. Um nun die Translation um einen u,v Pixel zu realisieren, wird eine Ebene durch die drei Marker gelegt und drauf die Verschiebung durchgef체hrt. Im Anschluss kann die R체cktransformation zum Koordinatenursprung geschehen.
-
-    Listing einf체gen
 
 
 
@@ -192,4 +188,4 @@ Mithilfe obiger Konfigurationen lassen sie sowohl erkannte reale Objekte als auc
    \label{fig:Virtuelle Quadrate aus Prezi}
 \end{figure}
 
-
+\subsection{Ausblick}
