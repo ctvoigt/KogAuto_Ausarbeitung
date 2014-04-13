@@ -102,22 +102,22 @@ Lediglich die Orientierung fließt in die folgende Fusion ein.
 Ziel der Fusion der mittels IMU-Daten berechneten Orientierung und der mittels Marker-Tracking bestimmten Kameraorientierung ist eine korrigierte Orientierung mit höherer Genauigkeit.
 
 Bevor die Fusion durchgeführt werden kann, müssen IMU- und Kameraorientierung in ein einheitliches Koordinatensystem transformiert werden.
+Abb.~\ref{fig:tf_tree} zeigt die verwendeten Koordinatensysteme und Transformationen zwischen den Koordinatensystemen.
 Während die IMU-Orientierung in Weltkoordinaten berechnet wird, ist die Kameraorientierung zunächst im Markerkoordinatensystem angegeben.
 Durch den stationären Marker im Fahrzeug lässt sich die Kameraorientierung dann in Fahrzeugkoordinaten umrechnen.
 Die Verbindung vom Fahrzeug- zum Weltkoordinatensytem ermöglicht die Transformation der Kameraorientierung in das für die Fusion genutzte Weltkoordinatensystem.
 
 Für die Umsetzung wurde das Transformationsframework von \ac{ROS} verwendet~\cite{ros_tf}.
-Dadurch ist es möglich, das Fusionsergebnis in einem beliebigen Koordinatensystem anzugeben. Abb.~\ref{fig:tf_tree} zeigt die in der Anwendung vorkommenden Koordinatensysteme.
+Dadurch ist es möglich, das Fusionsergebnis in einem beliebigen Koordinatensystem anzugeben.
 
 Die Orientierungen werden durch lineare Interpolation fusioniert.
 Es ist zu beachten, dass eine Fusion nur dann stattfindet, wenn der Marker auch detektiert wurde.
 Im anderen Fall wird nur die IMU-Orientierung als Ergebnis ausgegeben.
 Ein Gewichtungsfaktor für die Kameraorientierung von 20\% hat sich bei der Realisierung als praktikabel erwiesen.
 
-\begin{figure*}[tb]
- \centering
- \includegraphics[width=0.98\textwidth]{tf_tree}
-  \caption{Koordinaten-Frames}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{TF-Baum_gesamt}
+  \caption{Koordinatensysteme und Transformationen}
   \label{fig:tf_tree}
-\end{figure*}
-
+\end{figure}
