@@ -104,7 +104,7 @@ $\omega_{h}$. Die Fusion erfolgt nach
 
 Dabei ist $\delta_l^{min}$ und $\delta_l^{max}$ der minimale bzw.
 maximale Schwellwert für das LBW-Gyroskop, welcher experimentell für
-jede Achse ermittelt wurde. In Abbildung \ref{fig:gyro_threshold} sind
+jede Achse ermittelt wurde. In Abb. \ref{fig:gyro_threshold} sind
 die Wertebereiche der Gyroskope schematisch dargestellt. Hier ist zu
 erkennen, dass das LBW-Gyroskop (blau dargestellt) einen minimalen und
 maximalen Wertebereich hat, welcher auf der Ordinate mit
@@ -119,7 +119,7 @@ $\delta_l^{min}$ und $\delta_l^{max}$ markiert ist.
 \end{figure}
 
 Aus den gefilterten Sensordaten wird daraufhin durch Integration über
-die Zeit die Orientierung berechnet. Hierzu wird die Orientierung in einem Quaternion gespeichert, welches nach jeder Sensorabtastung aktualisiert wird. Hierbei ist $dt$ die Abtastrate der Gyroskop-Sensoren, welche 100Hz beträgt.
+die Zeit die Orientierung berechnet. Hierzu wird die Orientierung in einem Quaternion gespeichert, welches nach jeder Sensorabtastung aktualisiert wird. Hierbei ist $dt$ die Abtastrate der Gyroskop-Sensoren, welche 100~Hz beträgt.
 
 \begin{equation}
     \Delta q = quaternion({\omega_x \over dt}, {\omega_y \over dt}, {\omega_z \over dt}) \\
@@ -240,7 +240,7 @@ Des Weiteren werden die Daten noch durch einen Tiefpassfilter geglättet, sowie 
 Der Tiefpassfilter wird wie in Abs. \ref{headtracking_imu_gyro_subsubsec} bereits beschrieben durchgeführt. 
 Die Anwendung der Kalibrierung und Normierung wird durch nachfolgende Formel bewerkstelligt:
 \begin{equation}
-    m_{norm} = \frac{m_{raw}- \frac{m_{\delta}}{2}}{2~m_{\delta}},  {\delta}~=~m_{max}~-~m_{min}
+    m_{norm} = \frac{m_{raw}- \frac{m_{\delta}}{2}}{2~m_{\delta}},  m_{\delta}~=~m_{max}~-~m_{min}
 \end{equation}
 Dabei bezeichnet $m_{norm}$ einen normierten Magnetfeldvektorkanal, $m_{raw}$ die Rohdaten des jeweiligen Kanals und $m_{\lbrace max, min\rbrace}$ den gemessenen Maximal- bzw. Minimalwert.
 
