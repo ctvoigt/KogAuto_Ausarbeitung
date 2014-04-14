@@ -196,8 +196,8 @@ Dies liegt darin begründet, dass sich die Sensordaten des Beschleunigungssensor
 \subsubsection{Magnetometer}
 \label{headtracking_magnetometer_subsubsec}
 
-Das Magnetometer wird im Rahmen des Praktikums zur Stützung des Yaw-Winkels (Drehung um die Z-Achse des Brillenkoordinatensystems) genutzt.\
-Das verbaute Magnetometer misst in drei Achsen nach dem Funktionsprinzip der Wheatstoneschen Messbrücke \cite{renaudin2010complete} das Erdmagnetfeld.
+Das Magnetometer wird im Rahmen des Praktikums zur Stützung des Yaw-Winkels (Drehung um die Z-Achse des Brillenkoordinatensystems) genutzt.
+Das verbaute Magnetometer misst in drei Achsen nach dem Funktionsprinzip der Wheatstoneschen Messbrücke~\cite{renaudin2010complete} das Erdmagnetfeld.
 Dieses Messverfahren führt zum einen zu einer kleinen und kostengünstigen Bauweise.
 Zum anderen entstehen aber Messungenauigkeiten, die im Rahmen der Sensorkalibrierung beachtet und ausgeglichen werden müssen.
 
@@ -218,7 +218,7 @@ Zum anderen entstehen aber Messungenauigkeiten, die im Rahmen der Sensorkalibrie
 Gemessen werden die Magnetfeldlinien der Erde, welche in Abb. \ref{fig:mag_world} dargestellt sind.
 Diese sind abhängig von der aktuellen Position auf der Erdoberfläche\footnote{Tatsächlich verändert sich das Erdmagnetfeld auch über die Zeit hinweg.
 Diese Änderung kann aber im Rahmen des Praktikums vernachlässigt werden, da es sich um eine sehr kleine Änderung handelt (\zB für den Praktikumsort Karlsruhe ca. $1^\circ 46$'~$7.8$ arcmin/Jahr im Deklinationswinkel).}.
-Sobald das Erdmagnetfeld nicht am Äquator gemessen wird muss der Inklinationswinkel\footnote{Bezeichnet den Neigungswinkel des örtlichen Erdmagnetfeldes zur Horizontalen.} bei der Messung mit beachtet werden. Dieser beträgt beispielsweise in Karlsruhe ca. $49^\circ$ geographischer Breite. Er wird in Abb. \ref{fig:mag_mapping} mit I beschrieben.
+Sobald das Erdmagnetfeld nicht am Äquator gemessen wird, muss der Inklinationswinkel\footnote{Bezeichnet den Neigungswinkel des örtlichen Erdmagnetfeldes zur Horizontalen.} bei der Messung mit beachtet werden. Dieser beträgt beispielsweise in Karlsruhe ca. $49^\circ$ geographischer Breite. Er wird in Abb. \ref{fig:mag_mapping} mit I beschrieben.
 Die Abbildung des gemessenen 3D-Magnetfeldvektor auf die XY-Ebene wird durch folgende Formel bewerkstelligt:
 
 \begin{equation}
@@ -260,7 +260,7 @@ Die Anwendung der Kalibrierung und Normierung wird durch nachfolgende Formel bew
 Dabei bezeichnet $m_{norm}$ einen normierten Magnetfeldvektorkanal, $m_{raw}$ die Rohdaten des jeweiligen Kanals und $m_{\lbrace max, min\rbrace}$ den gemessenen Maximal- bzw. Minimalwert.
 
 Ursprünglich war die Verwendung des Magnetometers zur Stützung des Yaw-Winkels fraglich, da der Einsatz im Versuchsträger \emph{CoCar} viele magnetische Störquellen in Form der vorhandenen Boardtechnik vermuten lies. 
-Allerdings konnten durch mehrere Testläufe im Fahrzeug keine größeren Störeffekte gemessen werden. Trotz allem muss eine Kalibrierung in einem möglichst störfreien Umfeld durchgeführt werden, da durch Störquellen (wie bspw. ein Dauermagnet, eine Tastatur, \oae) die Messdaten wie in Abb. \ref{fig:uncalibrated_error} zu erkennen wesentlich beeinflusst werden. In Abb.~\ref{fig:uncalibrated_error} sind unkalibrierte Messdaten dargestellt (Kreise liegen nicht über einander). Die Störungen sind dadurch zu erkennen, dass sie außerhalb der Kreise der einzelnen Kanäle liegen.
+Allerdings konnten durch mehrere Testläufe im Fahrzeug keine größeren Störeffekte gemessen werden. Trotz allem muss eine Kalibrierung in einem möglichst störfreien Umfeld durchgeführt werden, da durch Störquellen (wie bspw. ein Dauermagnet, eine Tastatur, \oae) die Messdaten wie in Abb. \ref{fig:uncalibrated_error} zu erkennen wesentlich beeinflusst werden. In Abb.~\ref{fig:uncalibrated_error} sind unkalibrierte Messdaten dargestellt (Kreise liegen nicht übereinander). Die Störungen sind dadurch zu erkennen, dass sie außerhalb der Kreise der einzelnen Kanäle liegen.
 
 \begin{figure}[ht]
 	\centering
@@ -269,6 +269,6 @@ Allerdings konnten durch mehrere Testläufe im Fahrzeug keine größeren Störef
 	\label{fig:uncalibrated_error}
 \end{figure}
 
-Um die Magnetometerdaten letztlich zur Stützung des Yaw-Winkels zu nutzen, werden die Daten zuerst in das in ein Rotationsquaternion  $q_{mag}$ umgewandelt.
+Um die Magnetometerdaten letztlich zur Stützung des Yaw-Winkels zu nutzen, werden die Daten zuerst in ein Rotationsquaternion $q_{mag}$ umgewandelt.
 Danach wird das vorhandene Rotationsquaternion $q_{gyro,acc}$ bestehend aus den Daten der Gyroskope und des Beschleunigungssensors mit $q_{mag}$ interpoliert.
 Das genaue Verfahren wird im nachfolgenden Abs.~\ref{headtracking_fusion_subsec} vorgestellt.
