@@ -104,6 +104,7 @@ Die Koordinatentransformationen sind nötig, um aus den Punktepaaren (Die über 
 Die Eingaben für das Verfahren erhält die Anwendung aus ROS-Messages und published diese auch wieder auf gleichem Wege.
 
 \subsubsection{Weltkoordinatensystem}
+\ref{sec:koord}
 Das Weltkoordinatensystem für die Transformation hat seinen Ursprung in der Kamera, gerichtet in Sichtrichtung mit der Konvention angelehnt an Kamerasysteme: x nach rechts, y nach unten, z nach vorne.
 
 \subsubsection{Transformation für Brillenpunkte}
@@ -152,13 +153,13 @@ In der Implementierung wurde noch folgende Vereinfachung festgestellt: Da die vi
 \label{ssection:alva}
 Die Transformation von einem Bildschirmpixel in das Weltkoordinatensystem stellt andere Herausforderungen. 
 Der Bildschirm kann als eine physikalische Größe angesehen werden und vermessen werden. 
-Es liegen konstante  \ac{DPI}-Werte vor, es kann also ebenfalls eine statische Transformation von einem Referenzpunkt auf dem Bildschirm zum angezeigten Punkt geschehen. 
-Hierzu ist lediglich eine Transformation nötig, die die DPI-Werte des Bildschirms berücksichtigt und durchführt. 
-Der Referenzpunkt des Bildschirms haben wir innerhalb unserer Anwendung (siehe Kapitel ??) gewählt, da dieser somit invariant gegen Verschiebungen bleibt. 
-Bei diesem Vorgehen besteht jedoch die größte Herausforderung darin, dass die Position des Bildschirmes benötigt wird. 
-Hierzu wird die Kamera mit Bildverarbeitung eingesetzt. 
+Es liegen konstante  \ac{DPI}-Werte vor, es kann also ebenfalls eine statische Transformation von einem Referenzpunkt auf dem Bildschirm zum angezeigten Punkt durchgeführt werden. 
+Hierzu ist lediglich eine Transformation nötig, die die Eigenschaften des Bildschirms (Position und DPI) berücksichtigt. 
+Der Referenzpunkt des Bildschirms ist in der Ebene des Bildschirms innerhalb unserer GUI festgelegt. Durch diese Festlegen bleibt unserer Anwendung unabhängig von Verschiebungen des Anwendungsfensters auf dem Bildschirm. 
+Bei diesem Vorgehen besteht jedoch die größte Herausforderung darin, dass die Position des Referenzpunktes ermittelt werden muss. 
+Hierzu wird die Kamera der Brille mit Bildverarbeitung eingesetzt. 
 Dafür ist die Bibliothek ALVAR, die sich in ROS integrieren lässt, verwendet.
-Drei ALVAR Marker werden nun mittels der Webcam erkannt und zur Entfernungsbestimmung vermittelt. 
+Drei ALVAR Marker werden mittels der Webcam erkannt und zur Entfernungsbestimmung vermittelt. 
 Hiermit sind nun beide Transformationen auch für die Berechnung der Position vorhanden. 
 Dieser Ansatz bietet den Nachteil, dass ALVAR eine gewisse Ungenauigkeit und eine gewisse Verzögerung mit sich bringt, wodurch die Benutzbarkeit erschwert wird. 
 Ein längerfristiges Ziel sollte es also sein, die Integration des Headtrackingalgorithmuses auch in die Kalibrierung einzufügen.
