@@ -89,7 +89,7 @@ Um nun also Punktepaare für die Kalibrierung aufzeichnen zu können, ist die Gr
 Eine Vollbildanzeige mit fester Auflösung der nativen Auflösung der Brillenanzeige wird mittels SDL implementiert. Diese Anwendung erkennt automatisch die Brille als zweiten Bildschirm und wählt diesen für die Anzeige aus. Ansonsten ermöglicht die Anwendung es, einen Punkt an eine per ROS-Paket vorgegebene Position anzuzeigen.
 
 \subsubsection{Anzeige auf dem Bildschirm}
-Um auf den im Auto integrierten Bildschirm eine Anzeige durchzuführen, wurde eine Oberfläche (siehe Abbildung \ref{fig:fensteranwendung}) mit Qt implementiert. Diese enthält die für die Bildverarbeitung nötigen Marker (siehe Kapitel \ref{ssection:alva}) und nimmt die Klickpositionen vom Nutzer entgegen. Die ermittelte Klickposition wird als ROS-Messages versendet.
+Um auf den im Auto integrierten Bildschirm eine Anzeige durchzuführen, wurde eine Oberfläche (siehe Abb. \ref{fig:fensteranwendung}) mit Qt implementiert. Diese enthält die für die Bildverarbeitung nötigen Marker (siehe Kapitel \ref{ssection:alva}) und nimmt die Klickpositionen vom Nutzer entgegen. Die ermittelte Klickposition wird als ROS-Messages versendet.
 \begin{figure}[h]
    \centering
    \includegraphics[width=0.45\textwidth]{bildschirm_anwendung}
@@ -152,7 +152,7 @@ In der Implementierung wurde noch folgende Vereinfachung festgestellt: Da die vi
 \label{ssection:alva}
 Die Transformation von einem Bildschirmpixel in das Weltkoordinatensystem stellt andere Herausforderungen. 
 Der Bildschirm kann als eine physikalische Größe angesehen werden und vermessen werden. 
-Es liegen konstante DPI-Werte vor, es kann also ebenfalls eine statische Transformation von einem Referenzpunkt auf dem Bildschirm zum angezeigten Punkt geschehen. 
+Es liegen konstante  \ac{DPI}-Werte vor, es kann also ebenfalls eine statische Transformation von einem Referenzpunkt auf dem Bildschirm zum angezeigten Punkt geschehen. 
 Hierzu ist lediglich eine Transformation nötig, die die DPI-Werte des Bildschirms berücksichtigt und durchführt. 
 Der Referenzpunkt des Bildschirms haben wir innerhalb unserer Anwendung (siehe Kapitel ??) gewählt, da dieser somit invariant gegen Verschiebungen bleibt. 
 Bei diesem Vorgehen besteht jedoch die größte Herausforderung darin, dass die Position des Bildschirmes benötigt wird. 
@@ -176,20 +176,27 @@ Im Anschluss kann die Rücktransformation zum Koordinatenursprung geschehen.
 
 \subsection{Bestimmung der Augenposition}
 \label{sec:Augenposition}
-Als Input für die Bestimmung der Augenposition dienen Punktpaare in Weltkoordinaten. Die Punktpaare bestehen jeweils aus einem Punkt auf dem Bildschirm der Brille und einem auf dem Monitor des Computers.\\
-Im ersten Schritt erhalten wir eine Menge an Geraden indem wir durch jedes Punktpaar eine Gerade legen. Im zweiten Schritt berechnen wir aus dieser Menge an Geraden eine Schnittumgebung. Hierbei nehmen wir jede Gerade aus der Menge und berechnen für jedes andere verbleibende Element der Menge den entsprechenden Pseudoschnittpunkt. Als Pseudoschnittpunkt definieren wir den      Mittelpunkt des kleinsten Abstandes zwischen zwei Geraden.\\
-Als Ergebnis dieser Schritte erhalten wir nun eine Menge an Pseudoschnittpunkten. Um hieraus nun die Position der beiden Augen zu berechnen nutzen wir das \emph{Fast and Robust Smallest Enclosing Balls} Verfahren von Gärtner \cite{gaertner}, mit dem man die kleinste Kugel um eine Menge an Punkten im dreidimensionalen Raum berechnen kann.\\
+Als Input für die Bestimmung der Augenposition dienen Punktpaare in Weltkoordinaten. Die Punktpaare bestehen jeweils aus einem Punkt auf dem Bildschirm der Brille und einem auf dem Monitor des Computers.
+
+Im ersten Schritt erhalten wir eine Menge an Geraden indem wir durch jedes Punktpaar eine Gerade legen. Im zweiten Schritt berechnen wir aus dieser Menge an Geraden eine Schnittumgebung. Hierbei nehmen wir jede Gerade aus der Menge und berechnen für jedes andere verbleibende Element der Menge den entsprechenden Pseudoschnittpunkt. Als Pseudoschnittpunkt definieren wir den      Mittelpunkt des kleinsten Abstandes zwischen zwei Geraden.
+
+Als Ergebnis dieser Schritte erhalten wir nun eine Menge an Pseudoschnittpunkten. Um hieraus nun die Position der beiden Augen zu berechnen nutzen wir das \emph{Fast and Robust Smallest Enclosing Balls} Verfahren von Gärtner \cite{gaertner}, mit dem man die kleinste Kugel um eine Menge an Punkten im dreidimensionalen Raum berechnen kann.
+
 Wir haben das Verfahren zusätzlich um eine dynamische Optimierung erweitert, mit dem Ziel
-Messfehler zu minimieren und eine höhere Genauigkeit zu erzielen.\\ \\
+Messfehler zu minimieren und eine höhere Genauigkeit zu erzielen.\\ 
+
 Hierbei wird das Verfahren erst auf die Menge \emph{P} der Pseudoschnittpunkte angewandt, wir erhalten als Ergebnis die Kugel $K_i$ mit  dem Mittelpunkt $K_m$ und dem Radius $K_r$. Dann wird ein Punkt \emph{S} aus \emph{P} frei gewählt, mit der Einschränkung dass \emph{S} auf der Oberfläche der Kugel liegt, also
 
 \begin{align}
 | K_m - S | &= K_r
 \end{align} Dann wird der Algorithmus von Gärtner erneut angewandt, auf die Menge \emph{P\textbackslash S}. Dies wird so lange ausgeführt, bis
-der Radius $K_r$ der resultierenden Kugel \emph{K} unter einen gewissen Grenzwert fällt; der spezifische Grenzwert unserer Implementierung ist \emph{max\_eye\_width} = 0.02.\\
+der Radius $K_r$ der resultierenden Kugel \emph{K} unter einen gewissen Grenzwert fällt; der spezifische Grenzwert unserer Implementierung ist \emph{max\_eye\_width} = 0.02.
+
 Dieses Verfahren war sinnvoll für anfängliche Testdaten, welche sich aber im Laufe der Implementierung als fehlerbehaftet erwiesen. Die korrekten Daten unterschieden sich stark von den anfänglichen Annahmen, welche durch eine fehlerhafte Implementierung erzielt wurden. So lagen die errechneten Pseudoschnittpunkte viel näher beisammen als erwartet. Damit wurde der Mittelpunkt unseres errechneten Auges zunehmend ungenauer, da wir diesen mit dem Mittelpunkt
-unserer Kugel \emph{K} gleichsetzten.\\
-Um hier eine höhere Genauigkeit zu erzielen wird nun nach der Berechnung der Mittelpunkt $K_r$ ersetzt, $K_r$ = $K_{r_{median}}$. $K_{r_{median}}$ ist hierbei der Median der Menge $P_{opt}$ an Pseudoschnittpunkten, wobei $P_{opt}$ die Menge der Pseudoschnittpunkte ist die bei der letzten Iteration der dynamischen Optimierung in Betracht gezogen wurde.\\
+unserer Kugel \emph{K} gleichsetzten.
+
+Um hier eine höhere Genauigkeit zu erzielen wird nun nach der Berechnung der Mittelpunkt $K_r$ ersetzt, $K_r$ = $K_{r_{median}}$. $K_{r_{median}}$ ist hierbei der Median der Menge $P_{opt}$ an Pseudoschnittpunkten, wobei $P_{opt}$ die Menge der Pseudoschnittpunkte ist die bei der letzten Iteration der dynamischen Optimierung in Betracht gezogen wurde.
+
 
 \begin{align}
 K_{r_{median}} &= \frac{\sum\limits_{i=1}^{count(P)} P_i}{count(p)} 
