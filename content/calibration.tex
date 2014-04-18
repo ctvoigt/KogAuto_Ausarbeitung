@@ -1,10 +1,10 @@
 \section{Kalibrierung der Brille}
-Im folgenden Kapitel geht es um eine Durchsichtbrille, die in Subkapitel  \emph{"1.3 Hard- und Software"} beschrieben war (s.~Abb.~\ref{fig:vuzix_star_1200}).
+Im folgenden Kapitel geht es um eine Durchsichtbrille, die in Kapitel \ref{einleitung_hardware_subsec}  beschrieben war.
  Im Laufe dieses Kapitels werden folgende Fragen beantwortet: 
 Wie wird die Wahrnehmung der 3D-Objekte mithilfe der Brillendisplays möglich?
 Warum wird die Kalibrierung der Brille benötigt? 
 Wie ist die Brille zu kalibrieren, sodass eine Darstellung der erweiterten Realität problemlos möglich ist? 
-Welche Konfigurationen sollen individuell vorgenommen werden, damit nicht jeder Nutzer \emph{"}schielen\emph{"}  muss, sobald er durch die 3D-Brille schaut? 
+Welche Konfigurationen sollen individuell vorgenommen werden, damit der Nutzer gewünschte Information richtig sehen kann? 
 
 \subsection{Stereoskopisches 3D}
 \label{sec:Stereoskopisches 3D}
@@ -12,7 +12,7 @@ Welche Konfigurationen sollen individuell vorgenommen werden, damit nicht jeder 
 Es existieren mehrere Gründe der menschlichen Raumwahrnehmung.
 Menschen sehen die Objekte dreidimensional wegen der Linearperspektive, relativer Größe zur anderen Objekte, Verdeckung der Objekte und wegen des stereoskopischen Sehens. 
 Stereoskopisches Sehen vermittelt durch die beidäugige Betrachtung von Objekten und Gegenständen eine echte, messbare Tiefenwahrnehmung und räumliche Wirkung des Außenraums. 
-Das passiert mit der Hilfe menschlicher beiden Augen.
+Das passiert mit der Hilfe unsererr beiden Augen.
 Jedes Auge bekommt ein eigenes Bild und sendet das ins Gehirn. 
 Dort werden diese beide Bilder zu eine einzige zusammengefasst.
 
@@ -50,7 +50,7 @@ Die gegebene Daten sind im Abb. \ref{fig:geom} dargestellt.
 Punkte $B_{l}$, $C_{l}$ bzw. $B_{r}$, $C_{r}$ sind die Endpunkte des linken bzw. rechten Bildschirms der Brille.
 Die Punkte $A_{l}$ (grün) bzw. $A_{r}$ (rot) beschreiben die Positionen der Augen.
 $wa_{l}$ und $wa_{r}$ sind die Sehwinkel des Benutzers durch welche die Bildschirme und dort dargestellte Objekte gesehen werden. 
-Blaue Linien $m_{l}$ und $m_{r}$ sind Winkelhalbierenden.
+Blaue Linien $M_{l}$ und $M_{r}$ sind Winkelhalbierenden.
 
 Für die Anzeige der Bilder auf der Brillenbildschirme, werden Augen als Kameras interpretiert und damit werden benötigte Bilder erstellt.
 Dementsprechend sind die Winkel $wa_{l}$ und $wa_{r}$ die Öffnungswinkel dieser Kameras.
@@ -59,10 +59,10 @@ In meisten Anwendungen, die Kameras simulieren, ist aber vorausgesetzt, dass die
 Das ist dasselbe, wie dass der Winkelhalbierende der Öffnungswinkel senkrecht zur Bildschirm ist.
 Wir nehmen an, dass dafür benötigte Drehwinkel $g_{l}$ bzw. $g_{r}$ keine entscheidende Rolle in der Bildanzeige spielt.
 Mit dieser Annahme rechnen wir die Winkel $g_{l}$ und  $g_{r}$ aus  um die virtuellen Kameras theoretisch zu drehen.
-Das wird benötigt um passende Daten für die Benutzung anderer Anwendungen zu bekommen.
+Das wird benötigt um passende Daten für die Benutzung anderer Anwendungen zu bekommen. Die konkrete Beschreibung der Realisierung dafür ist in Kapitel  \ref{sec:virtuelle Kameras} zu finden.
 
 \subsection{Workflow}
-Um mit 3D-Durchsichtbrille reale und authentisch wirkende 3D Welten angezeigen zu können, muss diese präzise kalibriert sein. 
+Um mit 3D-Durchsichtbrille reale und authentisch wirkende 3D Welten anzeigen zu können, muss diese präzise kalibriert sein. 
 Das ist der Fall, wenn die Durchsichtbrille für diverse Szenarien im Kontext der kognitiven Automobile verwendet werden kann.  
 Hierzu gehören Anwendungen, bei den z.B. Fußgänger simuliert werden um menschliche Fahrerinteraktionen zu messen und als Lerndaten zu akquirieren. 
 Dafür ist die Kalibrierung unabdingbar.
@@ -71,20 +71,20 @@ Ebenfalls wird es möglich, mit einer kalibrierten Brille simulierte neue Bedien
 
 Hierzu werden die Parameter benötigt, mit denen die Bilder für ein solch akkurates Stereoscopic-3D benötigt werden.
 (Für geometrische Beschreibung siehe Kapitel \ref{sec:Geometrische Beschreibung der Kalibrierung} )
-Zu diesen Parametern zählen die Position der Augen, die Position der Bildschirme in den Brillengläsern und die Öffnungswinkel, mit denen ein einzelnes Individuum durch eine spezifische Brille sehen kann.
-Um diese Parameter zu bestimmen wurde ein interaktives Kalibrierungsverfahren ausgewählt, da es wichtig ist, dass die Kalibrierung komfortabel und ohne externe Gerätschaften von statten geht, da es für jeden Benutzter nötig ist, die Brille individuell zu kalibrieren. Das Minimum an benötigten Punkten um die Position eines Auges zu bestimmen sind zwei Geraden, also zwei Punkte auf einer Sichtlinie je Geraden. Um die Daten präziser zu machen können mehrere Geraden verwendet werden, die dann einen genaueren Schnittpunkt ermöglichen, es sollen aber immer nur 2 Punkte je Gerade verwendet werden, da bei dem Aufeinanderlegen von 3 Punkten für den Benutzer unangenehmen Haltungen während der Kalibrierung resultieren.
+Zu diesen Parametern zählen die Position der Augen ($A_{l}$; $A_{r}$), die Position der Bildschirme in den Brillengläsern ($B_{l}$, $C_{l}$ und $B_{r}$, $C_{r}$) und die Öffnungswinkel ($wa_{l}$; $wa_{r}$), mit denen ein einzelnes Individuum durch eine spezifische Brille sehen kann. (Siehe Abb. \ref{fig:geom} )
+Um die Position der Augen und die Öffnungswinkel, die sich von Benutzter zu Benutzter unterscheiden können, zu bestimmen wurde ein interaktives Kalibrierungsverfahren ausgewählt. Es ist wichtig, dass die Kalibrierung komfortabel und ohne externe Gerätschaften von statten geht, da es für jeden Benutzter nötig ist, die Brille individuell zu kalibrieren. Das Minimum an benötigten Punkten um die Position eines Auges zu bestimmen sind zwei Geraden, also zwei Punkte auf einer Sichtlinie je Geraden. Um die Daten präziser zu machen können mehrere Geraden verwendet werden, die dann einen genaueren Schnittpunkt ermöglichen. 
 
 Der erste Ansatz war es einen Punkt im Auto zu verwenden, der in seiner Position bekannt ist und durch Bildverarbeitung erkannt werden kann und n Punkte auf der Brille. Hierbei hat sich jedoch herausgestellt, dass der Abstand der einzelnen Schnittlinien in einem sehr kleinen Winkels von statten geht und somit fehleranfällig ist. Der zweite Ansatz verwendet den Bildschirm, der im Auto verbaut ist und die Brillengläser. Hiermit sind beidseitig die Punkte variabel und können somit so gewählt werden, dass sich Messfehler nicht so gravierend auswirken wie im vorherigen Ansatz. Des Weiteren ist das Verfahren erweiterbar auf eine Onlinebewertung während der Kalibrierung, so dass über ein Algorithmus passende Punkte ausgewählt werden können, um die Kalibrierung zu optimieren.
 
 Im Ablauf werden nun also Punkte auf dem Brillenglas angezeigt, die der Benutzer per Klick auf die Stelle auf dem Bildschirm markiert, so dass sie für ihn übereinander liegen. Somit konnte ein idealer Kompromiss zwischen Benutzerfreundlichkeit und der Akquisition von geeigneten Linienpaaren gefunden werden.
 
-Nach dem Kalibrierungsprozess für jedes Auge können die benötigten Parameter berechnet werden.
+Nach dem Kalibrierungsprozess für jedes Auge können die individuellen Parameter fürs Benutzer berechnet werden.
 
 
 \subsection{Bestimmung von Punktepaaren}
 \label{chap:punktepaare}
 \subsubsection{Konzept}
-Um nun also Punktepaare für die Kalibrierung aufzeichnen zu können, ist die Grafikausgabe der Software nötig. Hierzu wurden zwei Anwendungen als ROS Nodes implementiert. Die Nodes werden mittels der Frameworks \emph{Simple DirectMedia Layer} (weiter SDL) und Qt umgesetzt.
+Um nun also Punktepaare für die Kalibrierung aufzeichnen zu können, ist die Grafikausgabe der Software nötig. Hierzu wurden zwei Anwendungen als ROS Nodes implementiert. Die Nodes werden mittels der Frameworks \ac{SDL}  \cite{sdl} und  Qt \cite{qt} umgesetzt.
 \subsubsection{Anzeige auf der Brille}
 Eine Vollbildanzeige mit fester Auflösung der nativen Auflösung der Brillenanzeige wird mittels SDL implementiert. Diese Anwendung erkennt automatisch die Brille als zweiten Bildschirm und wählt diesen für die Anzeige aus. Ansonsten ermöglicht die Anwendung es, einen Punkt an eine per ROS-Paket vorgegebene Position anzuzeigen.
 
@@ -203,6 +203,7 @@ Aus diesem Grund sind an den virtuellen Kameras Konfigurationen und Änderungen 
 
 
 \subsubsection{Einstellung des Öffnungswinkels der virtuellen Kameras}
+\label{sec:virtuelle Kameras}
 
 Je nach anatomischen Aufbau des Gesichts hinsichtlich  der Nasenform und der Augenpositionen des menschlichen Nutzers, variiert der tatsächliche Öffnungswinkel, der aufgrund des Abstandes vom Auge zur Brille entsteht. Im Rahmen des Praktikums wurden mithilfe eines eigenständigen Versuches Augenpositionen relativ zur Kamera gemessen. Da die Lage der Brillendisplays zur Kamera als konstant angenommen wird, ist der Abstand zwischen Auge und Brillendisplays nun bestimmbar.
 
