@@ -69,7 +69,7 @@ Hierzu werden die Parameter benötigt, mit denen die Bilder für ein solch akkur
 Zu diesen Parametern zählen die Position der Augen ($A_{l}$; $A_{r}$), die Position der Bildschirme in den Brillengläsern ($B_{l}$, $C_{l}$ und $B_{r}$, $C_{r}$) und die Öffnungswinkel ($wa_{l}$; $wa_{r}$), mit denen ein einzelnes Individuum durch eine spezifische Brille sehen kann. (Siehe Abb. \ref{fig:geom} )
 Um die Position der Augen und die Öffnungswinkel, die sich von Benutzter zu Benutzter unterscheiden können, zu bestimmen wurde ein interaktives Kalibrierungsverfahren ausgewählt. Es ist wichtig, dass die Kalibrierung komfortabel und ohne externe Gerätschaften von statten geht, da es für jeden Benutzter nötig ist, die Brille individuell zu kalibrieren. Das Minimum an benötigten Punkten um die Position eines Auges zu bestimmen sind zwei Geraden, also zwei Punkte auf einer Sichtlinie je Geraden. Um die Daten präziser zu machen können mehrere Geraden verwendet werden, die dann einen genaueren Schnittpunkt ermöglichen. 
 
-Der erste Ansatz war es einen Punkt im Auto zu verwenden, der in seiner Position bekannt ist und durch Bildverarbeitung erkannt werden kann und n Punkte auf der Brille. Hierbei hat sich jedoch herausgestellt, dass der Abstand der einzelnen Schnittlinien in einem sehr kleinen Winkels von statten geht und somit fehleranfällig ist. Der zweite Ansatz verwendet den Bildschirm, der im Auto verbaut ist und die Brillengläser. Hiermit sind beidseitig die Punkte variabel und können somit so gewählt werden, dass sich Messfehler nicht so gravierend auswirken wie im vorherigen Ansatz. Des Weiteren ist das Verfahren erweiterbar auf eine Onlinebewertung während der Kalibrierung, so dass über ein Algorithmus passende Punkte ausgewählt werden können, um die Kalibrierung zu optimieren.
+Der erste Ansatz war\todo{nur Präteritum. erster ansatz ist Ralf überhauptnicht klargeworden, eventuell einfach den ersten ansatz löschen} es einen Punkt im Auto zu verwenden, der in seiner Position bekannt ist und durch Bildverarbeitung erkannt werden kann und n Punkte auf der Brille. Hierbei hat sich jedoch herausgestellt, dass der Abstand der einzelnen Schnittlinien in einem sehr kleinen Winkels von statten geht und somit fehleranfällig ist. Der zweite Ansatz verwendet den Bildschirm, der im Auto verbaut ist und die Brillengläser. Hiermit sind beidseitig die Punkte variabel und können somit so gewählt werden, dass sich Messfehler nicht so gravierend auswirken wie im vorherigen Ansatz. Des Weiteren ist das Verfahren erweiterbar auf eine Onlinebewertung während der Kalibrierung, so dass über ein Algorithmus passende Punkte ausgewählt werden können, um die Kalibrierung zu optimieren.
 
 Im Ablauf werden nun also Punkte auf dem Brillenglas angezeigt, die der Benutzer per Klick auf die Stelle auf dem Bildschirm markiert, so dass sie für ihn übereinander liegen. Somit konnte ein idealer Kompromiss zwischen Benutzerfreundlichkeit und der Akquisition von geeigneten Linienpaaren gefunden werden.
 
@@ -79,9 +79,8 @@ Nach dem Kalibrierungsprozess für jedes Auge können die individuellen Paramete
 \todo{Hier noch Text einfügen.}
 
 
-\subsubsection{Bestimmung von Punktepaaren}
+\subsubsection{Kalibrierung}
 \label{chap:punktepaare}
-\subsubsection*{Idee}
 Um nun also Punktepaare für die Kalibrierung aufzeichnen zu können, ist die Grafikausgabe der Software nötig. Hierzu wurden zwei Anwendungen als ROS Nodes implementiert. Die Nodes werden mittels der Frameworks \ac{SDL}  \cite{sdl} und  Qt \cite{qt} umgesetzt.
 \subsubsection*{Anzeige auf der Brille}
 Eine Vollbildanzeige mit fester Auflösung der nativen Auflösung der Brillenanzeige wird mittels SDL implementiert. Diese Anwendung erkennt automatisch die Brille als zweiten Bildschirm und wählt diesen für die Anzeige aus. Ansonsten ermöglicht die Anwendung es, einen Punkt an eine per ROS-Paket vorgegebene Position anzuzeigen.
@@ -97,7 +96,6 @@ Um auf den im Auto integrierten Bildschirm eine Anzeige durchzuführen, wurde ei
 
 
 \subsubsection{Koordinatentransformation}
-\subsubsection*{Übersicht}
 Die Koordinatentransformationen sind nötig, um aus den Punktepaaren (Die über die Anwendungen aus Kapitel \ref{chap:punktepaare}), Koordinaten im 3D Weltkoordinatensystem zu erhalten. Nur aus Punkten in einem einheitlichen Koordinatensystem können später korrekte Geraden berechnet werden.
 Die Eingaben für das Verfahren erhält die Anwendung aus ROS-Messages und published diese auch wieder auf gleichem Wege.
 
@@ -187,7 +185,7 @@ Hierbei wird das Verfahren erst auf die Menge \emph{P} der Pseudoschnittpunkte a
 \begin{align}
 | K_m - S | &= K_r
 \end{align} Dann wird der Algorithmus von Gärtner erneut angewandt, auf die Menge \emph{P\textbackslash S}. Dies wird so lange ausgeführt, bis
-der Radius $K_r$ der resultierenden Kugel \emph{K} unter einen gewissen Grenzwert fällt; der spezifische Grenzwert unserer Implementierung ist \emph{max\_eye\_width} = 0.02.
+der Radius $K_r$ der resultierenden Kugel \emph{K} unter einen gewissen Grenzwert fällt; der spezifische Grenzwert unserer Implementierung ist \emph{max\_eye\_width} = 0.02\todo{Bitte einheit dazuschreiben. Ich fände es besser, hierfür keine Variable zu nenen, sondern den Grenzwert zu beschrieben. Ist sonst unsere einzige Variable im ganzen Dokument.}.
 
 Dieses Verfahren war sinnvoll für anfängliche Testdaten, welche sich aber im Laufe der Implementierung als fehlerbehaftet erwiesen. Die korrekten Daten unterschieden sich stark von den anfänglichen Annahmen, welche durch eine fehlerhafte Implementierung erzielt wurden. So lagen die errechneten Pseudoschnittpunkte viel näher beisammen als erwartet. Damit wurde der Mittelpunkt unseres errechneten Auges zunehmend ungenauer, da wir diesen mit dem Mittelpunkt
 unserer Kugel \emph{K} gleichsetzten.
@@ -224,7 +222,7 @@ f_x & 0& 0& c_x \\
 \label{table:instrisische Kameraparameter}
 \end{equation}
 
-Die Displaygrößen variieren je nach Abstand Auge-Display. Die gemessenen Werte befinden sich mit obengenannten Größen in \ref{table:Messwerte DisplayAuge}.
+Die Displaygrößen variieren je nach Abstand Auge-Display. Die gemessenen Werte befinden sich mit obengenannten Größen in Tabelle \ref{table:Messwerte DisplayAuge}.
 %
  \begin{table}[ht]
 
