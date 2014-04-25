@@ -81,7 +81,7 @@ Nach dem Kalibrierungsprozess für jedes Auge können die individuellen Paramete
 
 \subsubsection{Kalibrierung}
 \label{chap:punktepaare}
-Um nun also Punktepaare für die Kalibrierung aufzeichnen zu können, ist die Grafikausgabe der Software nötig. Hierzu wurden zwei Anwendungen als ROS Nodes implementiert. Die Nodes werden mittels der Frameworks \ac{SDL}  \cite{sdl} und  Qt \cite{qt} umgesetzt.
+Um nun also Punktepaare für die Kalibrierung aufzeichnen zu können, ist die Grafikausgabe der Software nötig. Hierzu wurden zwei Anwendungen als ROS Nodes implementiert. Die Nodes werden mittels der Frameworks \ac{SDL}  \cite{sdl} und  \ac{Qt} \cite{qt} umgesetzt.
 \subsubsection*{Anzeige auf der Brille}
 Eine Vollbildanzeige mit fester Auflösung der nativen Auflösung der Brillenanzeige wird mittels SDL implementiert. Diese Anwendung erkennt automatisch die Brille als zweiten Bildschirm und wählt diesen für die Anzeige aus. Ansonsten ermöglicht die Anwendung es, einen Punkt an eine per ROS-Paket vorgegebene Position anzuzeigen.
 
@@ -113,22 +113,25 @@ Dieser Bildschirm ist unabhängig vom Benutzer, da zu Vermessung dieses Bildschi
 Die Wahl des virtuellen Bildschirms genau in der Brillenmitte hat ebenfalls den Vorteil, dass die gewonnenen Daten später auch für die Berechnung des Öffnungswinkels verwendet werden können, da diese identisch mit den physikalischen Brillengläsern sind.
 Die Position des Bildschirmes wird aus empirischen Ergebnissen gewonnen. 
 Hierzu haben wir die Brille waagerecht zu einer Wand festgeschraubt und Punktepaare zu einem von Hand vermessenen Auge aufgenommen. 
-Hierzu haben wir Punktekoordinaten auf dem Bildschirm zu konstanten Punkten auf der waagerecht zur Brille montierten Referenzwand (mit Punkten) vermessen. 
+Hierzu haben wir Punktekoordinaten auf dem Bildschirm zu konstanten Punkten auf der waagerecht zur Brille montierten Referenzwand (mit Punkten) vermessen. \todo{Einmal ist die Brille montiert und einmal die refernzwand. Klarstellen, dass durch diese Montierung nur die Entfernung, aber nicht eine Verschiebung oder Verdrehung möglich war.}
 Die Brille wurde in die für den jeweiligen Probanden korrekte Position gebracht, so dass es genau für einen Öffnungswinkel die Referenzwand füllend im Bild sehen kann. 
 Anschließend wird der Abstand zur Wand vermessen. 
 Aus dem Abstand zur Wand und den vermessenen Punkten auf der Wand, konnte mit Hilfe der gemessenen Pixel auf der Brille, die Größe eines Pixel auf unserem virtuellen Bildschirm innerhalb der Brille errechnet werden. 
-Der Abstand auf dem referenzbildschirm war für jeden Probanden gleich, die angeklickte Position war ebenfalls gleich, jedoch der Abstand zur Wand leicht verschieden, da verschiedene Probanden einen leicht Abweichenden Sichtöffnungswinkel hatten, da die Augen je nach physiologischen Eigenschaften verschieden weit hinter der Brille sich befinden. 
-Hierdurch war es uns möglich eine Fehlerrechnung über alle Daten durchzuführen, da wir 15 Punktepaare hatten. 
-Hierdurch kamen wir zu relativ genauen Ergebnissen des Brillenbildschirms:
+Der Abstand zweier Punkte auf dem Referenzbildschirm wird für jeden der zwei Probanden gleich vorgegeben. 
+Die angeklickte Position der beiden Probanden ist ebenfalls annährend gleich, jedoch nicht der Abstand zur Wand, den die Probanden für ihr persönliches Sichtfeld wählen. 
+Die abweichenden Sichtöffnungswinkel durch die Brille erklären sich, da die Augen je nach physiologischen Eigenschaften verschieden weit hinter der Brille befindlich sind. 
+Hierdurch ist es möglich eine Fehlerrechnung über alle Daten durchzuführen, da wir 15 Punktepaare je Proband ermitteln. 
+Hierdurch ergibt sich ein recht genaues, empirisch bestimmtes Ergebnis für die für das Verfahren verwendeten, virtuellen Brillenbildschirme: Siehe Tabelle \ref{tab:konstanteWerte}. 
+Die Position der virtuellen Displays konnte bei diesem Vorgang relativ zur Kamera per Lineal vermessen werden.
 
  \begin{table}[h]
  \begin{tabular}{l|l}
   Eigenschaft & Wert \\
   \hline
   \hline
-  Pixelgröße & ~2.04E-03 cm/px \\
-  Größe des Virtuellen Bildschirms & 2,61 x 1,57 cm \\
-  Position des Bildschirms & +- 4, -3, -2 cm \\
+  Pixelgröße & $2.04*10^-3 cm/px$ \\
+  Größe des Virtuellen Bildschirms & $2,61 cm$ x $1,57 cm$ \\
+  Position des Bildschirms & +- $4$, $-3$, $-2$ cm \\
  \end{tabular}
  \label{tab:konstanteWerte}
  \caption{Empirisch ermittelte Werte}
