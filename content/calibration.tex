@@ -1,12 +1,12 @@
 \section{Kalibrierung der Brille}
-Im folgenden Kapitel geht es um eine Durchsichtbrille, die in Kapitel \ref{einleitung_hardware_subsec}  beschrieben war.
- Im Laufe dieses Kapitels werden folgende Fragen beantwortet: 
-Wie wird die Wahrnehmung der 3D-Objekte mithilfe der Brillendisplays möglich?
-Warum wird die Kalibrierung der Brille benötigt? 
-Wie ist die Brille zu kalibrieren, sodass eine Darstellung der erweiterten Realität problemlos möglich ist? 
-Welche Konfigurationen sollen individuell vorgenommen werden, damit der Nutzer gewünschte Information richtig sehen kann? 
+Im folgenden Kapitel wird ein Verfahren für die Kalibrierung einer Durchsichtbrille (wie in Kapitel \ref{einleitung_hardware_subsec}  beschrieben), erläutert.
+Hierbei werden folgende Fragen beantwortet: 
+Wie wird die Wahrnehmung der 3D-Objekte mithilfe der Durchsichtbrille möglich?
+Warum wird eine Kalibrierung der Brille benötigt? 
+Wie ist die Brille zu kalibrieren, sodass eine Darstellung der Augmentierung korrekt möglich ist? 
+Welche Parameter müssen individuell berechnet werden, welche können in der Kalibrierung ermitteln werden und welche können statisch angenommen werden? 
 
-\subsection{Stereoskopisches 3D}
+\subsection{Stereoskopisches Sehen}
 \label{sec:Stereoskopisches 3D}
 \subsubsection{Allgemeine Information der räumlichen Wahrnehmung}
 Zur räumlichen Wahrnehmung des Menschen tragen mehre Faktoren bei.
@@ -24,6 +24,7 @@ Eine genauere Beschreibung ist im Abb. \ref{fig:3D} zu finden.
    \caption{stereoskopisches Sehen}
    \label{fig:3D}
 \end{figure}
+\todo{Hier bitte noch die Quelle angeben, die hat Ecaterina noch.}
 
 Da sich die Bilder des linken und rechten Auges sich von der Perspektive unterscheiden, kann das menschliches Gehirn aus diesen Unterschiede die Positionen, Formen und Größen der Objekte ermitteln.
 
@@ -62,7 +63,7 @@ Wir nehmen an, dass dafür benötigte Drehwinkel $g_{l}$ bzw. $g_{r}$ keine ents
 Mit dieser Annahme rechnen wir die Winkel $g_{l}$ und  $g_{r}$ aus  um die virtuellen Kameras theoretisch zu drehen.
 Das wird benötigt um passende Daten für die Benutzung anderer Anwendungen zu bekommen. Die konkrete Beschreibung der Realisierung dafür ist in Kapitel  \ref{sec:virtuelle Kameras} zu finden.
 
-\subsection{Workflow}
+\subsection{Konzept}
 Hierzu werden die Parameter benötigt, mit denen die Bilder für ein solch akkurates Stereoscopic-3D benötigt werden.
 (Für geometrische Beschreibung siehe Kapitel \ref{sec:Geometrische Beschreibung der Kalibrierung} )
 Zu diesen Parametern zählen die Position der Augen ($A_{l}$; $A_{r}$), die Position der Bildschirme in den Brillengläsern ($B_{l}$, $C_{l}$ und $B_{r}$, $C_{r}$) und die Öffnungswinkel ($wa_{l}$; $wa_{r}$), mit denen ein einzelnes Individuum durch eine spezifische Brille sehen kann. (Siehe Abb. \ref{fig:geom} )
@@ -74,15 +75,18 @@ Im Ablauf werden nun also Punkte auf dem Brillenglas angezeigt, die der Benutzer
 
 Nach dem Kalibrierungsprozess für jedes Auge können die individuellen Parameter fürs Benutzer berechnet werden.
 
+\subsection{Implementierung}
+\todo{Hier noch Text einfügen.}
 
-\subsection{Bestimmung von Punktepaaren}
+
+\susubbsection{Bestimmung von Punktepaaren}
 \label{chap:punktepaare}
-\subsubsection{Konzept}
+\subsubsubsection{Idee}
 Um nun also Punktepaare für die Kalibrierung aufzeichnen zu können, ist die Grafikausgabe der Software nötig. Hierzu wurden zwei Anwendungen als ROS Nodes implementiert. Die Nodes werden mittels der Frameworks \ac{SDL}  \cite{sdl} und  Qt \cite{qt} umgesetzt.
-\subsubsection{Anzeige auf der Brille}
+\subsubsubsection{Anzeige auf der Brille}
 Eine Vollbildanzeige mit fester Auflösung der nativen Auflösung der Brillenanzeige wird mittels SDL implementiert. Diese Anwendung erkennt automatisch die Brille als zweiten Bildschirm und wählt diesen für die Anzeige aus. Ansonsten ermöglicht die Anwendung es, einen Punkt an eine per ROS-Paket vorgegebene Position anzuzeigen.
 
-\subsubsection{Anzeige auf dem Bildschirm}
+\subsubsubsection{Anzeige auf dem Bildschirm}
 Um auf den im Auto integrierten Bildschirm eine Anzeige durchzuführen, wurde eine Oberfläche (siehe Abb. \ref{fig:fensteranwendung}) mit Qt implementiert. Diese enthält die für die Bildverarbeitung nötigen Marker (siehe Kapitel \ref{ssection:alva}) und nimmt die Klickpositionen vom Nutzer entgegen. Die ermittelte Klickposition wird als ROS-Messages versendet.
 \begin{figure}[h]
    \centering
@@ -92,16 +96,16 @@ Um auf den im Auto integrierten Bildschirm eine Anzeige durchzuführen, wurde ei
 \end{figure}
 
 
-\subsection{Koordinatentransformation}
-\subsubsection{Übersicht}
+\susubbsection{Koordinatentransformation}
+\subsubsubsection{Übersicht}
 Die Koordinatentransformationen sind nötig, um aus den Punktepaaren (Die über die Anwendungen aus Kapitel \ref{chap:punktepaare}), Koordinaten im 3D Weltkoordinatensystem zu erhalten. Nur aus Punkten in einem einheitlichen Koordinatensystem können später korrekte Geraden berechnet werden.
 Die Eingaben für das Verfahren erhält die Anwendung aus ROS-Messages und published diese auch wieder auf gleichem Wege.
 
-\subsubsection{Weltkoordinatensystem}
+\subsubsubsection{Weltkoordinatensystem}
 \ref{sec:koord}
 Das Weltkoordinatensystem für die Transformation hat seinen Ursprung in der Kamera, gerichtet in Sichtrichtung mit der Konvention angelehnt an Kamerasysteme: x nach rechts, y nach unten, z nach vorne.
 
-\subsubsection{Transformation für Brillenpunkte}
+\subsubsubsection{Transformation für Brillenpunkte}
 Das ausgewählte Koordinatensystem macht es einfach die Transformation von einem Brillenpixel in das Weltkoordinatensystem abzubilden. 
 Es handelt sich um eine statische Transformation, da die Kamera fest mit der Brille verschraubt ist. 
 Die Herausforderung besteht darin, den virtuellen Bildschirm der Brille abzubilden. In den einzelnen Brillengläsern befindet sich Optik (Lines und ein Spiegel), mit denen dem Brillenträger ein großer Bildschirm Simuliert wird. 
@@ -141,7 +145,7 @@ Durch diese Ausmessungen konnte die  Transformation eines Koordinatenpunktes u, 
 
 In der Implementierung wurde noch folgende Vereinfachung festgestellt: Da die virtuellen Bildschirme immer eine parallele Ebene zur x, y-Achsen-Ebene aufstellen, kann die Transformation durch eine einfache Addition durchgeführt werden.
 
-\subsubsection{Transformationen für Bildschirmpunkte}
+\subsubsubsection{Transformationen für Bildschirmpunkte}
 \label{ssection:alva}
 Die Transformation von einem Bildschirmpixel in das Weltkoordinatensystem stellt andere Herausforderungen. 
 Der Bildschirm kann als eine physikalische Größe angesehen werden und vermessen werden. 
@@ -167,7 +171,7 @@ Um nun die Translation um einen u,v Pixel zu realisieren, wird eine Ebene durch 
 Im Anschluss kann die Rücktransformation zum Koordinatenursprung geschehen.
 
 
-\subsection{Bestimmung der Augenposition}
+\subsubsection{Bestimmung der Augenposition}
 \label{sec:Augenposition}
 Als Input für die Bestimmung der Augenposition dienen Punktpaare in Weltkoordinaten. Die Punktpaare bestehen jeweils aus einem Punkt auf dem Bildschirm der Brille und einem auf dem Monitor des Computers.
 
@@ -195,7 +199,7 @@ Um hier eine höhere Genauigkeit zu erzielen wird nun nach der Berechnung der Mi
 K_{r_{median}} &= \frac{\sum\limits_{i=1}^{count(P)} P_i}{count(p)} 
 \end{align}
 
-\subsection{Augensimulierung mithilfe der virtuellen Rviz-Kameras }
+\subsection{Erzeugung der stereoskopischen Bilder mit einer RViz Camera}
 Für die technische Realisierung des Stereoskopischen 3D werden alle erkannten Objekte in die virtuelle Welt auf korrespondierende Positionen übertragen. 
 Zusätzlich dazu werden 2 Kameras in der virtuellen Welt definiert, die permanent Sichtbilder auf die virtuellen Objekte ermöglichen. Allerdings reicht eine einfache Augensimulation aufgrund der technischen Voraussetzungen nicht aus. 
 Denn die realen Display ist sind nur ein kleiner integrierter Teil der Brillen und unterscheidet hinsichtlich der Brennweite und des Öffnungs- und Drehwinkels erheblich von den Standardeinstellungen einer virtuellen Kamera ab. (siehe Kapitel \ref{sec:Geometrische Beschreibung der Kalibrierung})
