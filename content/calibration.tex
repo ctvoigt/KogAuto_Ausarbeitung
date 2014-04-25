@@ -81,9 +81,9 @@ Nach dem Kalibrierungsprozess für jedes Auge können die individuellen Paramete
 
 \subsubsection{Bestimmung von Punktepaaren}
 \label{chap:punktepaare}
-\paragraph{}{Idee}
+\paragraph{Idee}
 Um nun also Punktepaare für die Kalibrierung aufzeichnen zu können, ist die Grafikausgabe der Software nötig. Hierzu wurden zwei Anwendungen als ROS Nodes implementiert. Die Nodes werden mittels der Frameworks \ac{SDL}  \cite{sdl} und  Qt \cite{qt} umgesetzt.
-\paragraph{}{Anzeige auf der Brille}
+\paragraph{Anzeige auf der Brille}
 Eine Vollbildanzeige mit fester Auflösung der nativen Auflösung der Brillenanzeige wird mittels SDL implementiert. Diese Anwendung erkennt automatisch die Brille als zweiten Bildschirm und wählt diesen für die Anzeige aus. Ansonsten ermöglicht die Anwendung es, einen Punkt an eine per ROS-Paket vorgegebene Position anzuzeigen.
 
 \paragraph{Anzeige auf dem Bildschirm}
