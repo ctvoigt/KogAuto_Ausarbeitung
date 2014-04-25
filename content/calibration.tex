@@ -16,7 +16,7 @@ Letzteres ist nur durch das Vorhandensein zweier Augen möglich.
 Jedes Auge bekommt ein eigenes Bild und sendet dieses ins Gehirn.
 Dort werden beide Bilder zu einer Raumwahrnehmung zusammengefasst.
 Hierbei gibt es Entfernungsbereiche in denen das stereoskopische Sehen die wichtigste Rolle einnimmt.
-Eine genauere Beschreibung ist im Abb. \ref{fig:3D} zu finden.
+Eine genauere Beschreibung ist im Abbildung \ref{fig:3D} zu finden.
 
 \begin{figure}[h]
    \centering
@@ -40,7 +40,7 @@ Aus dem Grund ist eine individuelle Kalibrierung vorzunehmen.
 \subsubsection{Geometrische Beschreibung der Kalibrierung}
 \label{sec:Geometrische Beschreibung der Kalibrierung}
 Dieses Kapitel beschreibt wofür die Kalibrierung durchgeführt wird und welche Daten dafür benötigt werden.
-Die gegebene Daten sind im Abb. \ref{fig:geom} dargestellt. 
+Die gegebene Daten sind im Abbildung \ref{fig:geom} dargestellt. 
 
 \begin{figure}[h]
    \centering
@@ -56,7 +56,7 @@ Blaue Linien $M_{l}$ und $M_{r}$ sind Winkelhalbierenden.
 
 Für die Anzeige der Bilder auf der Brillenbildschirme, werden Augen als Kameras interpretiert und damit werden benötigte Bilder erstellt.
 Dementsprechend sind die Winkel $wa_{l}$ und $wa_{r}$ die Öffnungswinkel dieser Kameras.
-Wie auf dieser Abb. \ref{fig:geom} gut zu sehen ist, müssen die Augenpositionen nicht unbedingt in der Mitte des Bildschirms liegen.
+Wie auf dieser Abbildung \ref{fig:geom} gut zu sehen ist, müssen die Augenpositionen nicht unbedingt in der Mitte des Bildschirms liegen.
 In meisten Anwendungen, die Kameras simulieren, ist aber vorausgesetzt, dass die Kameras in der Mitte sind.
 Das ist dasselbe, wie dass der Winkelhalbierende der Öffnungswinkel senkrecht zur Bildschirm ist.
 Wir nehmen an, dass dafür benötigte Drehwinkel $g_{l}$ bzw. $g_{r}$ keine entscheidende Rolle in der Bildanzeige spielt.
@@ -66,7 +66,7 @@ Das wird benötigt um passende Daten für die Benutzung anderer Anwendungen zu b
 \subsection{Konzept}
 Hierzu werden die Parameter benötigt, mit denen die Bilder für ein solch akkurates Stereoscopic-3D benötigt werden.
 (Für geometrische Beschreibung siehe Kapitel \ref{sec:Geometrische Beschreibung der Kalibrierung} )
-Zu diesen Parametern zählen die Position der Augen ($A_{l}$; $A_{r}$), die Position der Bildschirme in den Brillengläsern ($B_{l}$, $C_{l}$ und $B_{r}$, $C_{r}$) und die Öffnungswinkel ($wa_{l}$; $wa_{r}$), mit denen ein einzelnes Individuum durch eine spezifische Brille sehen kann. (Siehe Abb. \ref{fig:geom} )
+Zu diesen Parametern zählen die Position der Augen ($A_{l}$; $A_{r}$), die Position der Bildschirme in den Brillengläsern ($B_{l}$, $C_{l}$ und $B_{r}$, $C_{r}$) und die Öffnungswinkel ($wa_{l}$; $wa_{r}$), mit denen ein einzelnes Individuum durch eine spezifische Brille sehen kann. (Siehe Abbildung \ref{fig:geom} )
 Um die Position der Augen und die Öffnungswinkel, die sich von Benutzter zu Benutzter unterscheiden können, zu bestimmen wurde ein interaktives Kalibrierungsverfahren ausgewählt. Es ist wichtig, dass die Kalibrierung komfortabel und ohne externe Gerätschaften von statten geht, da es für jeden Benutzter nötig ist, die Brille individuell zu kalibrieren. Das Minimum an benötigten Punkten um die Position eines Auges zu bestimmen sind zwei Geraden, also zwei Punkte auf einer Sichtlinie je Geraden. Um die Daten präziser zu machen können mehrere Geraden verwendet werden, die dann einen genaueren Schnittpunkt ermöglichen. 
 
 Der erste Ansatz war\todo{nur Präteritum. erster ansatz ist Ralf überhauptnicht klargeworden, eventuell einfach den ersten ansatz löschen} es einen Punkt im Auto zu verwenden, der in seiner Position bekannt ist und durch Bildverarbeitung erkannt werden kann und n Punkte auf der Brille. Hierbei hat sich jedoch herausgestellt, dass der Abstand der einzelnen Schnittlinien in einem sehr kleinen Winkels von statten geht und somit fehleranfällig ist. Der zweite Ansatz verwendet den Bildschirm, der im Auto verbaut ist und die Brillengläser. Hiermit sind beidseitig die Punkte variabel und können somit so gewählt werden, dass sich Messfehler nicht so gravierend auswirken wie im vorherigen Ansatz. Des Weiteren ist das Verfahren erweiterbar auf eine Onlinebewertung während der Kalibrierung, so dass über ein Algorithmus passende Punkte ausgewählt werden können, um die Kalibrierung zu optimieren.
@@ -86,7 +86,7 @@ Um nun also Punktepaare für die Kalibrierung aufzeichnen zu können, ist die Gr
 Eine Vollbildanzeige mit fester Auflösung der nativen Auflösung der Brillenanzeige wird mittels SDL implementiert. Diese Anwendung erkennt automatisch die Brille als zweiten Bildschirm und wählt diesen für die Anzeige aus. Ansonsten ermöglicht die Anwendung es, einen Punkt an eine per ROS-Paket vorgegebene Position anzuzeigen.
 
 \subsubsection*{Anzeige auf dem Bildschirm}
-Um auf den im Auto integrierten Bildschirm eine Anzeige durchzuführen, wurde eine Oberfläche (siehe Abb. \ref{fig:fensteranwendung}) mit Qt implementiert. Diese enthält die für die Bildverarbeitung nötigen Marker (siehe Kapitel \ref{ssection:alva}) und nimmt die Klickpositionen vom Nutzer entgegen. Die ermittelte Klickposition wird als ROS-Messages versendet.
+Um auf den im Auto integrierten Bildschirm eine Anzeige durchzuführen, wurde eine Oberfläche (siehe Abbildung \ref{fig:fensteranwendung}) mit Qt implementiert. Diese enthält die für die Bildverarbeitung nötigen Marker (siehe Kapitel \ref{ssection:alva}) und nimmt die Klickpositionen vom Nutzer entgegen. Die ermittelte Klickposition wird als ROS-Messages versendet.
 \begin{figure}[h]
    \centering
    \includegraphics[width=0.45\textwidth]{bildschirm_anwendung}
@@ -100,7 +100,7 @@ Die Koordinatentransformationen sind nötig, um aus den Punktepaaren (Die über 
 Die Eingaben für das Verfahren erhält die Anwendung aus ROS-Messages und published diese auch wieder auf gleichem Wege.
 
 \subsubsection*{Weltkoordinatensystem}
-\ref{sec:koord}
+\label{sec:koord}
 Das Weltkoordinatensystem für die Transformation hat seinen Ursprung in der Kamera, gerichtet in Sichtrichtung mit der Konvention angelehnt an Kamerasysteme: x nach rechts, y nach unten, z nach vorne.
 
 \subsubsection*{Transformation für Brillenpunkte}
@@ -210,7 +210,7 @@ Aus diesem Grund sind an den virtuellen Kameras Konfigurationen und Änderungen 
 
 Je nach anatomischen Aufbau des Gesichts hinsichtlich  der Nasenform und der Augenpositionen des menschlichen Nutzers, variiert der tatsächliche Öffnungswinkel, der aufgrund des Abstandes vom Auge zur Brille entsteht. Im Rahmen des Praktikums wurden mithilfe eines eigenständigen Versuches Augenpositionen relativ zur Kamera gemessen. Da die Lage der Brillendisplays zur Kamera als konstant angenommen wird, ist der Abstand zwischen Auge und Brillendisplays nun bestimmbar.
 
-Da der Öffnungswinkel der virtuellen Kameras nicht direkt manipuliert werden kann, wird ein alternativer Weg verwendet. Dabei wurde die virtuelle Kamera mithilfe der intrinsischen Parameter verändert. Zum einen entspricht die Brennweite f der virtuellen Kamera dem Abstand der Augen zum Display, zum anderen bilden die Größen der Brillendisplays die Grundlage für die Berechnung der Auflösung der virtuellen Kameras. Konkrete Berechnung findet sich in der Projektionsmatrix in \ref{table:instrisische Kameraparameter} wieder. $f_x$ und $f_y$ beschreiben die fokalen Längen in Pixel (d.h. Abstand*px/m), $c_x$ und $c_y$ beschreiben den "Principle Point" der Kamera, welche sich aus der Auflösung (1280x 760 für die Vuzix-Brille) ergibt. 
+Da der Öffnungswinkel der virtuellen Kameras nicht direkt manipuliert werden kann, wird ein alternativer Weg verwendet. Dabei wurde die virtuelle Kamera mithilfe der intrinsischen Parameter verändert. Zum einen entspricht die Brennweite f der virtuellen Kamera dem Abstand der Augen zum Display, zum anderen bilden die Größen der Brillendisplays die Grundlage für die Berechnung der Auflösung der virtuellen Kameras. Konkrete Berechnung findet sich in der Projektionsmatrix in Formel \ref{table:instrisische Kameraparameter} wieder. $f_x$ und $f_y$ beschreiben die fokalen Längen in Pixel (d.h. Abstand*px/m), $c_x$ und $c_y$ beschreiben den "Principle Point" der Kamera, welche sich aus der Auflösung (1280x 760 für die Vuzix-Brille) ergibt. 
 
 %
 
@@ -242,7 +242,7 @@ Die Displaygrößen variieren je nach Abstand Auge-Display. Die gemessenen Werte
 Mit der kalibrierten Brennweite und dem Blickwinkel der virtuellen Kameras können nun Objekte in der richtigen Größen angezeigt werden, wie sie von den Augen wahrgenommen werden sollen. Allerdings weicht die wahrgenommene Position der Objekte von der realen Position noch stark ab. 
 
 \subsubsection{Drehwinkeleinstellung}
-3-D-Sehen wird erst ermöglicht, wenn für beide Augen ein entsprechender Drehwinkel (d.h. Drehung in der horizontalen Ebene) eigestellt werden. Dies wurde im \ref{sec:Stereoskopisches 3D} erläutert.  Entsprechende Drehwinkeln für das linke Auge $g_{l}$ und für das rechte $g_{r}$ werden dabei jeweils für die korrespondierende, virtuelle Kamera verwendet.
+3-D-Sehen wird erst ermöglicht, wenn für beide Augen ein entsprechender Drehwinkel (d.h. Drehung in der horizontalen Ebene) eigestellt werden. Dies wurde in Kapitel \ref{sec:Stereoskopisches 3D} erläutert.  Entsprechende Drehwinkeln für das linke Auge $g_{l}$ und für das rechte $g_{r}$ werden dabei jeweils für die korrespondierende, virtuelle Kamera verwendet.
 Es ist dabei eine wichtige Annahme zu berücksichtigen. Im Verhältnis zum Brillendisplay liegen die Augen hinsichtlich der Höhe in der Mitte. Dies bedeutet dass eine Betrachtung der Drehung des Winkels in der vertikalen Ebene ebenfalls notwendig ist. Dies ist in realen Anwendungen nicht zu vernachlässigen und darf auch deshalb in späteren Entwicklungen nicht außer Acht gelassen werden.
 
 Mithilfe obiger Konfigurationen lassen sie sowohl erkannte reale Objekte als auch virtuelle Objekte anzeigen.  Ein Beispiel dafür findet sich in Abbildung \ref{fig:Virtuelle Quadrate aus Prezi}
