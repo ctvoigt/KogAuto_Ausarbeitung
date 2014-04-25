@@ -79,14 +79,14 @@ Nach dem Kalibrierungsprozess für jedes Auge können die individuellen Paramete
 \todo{Hier noch Text einfügen.}
 
 
-\susubbsection{Bestimmung von Punktepaaren}
+\subsubsection{Bestimmung von Punktepaaren}
 \label{chap:punktepaare}
-\subsubsubsection{Idee}
+\paragraph{}{Idee}
 Um nun also Punktepaare für die Kalibrierung aufzeichnen zu können, ist die Grafikausgabe der Software nötig. Hierzu wurden zwei Anwendungen als ROS Nodes implementiert. Die Nodes werden mittels der Frameworks \ac{SDL}  \cite{sdl} und  Qt \cite{qt} umgesetzt.
-\subsubsubsection{Anzeige auf der Brille}
+\paragraph{}{Anzeige auf der Brille}
 Eine Vollbildanzeige mit fester Auflösung der nativen Auflösung der Brillenanzeige wird mittels SDL implementiert. Diese Anwendung erkennt automatisch die Brille als zweiten Bildschirm und wählt diesen für die Anzeige aus. Ansonsten ermöglicht die Anwendung es, einen Punkt an eine per ROS-Paket vorgegebene Position anzuzeigen.
 
-\subsubsubsection{Anzeige auf dem Bildschirm}
+\paragraph{Anzeige auf dem Bildschirm}
 Um auf den im Auto integrierten Bildschirm eine Anzeige durchzuführen, wurde eine Oberfläche (siehe Abb. \ref{fig:fensteranwendung}) mit Qt implementiert. Diese enthält die für die Bildverarbeitung nötigen Marker (siehe Kapitel \ref{ssection:alva}) und nimmt die Klickpositionen vom Nutzer entgegen. Die ermittelte Klickposition wird als ROS-Messages versendet.
 \begin{figure}[h]
    \centering
@@ -96,16 +96,16 @@ Um auf den im Auto integrierten Bildschirm eine Anzeige durchzuführen, wurde ei
 \end{figure}
 
 
-\susubbsection{Koordinatentransformation}
-\subsubsubsection{Übersicht}
+\subsubsection{Koordinatentransformation}
+\paragraph{Übersicht}
 Die Koordinatentransformationen sind nötig, um aus den Punktepaaren (Die über die Anwendungen aus Kapitel \ref{chap:punktepaare}), Koordinaten im 3D Weltkoordinatensystem zu erhalten. Nur aus Punkten in einem einheitlichen Koordinatensystem können später korrekte Geraden berechnet werden.
 Die Eingaben für das Verfahren erhält die Anwendung aus ROS-Messages und published diese auch wieder auf gleichem Wege.
 
-\subsubsubsection{Weltkoordinatensystem}
+\paragraph{Weltkoordinatensystem}
 \ref{sec:koord}
 Das Weltkoordinatensystem für die Transformation hat seinen Ursprung in der Kamera, gerichtet in Sichtrichtung mit der Konvention angelehnt an Kamerasysteme: x nach rechts, y nach unten, z nach vorne.
 
-\subsubsubsection{Transformation für Brillenpunkte}
+\paragraph{Transformation für Brillenpunkte}
 Das ausgewählte Koordinatensystem macht es einfach die Transformation von einem Brillenpixel in das Weltkoordinatensystem abzubilden. 
 Es handelt sich um eine statische Transformation, da die Kamera fest mit der Brille verschraubt ist. 
 Die Herausforderung besteht darin, den virtuellen Bildschirm der Brille abzubilden. In den einzelnen Brillengläsern befindet sich Optik (Lines und ein Spiegel), mit denen dem Brillenträger ein großer Bildschirm Simuliert wird. 
@@ -145,7 +145,7 @@ Durch diese Ausmessungen konnte die  Transformation eines Koordinatenpunktes u, 
 
 In der Implementierung wurde noch folgende Vereinfachung festgestellt: Da die virtuellen Bildschirme immer eine parallele Ebene zur x, y-Achsen-Ebene aufstellen, kann die Transformation durch eine einfache Addition durchgeführt werden.
 
-\subsubsubsection{Transformationen für Bildschirmpunkte}
+\paragraph{Transformationen für Bildschirmpunkte}
 \label{ssection:alva}
 Die Transformation von einem Bildschirmpixel in das Weltkoordinatensystem stellt andere Herausforderungen. 
 Der Bildschirm kann als eine physikalische Größe angesehen werden und vermessen werden. 
