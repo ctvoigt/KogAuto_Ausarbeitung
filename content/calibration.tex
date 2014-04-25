@@ -69,7 +69,7 @@ Hierzu werden die Parameter\todo{Welche Parameter? Genau erklären, was wird ben
 Zu diesen Parametern zählen die Position der Augen ($A_{l}$; $A_{r}$), die Position der Bildschirme in den Brillengläsern ($B_{l}$, $C_{l}$ und $B_{r}$, $C_{r}$) und die Öffnungswinkel ($wa_{l}$; $wa_{r}$), mit denen ein einzelnes Individuum durch eine spezifische Brille sehen kann. (Siehe Abbildung \ref{fig:geom} )
 Um die Position der Augen und die Öffnungswinkel, die sich von Benutzter zu Benutzter unterscheiden können, zu bestimmen wurde ein interaktives Kalibrierungsverfahren ausgewählt. Es ist wichtig, dass die Kalibrierung komfortabel und ohne externe\todo{ist der bildschirm keine externe gerätschaft - verhalten genauer erklären} Gerätschaften von statten geht, da es für jeden Benutzter nötig ist, die Brille individuell zu kalibrieren. Das Minimum an benötigten Punkten um die Position eines Auges zu bestimmen sind zwei Geraden, also zwei Punkte auf einer Sichtlinie je Geraden. Um die Daten präziser zu machen können mehrere Geraden verwendet werden, die dann einen genaueren Schnittpunkt ermöglichen. 
 
-Der erste Ansatz war\todo{nur Präteritum. erster ansatz ist Ralf überhauptnicht klargeworden, eventuell einfach den ersten ansatz löschen} es einen Punkt im Auto zu verwenden, der in seiner Position bekannt ist und durch Bildverarbeitung erkannt werden kann und n Punkte auf der Brille. Hierbei hat sich jedoch herausgestellt, dass der Abstand der einzelnen Schnittlinien\todo{Was für schnittlinien?} in einem sehr kleinen Winkels von statten geht und somit fehleranfällig ist. Der zweite Ansatz verwendet den Bildschirm, der im Auto verbaut ist und die Brillengläser. Hiermit sind beidseitig die Punkte variabel und können somit so gewählt werden, dass sich Messfehler nicht so gravierend auswirken wie im vorherigen Ansatz. Des Weiteren ist das Verfahren erweiterbar auf eine Onlinebewertung während der Kalibrierung, so dass über ein Algorithmus passende Punkte ausgewählt werden können, um die Kalibrierung zu optimieren.
+Der erste Ansatz war\todo{nur Präteritum. erster ansatz ist Ralf überhauptnicht klargeworden, eventuell einfach den ersten ansatz löschen} es einen Punkt im Auto zu verwenden, der in seiner Position bekannt ist und durch Bildverarbeitung erkannt werden kann und n Punkte auf der Brille. Hierbei hat sich jedoch herausgestellt, dass der Abstand der einzelnen Schnittlinien\todo{Was für schnittlinien?} in einem sehr kleinen Winkels von statten geht und somit fehleranfällig ist. Der zweite Ansatz verwendet den Bildschirm, der im Auto verbaut ist und die Brillengläser. Hiermit sind beidseitig die Punkte variabel und können somit so gewählt werden, dass sich Messfehler nicht so gravierend auswirken wie im vorherigen Ansatz.\todo{Echt? Das einzige, was entscheident ist, ist der Punkt, der auf dem Brillendisplay gewählt wird. Je weiter der Punkt am Rand liegt, desto größer ist der Winkel ind somit wird die Kalibrierung genauer.} Des Weiteren ist das Verfahren erweiterbar auf eine Onlinebewertung während der Kalibrierung, so dass über ein Algorithmus passende Punkte ausgewählt werden können, um die Kalibrierung zu optimieren.
 
 Im Ablauf werden nun also Punkte auf dem Brillenglas angezeigt, die der Benutzer per Klick auf die Stelle auf dem Bildschirm markiert, so dass sie für ihn übereinander liegen. Somit konnte ein idealer Kompromiss zwischen Benutzerfreundlichkeit und der Akquisition von geeigneten Linienpaaren gefunden werden.
 
@@ -229,13 +229,13 @@ Die Displaygrößen variieren je nach Abstand Auge-Display. Die gemessenen Werte
 
  \begin{tabular}{lc} 
   Beschreibung & Wert \\ \\
-  Displaypixelbreite & 2.0403 cm/px \\
-  Displaypixellänge &  1.9537 cm/px \\
+  Displaypixelbreite & 2.040 cm/px \\
+  Displaypixellänge &  1.954 cm/px \\
  \end{tabular}
  \caption{Gemessene Größen für eine Versuchsperson}
  \label{table:Messwerte DisplayAuge}
  \end{table}
-
+\todo{hier müssen sich noch falsche werte in die tabelle eingeschlcihen haben, dass sind die werte von der größe, nicht von der dichte!}
 
 
 %
