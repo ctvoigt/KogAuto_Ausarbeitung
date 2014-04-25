@@ -192,11 +192,11 @@ der Radius $K_r$ der resultierenden Kugel \emph{K} unter einen gewissen Grenzwer
 Dieses Verfahren war sinnvoll für anfängliche Testdaten, welche sich aber im Laufe der Implementierung als fehlerbehaftet erwiesen. Die korrekten Daten unterschieden sich stark von den anfänglichen Annahmen, welche durch eine fehlerhafte Implementierung erzielt wurden. So lagen die errechneten Pseudoschnittpunkte viel näher beisammen als erwartet. Damit wurde der Mittelpunkt unseres errechneten Auges zunehmend ungenauer, da wir diesen mit dem Mittelpunkt
 unserer Kugel \emph{K} gleichsetzten.
 
-Um hier eine höhere Genauigkeit zu erzielen wird nun nach der Berechnung der Mittelpunkt $K_r$ ersetzt, $K_r$ = $K_{r_{median}}$. $K_{r_{median}}$ ist hierbei der Median der Menge $P_{opt}$ an Pseudoschnittpunkten, wobei $P_{opt}$ die Menge der Pseudoschnittpunkte ist die bei der letzten Iteration der dynamischen Optimierung in Betracht gezogen wurde.
+Um hier eine höhere Genauigkeit zu erzielen wird nun nach der Berechnung der Mittelpunkt $K_r$ ersetzt, $K_r$ = $K_{r_{mittelwert}}$. $K_{r_{mittelwert}}$ ist hierbei der Mittelwert der Menge $P_{opt}$ an Pseudoschnittpunkten, wobei $P_{opt}$ die Menge der Pseudoschnittpunkte ist die bei der letzten Iteration der dynamischen Optimierung in Betracht gezogen wurde.
 
 
 \begin{align}
-K_{r_{median}} &= \frac{\sum\limits_{i=1}^{count(P)} P_i}{count(p)} 
+K_{r_{mittelwert}} &= \frac{\sum\limits_{i=1}^{count(P)} P_i}{count(p)} 
 \end{align}
 
 \subsection{Erzeugung der stereoskopischen Bilder mit einer RViz Camera}
