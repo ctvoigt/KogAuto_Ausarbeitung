@@ -150,13 +150,13 @@ In der Implementierung wurde noch folgende Vereinfachung festgestellt: Da die vi
 \subsubsection*{Transformationen für Bildschirmpunkte}
 \label{ssection:alva}
 Die Transformation von einem Bildschirmpixel in das Weltkoordinatensystem stellt andere Herausforderungen. 
-Der Bildschirm kann als eine physikalische Größe angesehen werden und vermessen werden. 
+Der Bildschirm kann als eine physikalische Größe\todo{das ist keine physikalische größe} angesehen werden und vermessen werden. 
 Es liegen konstante  \ac{DPI}-Werte vor, es kann also ebenfalls eine statische Transformation von einem Referenzpunkt auf dem Bildschirm zum angezeigten Punkt durchgeführt werden. 
 Hierzu ist lediglich eine Transformation nötig, die die Eigenschaften des Bildschirms (Position und DPI) berücksichtigt. 
 Der Referenzpunkt des Bildschirms ist in der Ebene des Bildschirms innerhalb unserer GUI festgelegt. Durch diese Festlegen bleibt unserer Anwendung unabhängig von Verschiebungen des Anwendungsfensters auf dem Bildschirm. 
 Bei diesem Vorgehen besteht jedoch die größte Herausforderung darin, dass die Position des Referenzpunktes ermittelt werden muss. 
 Hierzu wird die Kamera der Brille mit Bildverarbeitung eingesetzt. 
-Dafür ist die Bibliothek ALVAR, die sich in ROS integrieren lässt, verwendet.
+Dafür ist die Bibliothek ALVAR\todo{ist bereits als abkürzung mit webseite vorgestellt?}, die sich in ROS integrieren lässt, verwendet.
 Drei ALVAR Marker werden mittels der Webcam erkannt und zur Entfernungsbestimmung vermittelt. 
 Hiermit sind nun beide Transformationen auch für die Berechnung der Position vorhanden. 
 Dieser Ansatz bietet den Nachteil, dass ALVAR eine gewisse Ungenauigkeit und eine gewisse Verzögerung mit sich bringt, wodurch die Benutzbarkeit erschwert wird. 
@@ -184,14 +184,14 @@ Als Ergebnis dieser Schritte erhalten wir nun eine Menge an Pseudoschnittpunkten
 Wir haben das Verfahren zusätzlich um eine dynamische Optimierung erweitert, mit dem Ziel
 Messfehler zu minimieren und eine höhere Genauigkeit zu erzielen.\\ 
 
-Hierbei wird das Verfahren erst auf die Menge \emph{P} der Pseudoschnittpunkte angewandt, wir erhalten als Ergebnis die Kugel $K_i$ mit  dem Mittelpunkt $K_m$ und dem Radius $K_r$. Dann wird ein Punkt \emph{S} aus \emph{P} frei gewählt, mit der Einschränkung dass \emph{S} auf der Oberfläche der Kugel liegt, also
+Hierbei wird das Verfahren erst auf die Menge \emph{P} der Pseudoschnittpunkte angewandt, wir erhalten als Ergebnis die Kugel $K_i$ mit  dem Mittelpunkt $K_m$ und dem Radius $K_r$. Dann wird ein Punkt \emph{S} aus \emph{P} frei gewählt, mit der Einschränkung dass \emph{S} auf der Oberfläche der Kugel liegt, also \todo{Hier klarmachen, dass aus alle Punkte jeder einmal weggelassen wird und dann das beste ergebnis weiterverwendet wird.}
 
 \begin{align}
 | K_m - S | &= K_r
 \end{align} Dann wird der Algorithmus von Gärtner erneut angewandt, auf die Menge \emph{P\textbackslash S}. Dies wird so lange ausgeführt, bis
 der Radius $K_r$ der resultierenden Kugel \emph{K} unter einen gewissen Grenzwert fällt; der spezifische Grenzwert unserer Implementierung ist \emph{max\_eye\_width} = 0.02\todo{Bitte einheit dazuschreiben. Ich fände es besser, hierfür keine Variable zu nenen, sondern den Grenzwert zu beschrieben. Ist sonst unsere einzige Variable im ganzen Dokument.}.
 
-Dieses Verfahren war sinnvoll für anfängliche Testdaten, welche sich aber im Laufe der Implementierung als fehlerbehaftet erwiesen. Die korrekten Daten unterschieden sich stark von den anfänglichen Annahmen, welche durch eine fehlerhafte Implementierung erzielt wurden. So lagen die errechneten Pseudoschnittpunkte viel näher beisammen als erwartet. Damit wurde der Mittelpunkt unseres errechneten Auges zunehmend ungenauer, da wir diesen mit dem Mittelpunkt
+Dieses Verfahren war sinnvoll für anfängliche Testdaten\todo{Nacherzählung, hier bitte den abschnitt sachlicher gestalten.}, welche sich aber im Laufe der Implementierung als fehlerbehaftet erwiesen. Die korrekten Daten unterschieden sich stark von den anfänglichen Annahmen, welche durch eine fehlerhafte Implementierung erzielt wurden. So lagen die errechneten Pseudoschnittpunkte viel näher beisammen als erwartet. Damit wurde der Mittelpunkt unseres errechneten Auges zunehmend ungenauer, da wir diesen mit dem Mittelpunkt
 unserer Kugel \emph{K} gleichsetzten.
 
 Um hier eine höhere Genauigkeit zu erzielen wird nun nach der Berechnung der Mittelpunkt $K_r$ ersetzt, $K_r$ = $K_{r_{mittelwert}}$. $K_{r_{mittelwert}}$ ist hierbei der Mittelwert der Menge $P_{opt}$ an Pseudoschnittpunkten, wobei $P_{opt}$ die Menge der Pseudoschnittpunkte ist die bei der letzten Iteration der dynamischen Optimierung in Betracht gezogen wurde.
