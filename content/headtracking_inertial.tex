@@ -14,22 +14,46 @@ Die Kompensation der Eigenbewegung des Fahrzeugs wird in Abs. \ref{headtracking_
 \subsection{Inertialsensoren}
 \label{headtracking_imu_subsec}
 Im folgenden Abschnitt werden die verschiedenen Sensoren vorgestellt.
-Dabei sei angemerkt, dass die gemessenen Daten in einem sogenannten \textit{Sensorkoordinatensystem} erfasst werden.
-Dieses ist um etwa $15^\circ$ in der Z-Achse rotiert zum \textit{Brillenkoordinatensystem}, welches seinen Ursprung in der Mitte des Brillenstegs hat. 
+Dabei sei angemerkt, dass die gemessenen Daten in einem sogenannten \textit{Sensorkoordinatensystem} betrachtet werden.
+Jeder einzelne hier verwendete Sensortyp bezieht seine Daten auf ein eigenes Koordinatensystem.
+Die Lage der Koordinatensysteme kann durch Auswertung der gemessenen Sensorrohdaten bestimmt werden.
+Abb.~\ref{fig:sensor_axes} zeigt die Koordinatensysteme der Gyroskope, des Accelerometers und des Magnetometers in Bezug zum eingeführten einheitlichen Sensorkoordinatensystem. Erst die Transformation der gemessenen Daten in das einheitliche Sensorkoordinatensystem ermöglicht eine sinnvolle Verrechnung wie in Abs.~\ref{headtracking_fusion_subsec} beschrieben.
+Das Sensorkoordinatensystem ist um etwa $15^\circ$ in der Z-Achse rotiert zum \textit{Brillenkoordinatensystem}, welches seinen Ursprung in der Mitte des Brillenstegs hat. 
 Das Brillenkoordinatensystem wurde so gewählt, dass es in etwa mit der Kameraposition der Brille übereinstimmt.
 Abb.~\ref{fig:glasses_sensor_axes_separate} zeigt diesen Sachverhalt.
 Anbetracht der vorhandenen Messungenauigkeiten wurden die Translationen zwischen Sensor und Brillensteg sowie Kamera und Brillensteg vernachlässigt, da sie keinen eklatanten Einfluss auf die Orientierung der Brille bzw. des Kopfes haben (siehe Abb.~\ref{fig:glasses_sensor_axes_combined}).
 
 \begin{figure}
-  \subfigure[Tatsächliche Lage der Koordinatensysteme]{
+  \subfigure[Gyroskope]{
+    \includegraphics[width=0.15\textwidth]{axes_gyroscopes}
+    \label{fig:axes_gyroscopes}
+  }
+  \subfigure[Accelerometer]{
+    \includegraphics[width=0.15\textwidth]{axes_accelerometer}
+    \label{fig:axes_accelerometer}
+  }
+  \subfigure[Magnetometer]{
+    \includegraphics[width=0.22\textwidth]{axes_magnetometer}
+    \label{fig:axes_accelerometer}
+  }
+  \subfigure[Vereinheitlichtes Sensorkoordinatensystem]{
+    \includegraphics[width=0.22\textwidth]{axes_sensor}
+    \label{fig:axes_sensor}
+  }
+  \caption{Lage der einzelnen Sensorkoordinatensysteme (a - c) zum vereinheitlichten Sensorkoordinatensystem (d).}
+  \label{fig:sensor_axes}
+\end{figure}
+
+\begin{figure}
+  \subfigure[Tatsächliche Lage des Sensorkoordinatensystems]{
     \includegraphics[width=0.22\textwidth]{glasses_sensor_axes_separate}
     \label{fig:glasses_sensor_axes_separate}
   }
-  \subfigure[Für Berechnungen angenommene Lage der Koordinatensysteme]{
+  \subfigure[Für Berechnungen angenommene Lage des Sensorkoordinatensystems]{
     \includegraphics[width=0.22\textwidth]{glasses_sensor_axes_combined}
     \label{fig:glasses_sensor_axes_combined}
   }
-  \caption{Lage des Brillenkoordinatensystems (grün) und des Sensorkoordinatensystems (blau) in der Durchsichtbrille (vgl.~\cite{vuzix_user_guide}).}
+  \caption{Lage des gedachten Brillenkoordinatensystems (grün) und des Sensorkoordinatensystems (blau) in der Durchsichtbrille (Bildquelle Brillenmodell:~\cite{vuzix_user_guide}).}
   \label{fig:glasses_sensor_axes}
 \end{figure}
 
