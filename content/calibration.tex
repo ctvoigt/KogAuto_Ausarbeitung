@@ -63,7 +63,7 @@ Mit dieser Annahme rechnen wir die Winkel $g_{l}$ und  $g_{r}$ aus  um die virtu
 Das wird benötigt um passende Daten für die Benutzung anderer Anwendungen zu bekommen. Die konkrete Beschreibung der Realisierung dafür ist in Kapitel  \ref{sec:virtuelle Kameras} zu finden.
 
 \subsection{Konzept}
-Hierzu werden die Parameter\todo{Welche Parameter? Genau erklären, was wird benötigt, was kann gemesser, was berechnet und was bestimmt werden.} benötigt, mit denen die Bilder für ein solch akkurates Stereoscopic-3D benötigt werden.
+Hierzu werden die Parameter \todo{Welche Parameter? Genau erklären, was wird benötigt, was kann gemesser, was berechnet und was bestimmt werden.} benötigt, mit denen die Bilder für ein solch akkurates Stereoscopic-3D benötigt werden.
 (Für geometrische Beschreibung siehe Kapitel \ref{sec:Geometrische Beschreibung der Kalibrierung} )
 Zu diesen Parametern zählen die Position der Augen ($A_{l}$; $A_{r}$), die Position der Bildschirme in den Brillengläsern ($B_{l}$, $C_{l}$ und $B_{r}$, $C_{r}$) und die Öffnungswinkel ($wa_{l}$; $wa_{r}$), mit denen ein einzelnes Individuum durch eine spezifische Brille sehen kann. (Siehe Abbildung \ref{fig:geom} )
 Um die Position der Augen und die Öffnungswinkel, die sich von Benutzter zu Benutzter unterscheiden können, zu bestimmen wurde ein interaktives Kalibrierungsverfahren ausgewählt. Es ist wichtig, dass die Kalibrierung komfortabel und ohne externe\todo{ist der bildschirm keine externe gerätschaft - verhalten genauer erklären} Gerätschaften von statten geht, da es für jeden Benutzter nötig ist, die Brille individuell zu kalibrieren. Das Minimum an benötigten Punkten um die Position eines Auges zu bestimmen sind zwei Geraden, also zwei Punkte auf einer Sichtlinie je Geraden. Um die Daten präziser zu machen können mehrere Geraden verwendet werden, die dann einen genaueren Schnittpunkt ermöglichen. 
@@ -150,13 +150,13 @@ In der Implementierung wurde noch folgende Vereinfachung festgestellt: Da die vi
 \subsubsection*{Transformationen für Bildschirmpunkte}
 \label{ssection:alva}
 Die Transformation von einem Bildschirmpixel in das Weltkoordinatensystem stellt andere Herausforderungen. 
-Der Bildschirm kann als eine physikalische Größe\todo{das ist keine physikalische größe} angesehen werden und vermessen werden. 
+Der Bildschirm kann als eine Größe betrachtet werden, die vom Blickwinkels des Betrachters und dem Abstand zwischen Auge und Brillendisplays abhängt. Zur Vereinfachung werden die Größen des Bildschirms als konstant angenommen, somit werden die Abweichungen vernachlässigt. Die Werte werden für eine Versuchsperson gemessen und anschließend werden sie für den allgemeinen Fall weiterverwendet.
 Es liegen konstante  \ac{DPI}-Werte vor, es kann also ebenfalls eine statische Transformation von einem Referenzpunkt auf dem Bildschirm zum angezeigten Punkt durchgeführt werden. 
 Hierzu ist lediglich eine Transformation nötig, die die Eigenschaften des Bildschirms (Position und DPI) berücksichtigt. 
 Der Referenzpunkt des Bildschirms ist in der Ebene des Bildschirms innerhalb unserer GUI festgelegt. Durch diese Festlegen bleibt unserer Anwendung unabhängig von Verschiebungen des Anwendungsfensters auf dem Bildschirm. 
 Bei diesem Vorgehen besteht jedoch die größte Herausforderung darin, dass die Position des Referenzpunktes ermittelt werden muss. 
 Hierzu wird die Kamera der Brille mit Bildverarbeitung eingesetzt. 
-Dafür ist die Bibliothek ALVAR\todo{ist bereits als abkürzung mit webseite vorgestellt?}, die sich in ROS integrieren lässt, verwendet.
+Dafür wird \emph{ar\_track\_alvar}~\cite{ros_ar_track_alvar} verwendet.
 Drei ALVAR Marker werden mittels der Webcam erkannt und zur Entfernungsbestimmung vermittelt. 
 Hiermit sind nun beide Transformationen auch für die Berechnung der Position vorhanden. 
 Dieser Ansatz bietet den Nachteil, dass ALVAR eine gewisse Ungenauigkeit und eine gewisse Verzögerung mit sich bringt, wodurch die Benutzbarkeit erschwert wird. 
