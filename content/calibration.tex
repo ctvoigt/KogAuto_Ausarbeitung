@@ -120,7 +120,7 @@ Der Abstand zweier Punkte auf dem Referenzbildschirm wird für jeden der zwei Pr
 Die angeklickte Position der beiden Probanden ist ebenfalls annährend gleich, jedoch nicht der Abstand zur Wand, den die Probanden für ihr persönliches Sichtfeld wählen. 
 Die abweichenden Sichtöffnungswinkel durch die Brille erklären sich, da die Augen je nach physiologischen Eigenschaften verschieden weit hinter der Brille befindlich sind. 
 Hierdurch ist es möglich eine Fehlerrechnung über alle Daten durchzuführen, da wir 15 Punktepaare je Proband ermitteln. 
-Hierdurch ergibt sich ein recht genaues, empirisch bestimmtes Ergebnis für die für das Verfahren verwendeten, virtuellen Brillenbildschirme: Siehe Tabelle \ref{tab:konstanteWerte}. 
+Hierdurch ergibt sich ein recht genaues, empirisch bestimmtes Ergebnis für die für das Verfahren verwendeten, virtuellen Brillenbildschirme: Siehe Tabelle \ref{tab:konstanteWerte}. \todo{Tabelle?}
 Die Position der virtuellen Displays konnte bei diesem Vorgang relativ zur Kamera per Lineal vermessen werden.
 
  \begin{table}[h]
@@ -202,7 +202,7 @@ K_{r_{mittelwert}} &= \frac{\sum\limits_{i=1}^{count(P)} P_i}{count(p)}
 
 \subsection{Erzeugung der stereoskopischen Bilder mit einer RViz Camera}
 Für die technische Realisierung des Stereoskopischen 3D werden alle erkannten Objekte in die virtuelle Welt auf korrespondierende Positionen übertragen. 
-Zusätzlich dazu werden 2 Kameras in der virtuellen Welt definiert, die permanent Sichtbilder\todo{Was für ein wort ist das?} auf die virtuellen Objekte ermöglichen. Allerdings reicht eine einfache Augensimulation aufgrund der technischen Voraussetzungen nicht aus. 
+Zusätzlich dazu werden 2 Kameras in der virtuellen Welt definiert, die jeweils Bilder für das linke und rechte Brillendisplay liefern. Allerdings reicht eine einfache Augensimulation aufgrund der technischen Voraussetzungen nicht aus. 
 Denn die realen Display ist sind nur ein kleiner integrierter Teil der Brillen und unterscheidet hinsichtlich der Brennweite und des Öffnungs- und Drehwinkels erheblich von den Standardeinstellungen einer virtuellen Kamera ab. (siehe Kapitel \ref{sec:Geometrische Beschreibung der Kalibrierung})
 Aus diesem Grund sind an den virtuellen Kameras Konfigurationen und Änderungen notwendig, die nun im Weiteren erläutert werden soll. 
 
@@ -225,21 +225,7 @@ f_x & 0& 0& c_x \\
 \label{table:instrisische Kameraparameter}
 \end{equation}
 
-Die Displaygrößen variieren je nach Abstand Auge-Display. Die gemessenen Werte befinden sich mit obengenannten Größen in Tabelle \ref{table:Messwerte DisplayAuge}.
-%
- \begin{table}[ht]
-
- \begin{tabular}{lc} 
-  Beschreibung & Wert \\ \\
-  Displaypixelbreite & 2.040 cm/px \\
-  Displaypixellänge &  1.954 cm/px \\
- \end{tabular}
- \caption{Gemessene Größen für eine Versuchsperson}
- \label{table:Messwerte DisplayAuge}
- \end{table}
-\todo{hier müssen sich noch falsche werte in die tabelle eingeschlcihen haben, dass sind die werte von der größe, nicht von der dichte!}
-
-
+Die Displaygrößen variieren je nach Abstand Auge-Display. Die gemessenen Werte befinden sich mit obengenannten Größen in Tabelle \ref{tab:konstanteWerte}.
 %
 Mit der kalibrierten Brennweite und dem Blickwinkel der virtuellen Kameras können nun Objekte in der richtigen Größen angezeigt werden, wie sie von den Augen wahrgenommen werden sollen. Allerdings weicht die wahrgenommene Position der Objekte von der realen Position noch stark ab. 
 
