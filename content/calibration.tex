@@ -66,16 +66,14 @@ Das wird benötigt um passende Daten für die Benutzung anderer Anwendungen zu b
 Um nun eine Brille für die Augmentation zu kalibrieren, werden die im Kapitel \ref{sec:Stereoskopisches 3D} erläuterten Parameter ermittelt.
 Hierbei gilt, dass die physikalischen Eigenschaften der Brille und des Bildschirmes vermessen werden können, dass die Position des Bildschirmes relativ zur Brille durch ein dynamisches Verfahren (wie das Headtracking oder Bildverarbeitung) ermittelt werden kann und dass durch eine Schnittpunktberechung die Position der Augen (identisch zur Positioon der Kameras in der geometrischen Beschreibung, Kapitel \ref{sec:Geometrische Beschreibung der Kalibrierung}) berechnet werden können.
 Zu diesen Parametern zählen die Position der Augen ($A_{l}$; $A_{r}$), die Position der Bildschirme in den Brillengläsern ($B_{l}$, $C_{l}$ und $B_{r}$, $C_{r}$) und die Öffnungswinkel ($wa_{l}$; $wa_{r}$), mit denen ein einzelnes Individuum durch eine spezifische Brille sehen kann. (Siehe Abbildung \ref{fig:geom} )
-Um die Position der Augen und die Öffnungswinkel, die sich von Benutzter zu Benutzter unterscheiden können, zu bestimmen wurde ein interaktives Kalibrierungsverfahren ausgewählt. Es ist wichtig, dass die Kalibrierung komfortabel und ohne externe\todo{ist der bildschirm keine externe gerätschaft - verhalten genauer erklären} Gerätschaften von statten geht, da es für jeden Benutzter nötig ist, die Brille individuell zu kalibrieren. Das Minimum an benötigten Punkten um die Position eines Auges zu bestimmen sind zwei Geraden, also zwei Punkte auf einer Sichtlinie je Geraden. Um die Daten präziser zu machen können mehrere Geraden verwendet werden, die dann einen genaueren Schnittpunkt ermöglichen. 
-
-Der erste Ansatz war\todo{nur Präteritum. erster ansatz ist Ralf überhauptnicht klargeworden, eventuell einfach den ersten ansatz löschen} es einen Punkt im Auto zu verwenden, der in seiner Position bekannt ist und durch Bildverarbeitung erkannt werden kann und n Punkte auf der Brille. Hierbei hat sich jedoch herausgestellt, dass der Abstand der einzelnen Schnittlinien\todo{Was für schnittlinien?} in einem sehr kleinen Winkels von statten geht und somit fehleranfällig ist. Der zweite Ansatz verwendet den Bildschirm, der im Auto verbaut ist und die Brillengläser. Hiermit sind beidseitig die Punkte variabel und können somit so gewählt werden, dass sich Messfehler nicht so gravierend auswirken wie im vorherigen Ansatz.\todo{Echt? Das einzige, was entscheident ist, ist der Punkt, der auf dem Brillendisplay gewählt wird. Je weiter der Punkt am Rand liegt, desto größer ist der Winkel ind somit wird die Kalibrierung genauer.} Des Weiteren ist das Verfahren erweiterbar auf eine Onlinebewertung während der Kalibrierung, so dass über ein Algorithmus passende Punkte ausgewählt werden können, um die Kalibrierung zu optimieren.
+Um die Position der Augen und die Öffnungswinkel, die sich von Benutzter zu Benutzter unterscheiden können, zu bestimmen wurde ein interaktives Kalibrierungsverfahren ausgewählt. Es ist wichtig, dass die Kalibrierung komfortabel und mit im Auto befindlichen Gerätschaften von statten geht, da es für jeden Benutzter nötig ist, die Brille individuell zu kalibrieren. Das Minimum an benötigten Punkten um die Position eines Auges zu bestimmen sind zwei Geraden, also zwei Punkte auf einer Sichtlinie je Geraden. Um die Daten präziser zu machen können mehrere Geraden verwendet werden, die dann einen genaueren Schnittpunkt ermöglichen. 
 
 Im Ablauf werden nun also Punkte auf dem Brillenglas angezeigt, die der Benutzer per Klick auf die Stelle auf dem Bildschirm markiert, so dass sie für ihn übereinander liegen. Somit konnte ein idealer Kompromiss zwischen Benutzerfreundlichkeit und der Akquisition von geeigneten Linienpaaren gefunden werden.
 
 Nach dem Kalibrierungsprozess für jedes Auge können die individuellen Parameter fürs Benutzer berechnet werden.
 
 \subsection{Implementierung}
-\todo{Hier noch Text einfügen.}
+Im folgenden wird die Umsetzng der einzelnen Komponenten der Kalibrierung beschrieben.
 
 
 \subsubsection{Kalibrierung}
@@ -111,16 +109,18 @@ Wir haben den virtuellen Bildschirm, projiziert per Strahlensatz, auf einen weit
 Dieser Bildschirm ist unabhängig vom Benutzer, da zu Vermessung dieses Bildschirmes der Abstand zum virtuellen Bildschirm keine Rolle spielt.
 Die Wahl des virtuellen Bildschirms genau in der Brillenmitte hat ebenfalls den Vorteil, dass die gewonnenen Daten später auch für die Berechnung des Öffnungswinkels verwendet werden können, da diese identisch mit den physikalischen Brillengläsern sind.
 Die Position des Bildschirmes wird aus empirischen Ergebnissen gewonnen. 
-Hierzu haben wir die Brille waagerecht zu einer Wand festgeschraubt und Punktepaare zu einem von Hand vermessenen Auge aufgenommen. 
-Hierzu haben wir Punktekoordinaten auf dem Bildschirm zu konstanten Punkten auf der waagerecht zur Brille montierten Referenzwand (mit Punkten) vermessen. \todo{Einmal ist die Brille montiert und einmal die refernzwand. Klarstellen, dass durch diese Montierung nur die Entfernung, aber nicht eine Verschiebung oder Verdrehung möglich war.}
-Die Brille wurde in die für den jeweiligen Probanden korrekte Position gebracht, so dass es genau für einen Öffnungswinkel die Referenzwand füllend im Bild sehen kann. 
+Hierzu wurde die Brille parallel zu einer Wand, nur in der Distanz beweglich, auf einem Slider festgeschraubt und Punktepaare zu einem von Hand vermessenen Auge aufgenommen. 
+Die Punktekoordinaten auf dem Bildschirm sind hierbei konstanten Punkten auf der parallel zur Brille befindlichen Referenzwand wahrzunehmen.
+Diese These wurde mit 3 Probanden validiert. 
+Die Brille wird für den jeweiligen Probanden in die korrekte Entfernung verschoben, so dass für den Probanden mit individuellem Öffnungswinkel die Referenzwand füllend auf dem virtuellen Bildschirm liegt.  
 Anschließend wird der Abstand zur Wand vermessen. 
-Aus dem Abstand zur Wand und den vermessenen Punkten auf der Wand, konnte mit Hilfe der gemessenen Pixel auf der Brille, die Größe eines Pixel auf unserem virtuellen Bildschirm innerhalb der Brille errechnet werden. 
-Der Abstand zweier Punkte auf dem Referenzbildschirm wird für jeden der zwei Probanden gleich vorgegeben. 
-Die angeklickte Position der beiden Probanden ist ebenfalls annährend gleich, jedoch nicht der Abstand zur Wand, den die Probanden für ihr persönliches Sichtfeld wählen. 
+Aus dem Abstand zur Wand und den vermessenen Punkten, die alle in ein gemeinsames Koordinatensystem umgerechnet werden können, kann mit Hilfe der gemessenen Pixel auf der Brille, die Größe eines Pixel auf unserem virtuellen Bildschirm innerhalb der Brille errechnet werden. 
+Somit kann ein Personenunabhängiges Pixelverhalnis eines virtuellen Bildschirmes ermittelt werden. 
+Der Trick dieses virtuellen Bildschirmes ist es, dass er für jeden probanden gleich ist, egal, wie der individuelle Öffnungswinkel ausfällt, da sich dieser genau im Zentrum der Brille befindet. 
 Die abweichenden Sichtöffnungswinkel durch die Brille erklären sich, da die Augen je nach physiologischen Eigenschaften verschieden weit hinter der Brille befindlich sind. 
 Hierdurch ist es möglich eine Fehlerrechnung über alle Daten durchzuführen, da wir 15 Punktepaare je Proband ermitteln. 
-Hierdurch ergibt sich ein recht genaues, empirisch bestimmtes Ergebnis für die für das Verfahren verwendeten, virtuellen Brillenbildschirme: Siehe Tabelle \ref{tab:konstanteWerte}. \todo{diese Ref ist iwie fehlerhaft..}
+Hierdurch ergibt sich ein akzeptables, empirisch bestimmtes Ergebnis, das als feste Vorgabe für das Verfahren dienen kann.
+Die ermittelten virtuellen Brillenbildschirme haben folgende Werte: Siehe Tabelle \ref{tab:konstanteWerte}.
 \begin{table}[h]
  \begin{tabular}{l|l}
   Eigenschaft & Wert \\
