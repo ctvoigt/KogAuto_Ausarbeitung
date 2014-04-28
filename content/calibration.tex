@@ -120,22 +120,23 @@ Der Abstand zweier Punkte auf dem Referenzbildschirm wird für jeden der zwei Pr
 Die angeklickte Position der beiden Probanden ist ebenfalls annährend gleich, jedoch nicht der Abstand zur Wand, den die Probanden für ihr persönliches Sichtfeld wählen. 
 Die abweichenden Sichtöffnungswinkel durch die Brille erklären sich, da die Augen je nach physiologischen Eigenschaften verschieden weit hinter der Brille befindlich sind. 
 Hierdurch ist es möglich eine Fehlerrechnung über alle Daten durchzuführen, da wir 15 Punktepaare je Proband ermitteln. 
-Hierdurch ergibt sich ein recht genaues, empirisch bestimmtes Ergebnis für die für das Verfahren verwendeten, virtuellen Brillenbildschirme: Siehe Tabelle \ref{tab:konstanteWerte}. \todo{Tabelle?}
-Die Position der virtuellen Displays konnte bei diesem Vorgang relativ zur Kamera per Lineal vermessen werden.
-
- \begin{table}[h]
+Hierdurch ergibt sich ein recht genaues, empirisch bestimmtes Ergebnis für die für das Verfahren verwendeten, virtuellen Brillenbildschirme: Siehe Tabelle \ref{tab:konstanteWerte}. \todo{diese Ref ist iwie fehlerhaft..}
+\begin{table}[h]
  \begin{tabular}{l|l}
   Eigenschaft & Wert \\
   \hline
   \hline
   Pixelgröße & $2.04*10^-3 cm/px$ \\
   Größe des Virtuellen Bildschirms & $2,61 cm$ x $1,57 cm$ \\
-  Position des Bildschirms & +- $4$, $-3$, $-2$ cm \\
+  Linke obere Ecke linker Bildschrim & $-4.2$, $2.2$,$-3.7$ cm \\
+  Linke obere Ecke rechter Bildschirm &  $1.75$, $2.2$,$-3.7$ cm \\
  \end{tabular}
  \label{tab:konstanteWerte}
  \caption{Empirisch ermittelte Werte}
  \end{table}
- \todo{Wie sieht das mit den weten 4,-3,-2 aus? die hatte ich irgendwann mal abends geschätzt, als ich die brille nicht zum messen dahatte. welceh werte sind in den code eingegangen, ich hoffe nicht die? könnte die ejmand mal raussuchen und aktualisiren?}
+Die Position der virtuellen Displays konnte bei diesem Vorgang relativ zur Kamera per Lineal vermessen werden.
+
+ 
 Durch diese Ausmessungen konnte die  Transformation eines Koordinatenpunktes u, v in Weltkoordinaten auf zwei einfache Transformationen vereinfacht werden
 
    \begin{enumerate}
