@@ -189,9 +189,9 @@ Hierbei wird das Verfahren erst auf die Menge \emph{P} der Pseudoschnittpunkte a
 \begin{align}
 | K_m - S | &= K_r
 \end{align} Dann wird der Algorithmus von Gärtner erneut angewandt, auf die Menge \emph{P\textbackslash S}. Dies wird so lange ausgeführt, bis
-der Radius $K_r$ der resultierenden Kugel \emph{K} unter einen gewissen Grenzwert fällt; der spezifische Grenzwert unserer Implementierung ist \emph{max\_eye\_width} = 0.02\todo{Bitte einheit dazuschreiben. Ich fände es besser, hierfür keine Variable zu nenen, sondern den Grenzwert zu beschrieben. Ist sonst unsere einzige Variable im ganzen Dokument.}.
+der Radius $K_r$ der resultierenden Kugel \emph{K} unter einen gewissen Grenzwert fällt; der spezifische Grenzwert unserer Implementierung ist $0.02 cm$.
 
-Dieses Verfahren war sinnvoll für anfängliche Testdaten\todo{Nacherzählung, hier bitte den abschnitt sachlicher gestalten.}, welche sich aber im Laufe der Implementierung als fehlerbehaftet erwiesen. Die korrekten Daten unterschieden sich stark von den anfänglichen Annahmen, welche durch eine fehlerhafte Implementierung erzielt wurden. So lagen die errechneten Pseudoschnittpunkte viel näher beisammen als erwartet. Damit wurde der Mittelpunkt unseres errechneten Auges zunehmend ungenauer, da wir diesen mit dem Mittelpunkt
+Dieses Verfahren ist sinnvoll für anfängliche Testdaten\todo{Nacherzählung, hier bitte den abschnitt sachlicher gestalten.}, welche sich aber im Laufe der Implementierung als fehlerbehaftet erwiesen. Die korrekten Daten unterschieden sich stark von den anfänglichen Annahmen, welche durch eine fehlerhafte Implementierung erzielt wurden. So lagen die errechneten Pseudoschnittpunkte viel näher beisammen als erwartet. Damit wurde der Mittelpunkt unseres errechneten Auges zunehmend ungenauer, da wir diesen mit dem Mittelpunkt
 unserer Kugel \emph{K} gleichsetzten.
 
 Um hier eine höhere Genauigkeit zu erzielen wird nun nach der Berechnung der Mittelpunkt $K_r$ ersetzt, $K_r$ = $K_{r_{mittelwert}}$. $K_{r_{mittelwert}}$ ist hierbei der Mittelwert der Menge $P_{opt}$ an Pseudoschnittpunkten, wobei $P_{opt}$ die Menge der Pseudoschnittpunkte ist die bei der letzten Iteration der dynamischen Optimierung in Betracht gezogen wurde.
